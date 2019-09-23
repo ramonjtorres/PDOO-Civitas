@@ -53,7 +53,8 @@ module Civitas
       
     end
     
-    public def get_por_salida()
+    public
+    def get_por_salida()
       
       if(@por_salida > 0)
         
@@ -69,7 +70,8 @@ module Civitas
       
     end
     
-    public def añade_casilla(casilla)
+    public
+    def añade_casilla(casilla)
       
       if(@casillas.length == @num_casilla_carcel)
         
@@ -87,7 +89,8 @@ module Civitas
       
     end
     
-    public def añade_juez()
+    public
+    def añade_juez()
       
       if(!@tiene_juez)
         
@@ -97,7 +100,8 @@ module Civitas
       
     end
     
-    public def get_casilla(num_casilla)
+    public
+    def get_casilla(num_casilla)
       
       if(correcto(num_casilla))
         
@@ -109,7 +113,8 @@ module Civitas
       
     end
     
-    public def nueva_posicion(actual, tirada)
+    public
+    def nueva_posicion(actual, tirada)
       
       if(!correcto())
         
@@ -131,7 +136,8 @@ module Civitas
       
     end
     
-    public def calcular_tirada(origen, destino)
+    public
+    def calcular_tirada(origen, destino)
       
       tirada = destino - origen
       

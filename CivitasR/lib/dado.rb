@@ -8,8 +8,7 @@ module Civitas
   class Dado
     include Singleton
     
-    attr_reader :ultimo_Resultado
-    attr_writer :debug
+    attr_reader :ultimo_resultado
     
     @@salida_carcel = 5
     
@@ -41,7 +40,7 @@ module Civitas
     public 
     def salgo_de_la_carcel()
       
-      if(tirar() == @salida_carcel)
+      if(tirar() >= @salida_carcel)
         
         return true
         
@@ -57,5 +56,12 @@ module Civitas
       return rand(n-1)
       
     end
+    
+    public 
+    def set_debug(d)
+      @debug = d
+      Diario.instance.ocurre_evento("Modo debug activado")
+    end
+    
   end
 end

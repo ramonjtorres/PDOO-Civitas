@@ -47,7 +47,7 @@ class Dado {
   
   boolean salgoDeLaCarcel(){
   
-      if(tirar() >= SalidaCarcel){ //falta cambiarlo en ruby tambien para que sera mayor o igual
+      if(tirar() >= SalidaCarcel){
       
           return true;
       }
@@ -66,7 +66,7 @@ class Dado {
       Diario.getInstance().ocurreEvento("Modo debug activado");
   }
   
-   int getUltimoResultado(){
+  int getUltimoResultado(){
   
       return ultimoResultado;
   }

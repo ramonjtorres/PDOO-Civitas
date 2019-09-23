@@ -47,7 +47,7 @@ public class MazoSorpresas {
         if(!(barajada)||usadas==sorpresas.size()){ 
             if(!(debug))
                 barajada = true;
-            usadas = 0;
+                usadas = 0;
         }
         usadas++;
         ultimaSorpresa = sorpresas.get(0);

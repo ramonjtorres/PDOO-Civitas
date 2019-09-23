@@ -7,65 +7,90 @@ module Civitas
     
     
     attr_reader :usadas
+    
     @degb = false
 
     
     def init()
+    
       @sorpresas = Array.new()
-      @cartasEspeciaes = Array.new()
+      @cartas_especiales = Array.new()
       @barajada = false
       @usadas = 0
+    
     end
     
-    def initialize(debg)
+    def initialize_with_arguments(debg)
+      
       @debug = debg
       init()
-#      if debug se avisa a diario
+      
+      if(@debug)
+        Diario.instance.ocurre_evento("Modo debug activado")
+      end
+      
     end
-#no se si esto esta bien ya que hay dos constructores (funciones con el mismo metodo)
+
     def initialize() 
+    
       init()
       @debug = false
+    
     end
     
-    def alMazo(s)
+    def al_mazo(s)
+    
       if(!@barajada)
+    
         @sorpresas.push(s)
       end
+    
     end
+    
     def siguiente()
+    
       if(!@barajada||@usadas ==@sorpresas.length())
         if(!@debug)
           @barajada=true
+          @usadas = 0 
         end
-        @usadas = 0 
       end
-      @usadas +1
+      
+      @usadas = @usadas+1
       @ultimaSorpesa = @sorpresas.gets(0)
       @sorpresas.delete_at(0)
       @sorpresas.push(@ultimaSorpresa)
+      
       return @ultimaSorpresa
+    
     end
-    def inhabilitarCartaEspecial(sorpresa)
+    
+    def inhabilitar_carta_especial(sorpresa)
+    
       @var = 0
+      
       while @var < @sorpresas.length()
         if(sorpresa == @sorpresas.gets(var))
-          @cartasEspeciales.push(sorpresa)
+          @cartas_especiales.push(sorpresa)
           @sorpresas.delete_at(@var)
-          #se deja constancia en el diario falta aqui
+          Diario.instance.ocurre_evento("Se ha inhabilitado una carte especial")
         end
-        @var +1
+        @var = @var + 1
       end
+    
     end
-    def habilitarCartaEspecial(sorpresa)
+    
+    def habilitar_carta_especial(sorpresa)
+    
       @var = 0
-      while @var < @cartasEspeciales.length()
-        if(sorpresa == @cartasEspeciales.gets(i))
-            @cartasEspeciales.deleta_at(@var)
+      
+      while @var < @cartas_especiales.length()
+        if(sorpresa == @cartas_especiales.gets(i))
+            @cartas_especiales.deleta_at(@var)
             @sorpresas.push(sorpresa)
-            #se deja constancia en el diario que no se como es
+            Diario.instance.ocurre_evento("Se ha habilitado esta sorpresa")
         end
-        @var +1
+        @var = @var + 1
       end   
     end
   end
