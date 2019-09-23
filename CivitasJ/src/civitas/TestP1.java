@@ -34,15 +34,15 @@ public class TestP1 {
             if(f==3)
                 e++;
         }
-        System.out.println("0 = "+a);
-        System.out.println("1 = "+b);
-        System.out.println("2 = "+c);
-        System.out.println("3 = "+e);
+        System.out.println("Jugador 0 = "+a);
+        System.out.println("Jugador 1 = "+b);
+        System.out.println("Jugador 2 = "+c);
+        System.out.println("Jugador 3 = "+e);
         /* 2 Asegúrate de que funciona el modo debug del dado activando y desactivando ese modo, y
         realizando varias tiradas en cada modo.*/
         for(int i = 0; i<20 ; i++)
             System.out.print(d.tirar());
-        d.setDebug(true);
+//        d.setDebug(true);
         for(int i = 0; i<20 ; i++)
             System.out.print(d.tirar());
             System.out.println();
@@ -80,6 +80,12 @@ public class TestP1 {
             realiza distintas tiradas con el dado y asegúrate de que se calcula correctamente la posición
             de destino en el tablero.*/
         Tablero tb = new Tablero(3);
+        Casilla c1 = new Casilla("c1");
+        Casilla c2 = new Casilla("c2");
+        tb.añadeCasilla(c1);
+        tb.añadeCasilla(c2);
+        tb.añadeJuez();
+        System.out.println(tb.nuevaPosicion(3, 4));
         
     }
 }

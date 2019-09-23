@@ -30,7 +30,7 @@ module Civitas
     
     def alMazo(s)
       if(!@barajada)
-        @sorpesas.push(s)
+        @sorpresas.push(s)
       end
     end
     def siguiente()

@@ -30,7 +30,7 @@ public class MazoSorpresas {
         debug = dbg;
         init();
         if(debug)
-            Diario.getInstance(); // No se si esta está bien."si el modo debug está activado, se informa de este hecho a través del diario."
+            Diario.getInstance().ocurreEvento("Modo debug activado");
     }
     
     MazoSorpresas(){
@@ -60,7 +60,7 @@ public class MazoSorpresas {
             if(sorpresa == sorpresas.get(i)){
                 cartasEspeciales.add(sorpresa);
                 sorpresas.remove(i);
-                Diario.getInstance();//si esta operacion se realiza de deja constancia en el diario con el get instance??
+                Diario.getInstance().ocurreEvento("Se ha inhabilitado una carta especial");
             }
         }
     }
@@ -69,7 +69,7 @@ public class MazoSorpresas {
             if(sorpresa == cartasEspeciales.get(i)){
                 cartasEspeciales.remove(i);
                 sorpresas.add(sorpresa);
-                Diario.getInstance();//supongo que igual que antes no se si esto es dejar constancia en el diario.           
+                Diario.getInstance().ocurreEvento("Se ha habilitado esta sorpresa");
             }
         }
     }

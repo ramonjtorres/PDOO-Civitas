@@ -5,13 +5,13 @@
 require 'singleton'
 
 module Civitas
-  public class Dado
+  class Dado
     include Singleton
     
     attr_reader :ultimo_Resultado
-    attr_writter :debug
+    attr_writer :debug
     
-    @salida_carcel = 5
+    @@salida_carcel = 5
     
     def initialize
       
@@ -21,7 +21,8 @@ module Civitas
       
     end
     
-    public def tirar()
+    public 
+    def tirar()
       
       if(@debug)
        
@@ -37,7 +38,8 @@ module Civitas
       
     end
     
-    public def salgo_de_la_carcel()
+    public 
+    def salgo_de_la_carcel()
       
       if(tirar() == @salida_carcel)
         
@@ -49,7 +51,8 @@ module Civitas
       
     end
     
-    public def quien_empieza(n)
+    public 
+    def quien_empieza(n)
       
       return rand(n-1)
       

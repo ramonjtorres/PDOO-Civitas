@@ -18,7 +18,7 @@ class Dado {
   private boolean debug;
   
   static final private Dado instance = new Dado();
-  static private int SalidaCarcel = 5; // Falta cambiarlo en ruby y tambien lo del método de juez
+  static private int SalidaCarcel = 5; 
   
   private Dado() {
     
@@ -63,7 +63,7 @@ class Dado {
   void setDebug(boolean d){
   
       debug = d;
-      Diario.getInstance().ocurreEvento("Debug");
+      Diario.getInstance().ocurreEvento("Modo debug activado");
   }
   
    int getUltimoResultado(){
