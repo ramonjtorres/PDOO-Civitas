@@ -9,5 +9,5 @@ package civitas;
  *
  * @author ramonjtorres
  */
-enum TipoSopresa {IRCARCEL, IRCASILLA, PAGARCOBRAR, PORCASAHOTEL,
+enum TipoSorpresa {IRCARCEL, IRCASILLA, PAGARCOBRAR, PORCASAHOTEL,
 PORJUGADOR, SALIRCARCEL}

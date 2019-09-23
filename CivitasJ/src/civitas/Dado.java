@@ -18,7 +18,7 @@ class Dado {
   private boolean debug;
   
   static final private Dado instance = new Dado();
-  private int SalidaCarcel = 5;
+  static private int SalidaCarcel = 5; // Falta cambiarlo en ruby y tambien lo del método de juez
   
   private Dado() {
     
@@ -47,7 +47,7 @@ class Dado {
   
   boolean salgoDeLaCarcel(){
   
-      if(tirar() == SalidaCarcel){
+      if(tirar() >= SalidaCarcel){ //falta cambiarlo en ruby tambien para que sera mayor o igual
       
           return true;
       }
@@ -66,7 +66,7 @@ class Dado {
       Diario.getInstance().ocurreEvento("Debug");
   }
   
-  int getUltimoResultado(){
+   int getUltimoResultado(){
   
       return ultimoResultado;
   }
