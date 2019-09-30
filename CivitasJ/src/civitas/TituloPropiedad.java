@@ -23,31 +23,118 @@ public class TituloPropiedad {
     private float precioEdificar;
     Jugador propietario;
     
-    TituloPropiedad(String nom, float ab, float fr, float hb, float pc, float pe){}
+    TituloPropiedad(String nom, float ab, float fr, float hb, float pc, float pe){
     
-    void actualizaPropietarioPorConversion(Jugador jugador){}
+        nombre = nom;
+        alquilerBase = ab;
+        factorRevalorizacion = fr;
+        hipotecaBase = hb;
+        precioCompra = pc;
+        precioEdificar = pe;
+        hipotecado = false;
+        numCasas = 0;
+        numHoteles = 0;
+        propietario = null;
+    }
     
-    boolean cancelarHipoteca(Jugador jugador){return false;}
+    void actualizaPropietarioPorConversion(Jugador jugador){
     
-    int cantidadCasasHoteles(){return -1;}
+        propietario = jugador;
+    }
     
-    boolean comprar(Jugador jugador){return false;}
+    boolean esEsteElPropietario(Jugador jugador){
+        return propietario == jugador;
+    }
     
-    boolean construirCasa(Jugador jugador){return false;}
+    boolean cancelarHipoteca(Jugador jugador){
+        
+        if(hipotecado && esEsteElPropietario(jugador)){
+            
+            float cantidadRecibida = getImporteHipoteca();
+            
+            jugador.paga((float) (cantidadRecibida + 0.1*cantidadRecibida));
+            hipotecado = false;
+            
+            return true;
+        }
+        else{
+        
+            return false;
+        }
+    }
     
-    boolean construirHotel(Jugador jugador){return false;}
+    int cantidadCasasHoteles(){
+        return getNumCasas() + getNumHoteles();
+    }
     
-    boolean derruirCasas(int n, Jugador jugador){return false;}
+    boolean comprar(Jugador jugador){
+        
+        if(tienePropietario()){
+        
+            return false;
+        }
+        else{
+            
+            actualizaPropietarioPorConversion(jugador);
+            jugador.paga(getPrecioCompra());
+            return true;
+        }
+    }
     
-    boolean esEsteElPropietario(Jugador jugador){return false;}
+    boolean construirCasa(Jugador jugador){
+        
+        boolean construida = false;
+        
+        if(esEsteElPropietario(jugador)){
+        
+            propietario.paga(precioEdificar);
+            numCasas+=1;
+            construida = true;
+        }
+        
+        return construida;
+    }
+    
+    boolean construirHotel(Jugador jugador){
+        
+        boolean construida = false;
+        
+        if(esEsteElPropietario(jugador)){
+        
+            propietario.paga(precioEdificar);
+            numCasas-=4;
+            numHoteles+=1;
+            construida = true;
+        }
+        
+        return construida;
+    }
+    
+    boolean derruirCasas(int n, Jugador jugador){
+        
+        if(esEsteElPropietario(jugador) && numCasas >= n){
+        
+            numCasas -= n;
+            
+            return true;
+        }
+        else{
+        
+            return false;
+        }
+    }
     
     public boolean getHipotecado(){
         return hipotecado;
     }
     
-    float getImporteCancelarHipoteca(){return -1;}
+    float getImporteCancelarHipoteca(){
+        return factorInteresesHipoteca*hipotecaBase;
+    }
     
-    float getImporteHipoteca(){return -1;}
+    float getImporteHipoteca(){
+        return (float) (hipotecaBase*(1+(numCasas*0.5)+(numHoteles*2.5)));
+    }
     
     String getNombre(){
         return nombre;
@@ -61,28 +148,121 @@ public class TituloPropiedad {
         return numHoteles;
     }
     
-    private float getPrecioAlquiler(){return -1;}
+    private float getPrecioAlquiler(){
+        
+        if(propietarioEncarcelado() || hipotecado){
+            return 0;
+        }
+        else{
+        
+            return (float) (alquilerBase * (1+(numCasas*0.5)+(numHoteles*2.5)));
+        }
+    }
     
-    private float getPrecioVenta(){return -1;}
+    private float getPrecioVenta(){
+        
+        return precioCompra + (precioEdificar * cantidadCasasHoteles()) * factorRevalorizacion;
+    }
     
-    float getPrecioEdificar(){return -1;}
+    float getPrecioEdificar(){
+        return precioEdificar;
+    }
     
-    float getPrecioCompra(){return -1;}
+    float getPrecioCompra(){
+        return precioCompra;
+    }
     
     Jugador getPropietario(){
         return propietario;
     }
     
-    boolean hipotecar(Jugador jugador){return false;}
+    boolean hipotecar(Jugador jugador){
+        
+        if(!hipotecado && esEsteElPropietario(jugador)){
+        
+            propietario.recibe(getImporteHipoteca());
+            hipotecado = true;
+            
+            return true;
+        }
+        else{
+        
+            return false;
+        }
+    }
     
-    private boolean propietarioEncarcelado(){return false;}
+    private boolean propietarioEncarcelado(){
     
-    boolean tienePropietario(){return false;}
+        if(!tienePropietario() || !propietario.isEncarcelado()){
+        
+            return false;
+        }
+        else{
+        
+            return true;
+        }
+        
+    }
     
-    void tramitarAlquiler(Jugador jugador){}
+    boolean tienePropietario(){
+        return propietario != null;
+    }
     
-    boolean vender(Jugador jugador){return false;}
+    void tramitarAlquiler(Jugador jugador){
     
-    public String toString(){return null;}
+        if(propietario != null && !esEsteElPropietario(jugador)){
+        
+            jugador.pagaAlquiler(getPrecioAlquiler());
+            propietario.recibe(getPrecioAlquiler());
+            
+        }
+    }
+    
+    boolean vender(Jugador jugador){
+        
+        if(!tienePropietario()){
+        
+            return false;
+        }
+        else{
+            
+            jugador.recibe(getPrecioVenta());
+            actualizaPropietarioPorConversion(null);
+            numCasas = 0;
+            numHoteles = 0;
+            return true;
+        }
+    }
+    
+    @Override
+    public String toString(){
+        
+        String h = "No";
+        
+        if(hipotecado){
+        
+            h = "Sí";
+        }
+        
+        String p = "Sin Propietario";
+                
+        if(propietario != null){
+            
+            p = propietario.getNombre();
+        }       
+        
+        return "| Nombre: " + nombre +
+               "\n|  Propietario: " + p +
+               "\n|  Numero Casas: " + numCasas +
+               "\n|  Numero Hoteles: " + numHoteles +
+               "\n|  Numero Casas: " + numCasas +
+               "\n|  Precio Compra: " + precioCompra +
+               "\n|  Precio Alquiler Base: " + alquilerBase +
+               "\n|  Precio Edificar: " + precioEdificar +
+               "\n|  Precio Hipoteca Base: " + hipotecaBase +
+               "\n|  Factor Intereses Hipoteca: " + factorInteresesHipoteca +
+               "\n|  Factor Revalorización: " + factorRevalorizacion +
+               "\n|  Hipotecado: " + h;
+    }
     
 }
