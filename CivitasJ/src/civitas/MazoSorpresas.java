@@ -19,12 +19,14 @@ public class MazoSorpresas {
     private ArrayList<Sorpresa> cartasEspeciales;
     private Sorpresa ultimaSorpresa;
     
-    void init(){
+    private void init(){
         sorpresas = new ArrayList<Sorpresa>();
         cartasEspeciales = new ArrayList<Sorpresa>();
         barajada = false;
         usadas = 0;
     }
+    
+    
     
     MazoSorpresas(Boolean dbg){
         debug = dbg;
@@ -36,6 +38,10 @@ public class MazoSorpresas {
     MazoSorpresas(){
         debug = false;
         init();
+    }
+    
+    Sorpresa getUltimaSorpresa(){
+        return ultimaSorpresa;
     }
     
     void alMazo(Sorpresa s){

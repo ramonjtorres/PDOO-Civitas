@@ -27,7 +27,7 @@ class Dado {
       debug = false;
   }
   
-  static Dado getInstance() {
+  public static Dado getInstance() {
     return instance;
   }
   

@@ -18,14 +18,14 @@ public class Tablero {
     private int porSalida;
     private boolean tieneJuez;
     
-    Tablero(int indice){
+    public Tablero(int numCasillaCarcel){
         
-        if(indice >= 1){
+        if(numCasillaCarcel >= 1){
             
-            numCasillaCarcel = indice;
+            this.numCasillaCarcel = numCasillaCarcel;
         }
         else{
-            numCasillaCarcel = 1;
+            this.numCasillaCarcel = 1;
         }
         
         casillas = new ArrayList<Casilla>();
