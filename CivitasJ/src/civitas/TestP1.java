@@ -72,8 +72,8 @@ public class TestP1 {
         obtén la siguiente sorpresa en juego, inhabilita y habilita la segunda carta añadida.*/
         
         MazoSorpresas mazo = new MazoSorpresas();
-        Sorpresa sorpresa1 = new Sorpresa();
-        Sorpresa sorpresa2 = new Sorpresa();
+        Sorpresa sorpresa1 = new Sorpresa(TipoSorpresa.IRCARCEL, new Tablero(3));
+        Sorpresa sorpresa2 = new Sorpresa(TipoSorpresa.IRCASILLA, new Tablero(3));
         mazo.alMazo(sorpresa1);
         diario.ocurreEvento("añadimos sorpresa 1");
         mazo.alMazo(sorpresa2);

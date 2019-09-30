@@ -5,6 +5,8 @@
  */
 package civitas;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ramonjtorres
@@ -38,13 +40,15 @@ public class Casilla {
         return nombre;
     }
     
-    TituloPropiedad getTituloPropiedad(){}
+    TituloPropiedad getTituloPropiedad(){
+        return tituloPropiedad;
+    }
     
     private void informe(int iactual, ArrayList<Jugador> todos){}
     
     private void init(){}
     
-    public boolean jugadorCorrecto(int iactual, ArrayList<Jugador> todos){}
+    public boolean jugadorCorrecto(int iactual, ArrayList<Jugador> todos){return false;}
     
     void recibeJugador(int iactual, ArrayList<Jugador> todos){}
     
@@ -56,6 +60,6 @@ public class Casilla {
 
     private void recibeJugador_sorpresa(int iactual, ArrayList<Jugador> todos){}
     
-    public String toString(){}
+    public String toString(){return null;}
 
 }

@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package civitas;
+
+import java.util.ArrayList;
+
 /**
  *
  * @author david
@@ -42,11 +45,11 @@ public class Sorpresa {
     
     private void init(){}
     
-    public boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){}
+    public boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){return false;}
     
     void salirDelMazo(){}
     
-    public String toString(){}
+    public String toString(){return null;}
     
     void usada(){}
     
