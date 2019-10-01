@@ -10,6 +10,7 @@ import java.util.ArrayList;
 /**
  *
  * @author david
+ * @author ramonjtorres
  */
 public class Sorpresa {
     
@@ -31,13 +32,14 @@ public class Sorpresa {
         
     }
     
-    Sorpresa(TipoSorpresa tipo, Tablero tablero, String texto){
+    Sorpresa(TipoSorpresa tipo, Tablero tablero, int valor, String texto){
     
         init();
         
         this.tipo = tipo;
         this.tablero = tablero;
         this.texto = texto;
+        this.valor = valor;
         this.mazo = new MazoSorpresas();
     }
     

@@ -8,11 +8,11 @@ module Civitas
   class Mazo_Sorpresas
     
     
-    attr_reader :usadas
+    attr_reader :usadas, :ultimaSorpesa
     
     @degb = false
 
-    
+    private
     def init()
     
       @sorpresas = Array.new()

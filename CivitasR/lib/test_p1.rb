@@ -92,8 +92,8 @@ module Civitas
       #5
       
       mazo = Mazo_Sorpresas.new
-      sorpresa1 = Sorpresa.new
-      sorpresa2 = Sorpresa.new
+      sorpresa1 = Sorpresa.new(Tipo_Sorpresas::IR_CARCEL, Tablero.new(3))
+      sorpresa2 = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(3))
       
       puts mazo.al_mazo(sorpresa1)
       diario.ocurre_evento("Aniadimos sorpresa 1")

@@ -10,6 +10,7 @@ module Civitas
     
     attr_reader :num_casilla_carcel
     
+    public
     def initialize(numCasillaCarcel)
       
       if(numCasillaCarcel >= 1)
@@ -30,6 +31,7 @@ module Civitas
       
     end
     
+    private
     def correcto2()
     
       if(@casillas.length > @num_casilla_carcel && @tiene_juez)
@@ -42,6 +44,7 @@ module Civitas
       
     end
     
+    private
     def correcto(num_casilla)
       
       if(correcto2() && num_casilla < @casillas.length)

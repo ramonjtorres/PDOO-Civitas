@@ -255,7 +255,6 @@ public class TituloPropiedad {
                "\n|  Propietario: " + p +
                "\n|  Numero Casas: " + numCasas +
                "\n|  Numero Hoteles: " + numHoteles +
-               "\n|  Numero Casas: " + numCasas +
                "\n|  Precio Compra: " + precioCompra +
                "\n|  Precio Alquiler Base: " + alquilerBase +
                "\n|  Precio Edificar: " + precioEdificar +
