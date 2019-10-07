@@ -27,13 +27,28 @@ public class Casilla {
         nombre = cadena;
     }
     
-    Casilla(TituloPropiedad titulo){}
+    Casilla(TituloPropiedad titulo){
+        init();
+        tituloPropiedad = titulo;
+    }
     
-    Casilla(float cantidad, String nombre){}
+    Casilla(float cantidad, String nombre){
+        init();
+        this.nombre = nombre;
+        importe = cantidad;
+    }
     
-    Casilla(int numCasillaCarcel, String nombre){}
+    Casilla(int numCasillaCarcel, String nombre){
+        init();
+        this.nombre = nombre;
+        carcel = numCasillaCarcel;
+    }
     
-    Casilla(MazoSorpresas mazo, String nombre){} 
+    Casilla(MazoSorpresas mazo, String nombre){
+        init();
+        this.nombre = nombre;
+        this.mazo = mazo;
+    } 
     
     public String getNombre(){
     
@@ -44,22 +59,49 @@ public class Casilla {
         return tituloPropiedad;
     }
     
-    private void informe(int iactual, ArrayList<Jugador> todos){}
+    private void informe(int actual, ArrayList<Jugador> todos){
+              Diario.getInstance().ocurreEvento(todos.get(actual).getNumCasillaActual()+this.toString());
     
-    private void init(){}
+    }
     
-    public boolean jugadorCorrecto(int iactual, ArrayList<Jugador> todos){return false;}
+    private void init(){
+        this.nombre = null;
+        this.carcel = -1;
+        this.importe = -1;
+        this.tituloPropiedad = null;
+        this.sorpresa = null;
+        this.mazo = null;
+    }
+    
+    public boolean jugadorCorrecto(int iactual, ArrayList<Jugador> todos){
+        if(iactual>0 && iactual<todos.size())
+            return true;
+        else return false;
+    }
     
     void recibeJugador(int iactual, ArrayList<Jugador> todos){}
     
     private void recibeJugador_calle(int iactual, ArrayList<Jugador> todos){}
 
-    private void recibeJugador_impuesto(int iactual, ArrayList<Jugador> todos){}
+    private void recibeJugador_impuesto(int iactual, ArrayList<Jugador> todos){
+        if(this.jugadorCorrecto(iactual, todos)){
+            this.informe(iactual, todos);
+            todos.get(iactual).pagaImpuesto(this.importe);
+        }
+    }
 
-    private void recibeJugador_juez(int iactual, ArrayList<Jugador> todos){}
+    private void recibeJugador_juez(int iactual, ArrayList<Jugador> todos){
+        if(this.jugadorCorrecto(iactual, todos)){
+            this.informe(iactual, todos);
+            todos.get(iactual).encarcelar(carcel);
+        }
+    }
 
     private void recibeJugador_sorpresa(int iactual, ArrayList<Jugador> todos){}
     
-    public String toString(){return null;}
+    public String toString(){
+        String Casilla = "Nombre casilla = "+nombre+" Carcel = "+carcel+" Importe = "+importe+" Tipo Casilla = "+ tipo.toString()+ " Titulo Propiedad = "+tituloPropiedad.toString()+ " Sorpresa = " + sorpresa.toString() +" Mazo Sorpresas = "+mazo.toString();
+        return Casilla;
+    }
 
 }
