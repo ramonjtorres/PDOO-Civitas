@@ -20,45 +20,168 @@ public class CivitasJuego {
     MazoSorpresas mazo;
     ArrayList<Jugador> jugadores;
     
-    public CivitasJuego(ArrayList<String> nombres){}
+    public CivitasJuego(ArrayList<String> nombres){
+    int i = 0;
+    while (i<nombres.size()){
+        Jugador j = new Jugador(nombres.get(i));
+        jugadores.add(j);
+        i++;
+        }
+    gestorEstados.estadoInicial();
+    indiceJugadorActual = Dado.getInstance().quienEmpieza(jugadores.size());
+    this.inicializarTablero(mazo);  
+    this.inicializarMazoSorpresas(tablero);
+
+    
+    }
     
     private void avanzaJugador(){}
     
-    public boolean cancelarHipoteca(int ip){return false;}
+    private void actualizarInfo(){
     
-    public boolean comprar(){return false;}
+        System.out.println("Estado: "+this.estado);
+        System.out.println("Información Jugador: "+this.infoJugadorTexto());
     
-    public boolean construirCasa(int ip){return false;}
+    }
     
-    public boolean construirHotel(int ip){return false;}
+    public boolean cancelarHipoteca(int ip){
     
-    private void contabilizarPasosPorSalida(Jugador jugadorActual){}
+        return jugadores.get(this.indiceJugadorActual).cancelarHipoteca(ip);
+    }
     
-    public boolean finalDelJuego(){return false;}
+    public boolean comprar(){ return false;}
     
-    public Casilla getCasillaActual(){return null;}
+    public boolean construirCasa(int ip){
+        
+        return jugadores.get(this.indiceJugadorActual).construirCasa(ip);
+    }
     
-    public Jugador getJugadorActual(){return null;}
+    public boolean construirHotel(int ip){
     
-    public boolean hipotecar(int ip){return false;}
+        return jugadores.get(this.indiceJugadorActual).construirHotel(ip);
+    }
     
-    public String infoJugadorTexto(){return null;}
+    private void contabilizarPasosPorSalida(Jugador jugadorActual){
     
-    private void inicializarMazoSorpresas(Tablero tablero){}
+        while(tablero.getPorSalida() > 0){
+        
+            jugadorActual.pasaPorSalida();
+        }
+    }
     
-    private void inicializarTablero(MazoSorpresas mazo){}
+    public boolean finalDelJuego(){
+        
+        for(Jugador j:jugadores){
+        
+            if(j.enBancarrota()){
+            
+                return true;
+            }
+        }
+        
+        return false;
+        
+    }
     
-    private void pasarTurno(){}
+    public Casilla getCasillaActual(){
+        int i = this.jugadores.get(indiceJugadorActual).getNumCasillaActual();
+        return this.tablero.getCasilla(i);
+    }
     
-    private ArrayList<Jugador> ranking(){return null;}
     
-    public boolean salirCarcelPagando(){return false;}
+    public Jugador getJugadorActual(){
+        
+        return jugadores.get(indiceJugadorActual);
+    }
     
-    public boolean salirCarcelTirando(){return false;}
+    public boolean hipotecar(int ip){
+        
+        return jugadores.get(this.indiceJugadorActual).hipotecar(ip);
+    }
+    
+    public String infoJugadorTexto(){
+        return jugadores.get(indiceJugadorActual).toString();
+    }
+    
+    private void inicializarMazoSorpresas(Tablero tablero){
+    
+        
+        
+    }
+    
+    private void inicializarTablero(MazoSorpresas mazo){
+        
+        tablero = new Tablero(4);//la carcel
+
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+ 
+        tablero.añadeCasilla(new Casilla(0, "Impuesto"));
+        
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+        
+        tablero.añadeCasilla(new Casilla(mazo, ""));
+        
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+        
+        tablero.añadeCasilla(new Casilla("Parking"));
+        
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+        
+        tablero.añadeCasilla(new Casilla(mazo, ""));
+        
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+        
+        tablero.añadeJuez();
+        
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+        
+        tablero.añadeCasilla(new Casilla(mazo, ""));
+        
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad()));
+        
+        }
+    
+    private void pasarTurno(){
+    
+        this.indiceJugadorActual = (this.indiceJugadorActual + 1) % jugadores.size();
+    }
+    
+    private ArrayList<Jugador> ranking(){
+        
+        ArrayList<Jugador> ranking = new ArrayList();
+        
+        for(Jugador j : jugadores){
+            if(j.s)
+            
+        }
+        
+        return ranking;//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    }
+    
+    public boolean salirCarcelPagando(){
+        
+        return jugadores.get(this.indiceJugadorActual).salirCarcelPagando();
+    }
+    
+    public boolean salirCarcelTirando(){
+        
+        return jugadores.get(this.indiceJugadorActual).salirCarcelTirando();        
+    }
     
     public Operaciones_juego siguientePaso(){return null;}
     
-    public void siguientePasoCompletado(Operaciones_juego operacion){}
+    public void siguientePasoCompletado(Operaciones_juego operacion){
     
-    public boolean vender(int ip){return false;}
+        this.estado = this.gestorEstados.siguienteEstado(jugadores.get(indiceJugadorActual), this.estado, operacion);
+    }
+    
+    public boolean vender(int ip){
+        
+        return jugadores.get(this.indiceJugadorActual).vender(ip);
+    }
 }

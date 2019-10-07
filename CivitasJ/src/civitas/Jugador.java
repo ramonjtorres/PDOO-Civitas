@@ -92,7 +92,6 @@ public class Jugador implements Comparable<Jugador>{
         return this.encarcelado;
     }
     
-    ////////////// PREGUNTAR ///////////////
     private boolean existeLaPropiedad(int ip){
         
         return ip < this.propiedades.size();
@@ -301,7 +300,7 @@ public class Jugador implements Comparable<Jugador>{
                "Encarcelado: " + this.isEncarcelado() +
                "Puede comprar: " + this.getPuedeComprar() +
                "Propiedades: " + "\n" +
-                propiedades.toString(); //PREGUNTAR
+                propiedades.toString(); 
 
     }
 }

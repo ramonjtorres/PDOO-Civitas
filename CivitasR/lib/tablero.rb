@@ -98,8 +98,8 @@ module Civitas
       
       if(!@tiene_juez)
         
-        @tiene_juez = true
-        
+        @tiene_juez = true 
+        @casillas.push(Casilla.new(@num_casilla_carcel, "Cárcel"))
       end
       
     end
