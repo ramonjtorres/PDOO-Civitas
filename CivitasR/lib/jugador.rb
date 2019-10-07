@@ -7,6 +7,8 @@
 module Civitas
   class Jugador
     
+    include Comparable
+    
     attr_reader :casas_max, :hoteles_max, :casas_por_hotel, :nombre, :num_casilla_actual, :precio_libertad, :paso_por_salida, :propiedades, :puede_comprar, :saldo
     
     @@casas_max = 4
@@ -31,6 +33,14 @@ module Civitas
     protected
     def jugador(otro)
       
+      @nombre = otro.nombre
+      @num_casilla_actual = otro.numCasillaActual
+      @encarcelado = otro.encarcelado
+      @propiedades = otro.propiedades
+      @puede_pomprar = otro.puedeComprar
+      @salvoconducto = otro.salvoconducto
+      @saldo = otro.saldo
+      
     end
     
     public
@@ -41,11 +51,21 @@ module Civitas
     public
     def cantidad_casas_hoteles()
       
+      cantidad = 0
+      
+      @propiedades.each do |p|
+        
+            cantidad += p.cantidad_casas_hoteles();
+      end
+      
+      return cantidad
+      
     end
     
     public
     def compare_to(otro)
       
+      return (@saldo <=> otro.saldo)
     end
     
     public
@@ -80,6 +100,7 @@ module Civitas
     public
     def en_bancarrota()
       
+      return @saldo < 0      
     end
     
     public
@@ -95,6 +116,8 @@ module Civitas
     
     private
     def existe_la_propiedad(ip)
+      
+      return ip < @propiedades.length()
       
     end
     
@@ -141,7 +164,7 @@ module Civitas
     
     public
     def paga(cantidad)
-      modificarSaldo(-1)
+      modificarSaldo(-1*cantidad)
     end
     
     public
@@ -197,10 +220,30 @@ module Civitas
     private
     def puedo_edificar_casa(propiedad)
       
+      if(@propiedades.include?(propiedad) && @saldo >= propiedad.precio_edificar && propiedad.num_casas < 4)
+       
+        return true
+        
+      else
+        
+        return false
+        
+      end
+      
     end
     
     private
     def puedo_edificar_hotel(propiedad)
+      
+      if(@propiedades.include?(propiedad) && @saldo >= propiedad.precio_edificar && propiedad.num_casas == 4 && propiedad.num_hoteles < 4)
+       
+        return true
+        
+      else
+        
+        return false
+        
+      end
       
     end
     
@@ -254,7 +297,7 @@ module Civitas
     
     public
     def tiene_salvoconducto()
-      return tieneSalvoconducto()
+      return (@salvoconducto != nil)
     end
     
     public
@@ -263,7 +306,7 @@ module Civitas
         return false
       else
         if(existe_la_propiedad())
-          if(@propiedades.at(ip).vender(this))#en ruby como es el this?
+          if(@propiedades.at(ip).vender(self))
             @propiedades.delete(ip)
             Diario.ocurre_evento("Se ha vendido la propiedad: "+@propiedades.at(ip).to_string())
             return true
@@ -275,6 +318,22 @@ module Civitas
     
     public
     def to_string()
+      
+      s = "No"
+        
+        if(tiene_salvoconducto())
+        
+            s = "Sí"
+        end
+        
+        return "Nombre: " + @nombre +
+               "Saldo: " + @saldo +
+               "Casilla Actual: " + @num_casilla_actual +
+               "Salvoconducto: " + s +
+               "Encarcelado: " + @encarcelado +
+               "Puede comprar: " + @puede_comprar +
+               "Propiedades: " + "\n" +
+                @propiedades.to_string()
       
     end
     

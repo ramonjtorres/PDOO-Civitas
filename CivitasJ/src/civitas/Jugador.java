@@ -6,7 +6,6 @@
 package civitas;
 
 import java.util.ArrayList;
-import java.lang.*;
 /**
  *
  * @author ramonjtorres
@@ -43,9 +42,23 @@ public class Jugador implements Comparable<Jugador>{
     
     boolean cancelarHipoteca(int ip){return false;}
     
-    int cantidadCasasHoteles(){return -1;}
+    int cantidadCasasHoteles(){
+        
+        int cantidad = 0;
+        
+        for(TituloPropiedad p:propiedades){
+        
+            cantidad += p.cantidadCasasHoteles();
+        }
+        
+        return cantidad;
+    }
     
-    public int compareTo(Jugador otro){return -1;}//ni idea de como hacerlo.
+    @Override
+    public int compareTo(Jugador otro){
+    
+        return Float.compare(this.saldo, otro.saldo);
+    }
     
     boolean comprar(TituloPropiedad titulo){return false;}
     
@@ -66,8 +79,9 @@ public class Jugador implements Comparable<Jugador>{
         
     }
     
-    
-    boolean enBancarrota(){return false;}
+    boolean enBancarrota(){
+        return this.saldo < 0;
+    }
     
     boolean encarcelar(int numCasillaCarcel){
         if(this.debeSerEncarcelado()){
@@ -78,7 +92,11 @@ public class Jugador implements Comparable<Jugador>{
         return this.encarcelado;
     }
     
-    private boolean existeLaPropiedad(int ip){return false;}
+    ////////////// PREGUNTAR ///////////////
+    private boolean existeLaPropiedad(int ip){
+        
+        return ip < this.propiedades.size();
+    }
     
     private int getCasasMax(){
         return CasasMax;
@@ -151,7 +169,7 @@ public class Jugador implements Comparable<Jugador>{
     }
     
     boolean paga(float cantidad){
-        return this.modificarSaldo(-1);
+        return this.modificarSaldo(-1*cantidad);
     }
     
     boolean pagaAlquiler(float cantidad){
@@ -191,9 +209,29 @@ public class Jugador implements Comparable<Jugador>{
         return (this.saldo>this.getPrecioLibertad());
     }
     
-    private boolean puedoEdificarCasa(TituloPropiedad propiedad){return false;}
+    private boolean puedoEdificarCasa(TituloPropiedad propiedad){
+        
+        if(this.propiedades.contains(propiedad) && this.saldo >= propiedad.getPrecioEdificar() && propiedad.getNumCasas() < 4){
+        
+            return true;
+        }
+        else{
+        
+            return false;
+        }
+    }
     
-    private boolean puedoEdificarHotel(TituloPropiedad propiedad){return false;}
+    private boolean puedoEdificarHotel(TituloPropiedad propiedad){
+        
+        if(this.propiedades.contains(propiedad) && this.saldo >= propiedad.getPrecioEdificar() && propiedad.getNumCasas() == 4 && propiedad.getNumHoteles() < 4){
+        
+            return true;
+        }
+        else{
+        
+            return false;
+        }
+    }
     
     private boolean puedoGastar(float precio){
         if(this.encarcelado)
@@ -232,7 +270,7 @@ public class Jugador implements Comparable<Jugador>{
     }
     
     boolean tieneSalvoconducto(){
-        return (this.tieneSalvoconducto());
+        return (this.salvoconducto != null);
     }
     
     boolean vender(int ip){
@@ -247,5 +285,23 @@ public class Jugador implements Comparable<Jugador>{
                 
         }}
     
-    public String toString(){return null;}
+    public String toString(){
+     
+        String s = "No";
+        
+        if(this.tieneSalvoconducto()){
+        
+            s = "Sí";
+        }
+        
+        return "Nombre: " + this.getNombre() +
+               "Saldo: " + this.getSaldo() +
+               "Casilla Actual: " + this.getNumCasillaActual() +
+               "Salvoconducto: " + s +
+               "Encarcelado: " + this.isEncarcelado() +
+               "Puede comprar: " + this.getPuedeComprar() +
+               "Propiedades: " + "\n" +
+                propiedades.toString(); //PREGUNTAR
+
+    }
 }
