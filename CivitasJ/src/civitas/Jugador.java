@@ -303,4 +303,12 @@ public class Jugador implements Comparable<Jugador>{
                 propiedades.toString(); 
 
     }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+
+
+    }
 }

@@ -61,6 +61,7 @@ public class MazoSorpresas {
         sorpresas.add(ultimaSorpresa);
         return ultimaSorpresa;
     }
+    
     void inhabilitarCartaEspecial(Sorpresa sorpresa){
         for(int i = 0; i < sorpresas.size(); i++){
             if(sorpresa == sorpresas.get(i)){
@@ -70,6 +71,7 @@ public class MazoSorpresas {
             }
         }
     }
+    
     void habilitarCartaEspecial(Sorpresa sorpresa){
         for(int i = 0; i < cartasEspeciales.size(); i++){
             if(sorpresa == cartasEspeciales.get(i)){
@@ -78,5 +80,15 @@ public class MazoSorpresas {
                 Diario.getInstance().ocurreEvento("Se ha habilitado esta sorpresa");
             }
         }
+    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+
+        
+        
+
     }
 }

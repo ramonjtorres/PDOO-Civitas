@@ -263,5 +263,13 @@ public class TituloPropiedad {
                "\n|  Factor Revalorización: " + factorRevalorizacion +
                "\n|  Hipotecado: " + h;
     }
+ 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+
+
+    }
     
 }

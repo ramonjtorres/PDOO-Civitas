@@ -103,5 +103,13 @@ public class Casilla {
         String Casilla = "Nombre casilla = "+nombre+" Carcel = "+carcel+" Importe = "+importe+" Tipo Casilla = "+ tipo.toString()+ " Titulo Propiedad = "+tituloPropiedad.toString()+ " Sorpresa = " + sorpresa.toString() +" Mazo Sorpresas = "+mazo.toString();
         return Casilla;
     }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+
+
+    }
 
 }

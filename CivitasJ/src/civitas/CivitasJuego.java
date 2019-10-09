@@ -205,4 +205,12 @@ public class CivitasJuego {
         
         return jugadores.get(this.indiceJugadorActual).vender(ip);
     }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+
+
+    }
 }
