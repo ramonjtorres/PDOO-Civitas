@@ -22,12 +22,14 @@ public class CivitasJuego {
     
     public CivitasJuego(ArrayList<String> nombres){
     
+    jugadores = new ArrayList<Jugador>();
+    gestorEstados = new GestorEstados();
     for (String s:nombres){
         Jugador j = new Jugador(s);
         jugadores.add(j);
     }    
     
-    gestorEstados.estadoInicial();
+    estado = gestorEstados.estadoInicial();
     indiceJugadorActual = Dado.getInstance().quienEmpieza(jugadores.size());
     mazo = new MazoSorpresas();
     this.inicializarMazoSorpresas(tablero);
@@ -210,7 +212,13 @@ public class CivitasJuego {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        String j1 = "Ramón";
+        String j2 = "David";
+        ArrayList <String> todos = new ArrayList();
+        todos.add(j1);
+        todos.add(j2);
+        CivitasJuego cj = new CivitasJuego(todos);
+        cj.actualizarInfo();
 
     }
 }

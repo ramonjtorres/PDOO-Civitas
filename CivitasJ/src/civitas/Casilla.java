@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Casilla {
     
     private String nombre;
-    private static int carcel;
+    private static int carcel=0;
     private float importe;
     TipoCasilla tipo;
     TituloPropiedad tituloPropiedad;
@@ -60,7 +60,7 @@ public class Casilla {
     }
     
     private void informe(int actual, ArrayList<Jugador> todos){
-              Diario.getInstance().ocurreEvento(todos.get(actual).getNumCasillaActual()+this.toString());
+              Diario.getInstance().ocurreEvento("Jugador actual número: "+todos.get(actual).getNumCasillaActual()+this.toString());
     
     }
     
@@ -74,7 +74,7 @@ public class Casilla {
     }
     
     public boolean jugadorCorrecto(int iactual, ArrayList<Jugador> todos){
-        if(iactual>0 && iactual<todos.size())
+        if(iactual>=0 && iactual<todos.size())
             return true;
         else return false;
     }
@@ -100,7 +100,18 @@ public class Casilla {
     private void recibeJugador_sorpresa(int iactual, ArrayList<Jugador> todos){}
     
     public String toString(){
-        String Casilla = "Nombre casilla = "+nombre+" Carcel = "+carcel+" Importe = "+importe+" Tipo Casilla = "+ tipo.toString()+ " Titulo Propiedad = "+tituloPropiedad.toString()+ " Sorpresa = " + sorpresa.toString() +" Mazo Sorpresas = "+mazo.toString();
+        String Casilla="\n";
+        if(nombre!=null)
+            Casilla = "\n  Nombre casilla: "+nombre;
+        if(carcel!=-1.0)
+            Casilla =Casilla + "\n  Carcel: " + carcel;
+        if(importe!=-1.0)
+            Casilla = Casilla +"\n  Importe: " + importe;
+        if(tipo!=null)
+            Casilla = Casilla +"\n  Tipo Casilla: " + tipo.toString();
+        if(tituloPropiedad!=null)
+            Casilla = Casilla + tituloPropiedad.toString();
+        
         return Casilla;
     }
     
@@ -108,7 +119,26 @@ public class Casilla {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        Diario.getInstance().leerEvento();
+        Casilla c1 = new Casilla("Prueba1");
+        Casilla c2 = new Casilla(new TituloPropiedad("Lavapies",10, (float) 0.5,25,50,20));
+        Casilla c3 = new Casilla((float) 0.5,"Prueba2");
+        Casilla c4 = new Casilla(3,"Prueba3");
+        Casilla c5 = new Casilla(new MazoSorpresas(),"Prueba4");
+        Jugador j1 = new Jugador("Ramón");
+        Jugador j2 = new Jugador("David");
+        ArrayList <Jugador> todos = new ArrayList();
+        todos.add(j1);
+        todos.add(j2);
+               
+        System.out.println(c2.toString());
+        c1.informe(0,todos);
+        System.out.println(Diario.getInstance().leerEvento());
+        c2.recibeJugador_impuesto(0, todos);
+        c2.recibeJugador_juez(0, todos);
+        System.out.println(j1.toString());
+        
+        
 
     }
 
