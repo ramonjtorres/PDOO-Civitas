@@ -108,13 +108,5 @@ public class TestP1 {
         
         System.out.println(tablero.nuevaPosicion(3, 4));
         
-        
-        //Test practica 2
-        ArrayList<String> nombres = new ArrayList();
-        nombres.add("diego");
-        nombres.add("david");
-        nombres.add("ramon");
-        CivitasJuego CV = new CivitasJuego(nombres);
-        
     }
 }
