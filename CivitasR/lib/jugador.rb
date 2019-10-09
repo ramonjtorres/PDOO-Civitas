@@ -195,7 +195,7 @@ module Civitas
     
     private
     def perder_salvoconducto
-      @salvoconducto.usada
+      @salvoconducto.usada()
       @salvoconducto = nil
       
     end

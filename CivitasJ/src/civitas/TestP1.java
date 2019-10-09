@@ -5,6 +5,8 @@
  */
 package civitas;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ramonjtorres
@@ -15,7 +17,7 @@ public class TestP1 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+       
         Diario diario = Diario.getInstance();
         
         /* 1 Llama 100 veces al método quienEmpieza() de Dado considerando que hay 4 jugadores, y
@@ -105,6 +107,14 @@ public class TestP1 {
         tablero.añadeJuez();
         
         System.out.println(tablero.nuevaPosicion(3, 4));
+        
+        
+        //Test practica 2
+        ArrayList<String> nombres = new ArrayList();
+        nombres.add("diego");
+        nombres.add("david");
+        nombres.add("ramon");
+        CivitasJuego CV = new CivitasJuego(nombres);
         
     }
 }
