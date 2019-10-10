@@ -269,7 +269,59 @@ public class TituloPropiedad {
      */
     public static void main(String[] args) {
 
-
+            TituloPropiedad propiedad = new TituloPropiedad("Ronda de Valencia",10, (float) 0.5,25,50,20);
+            
+            Jugador jugador = new Jugador("Ramón");
+            
+            System.out.println("NO TIENE PROPIETARIO, NULL: " + propiedad.getPropietario());
+            
+            System.out.println("NO TIENE PROPIETARIO, FALSE: " + propiedad.tienePropietario());
+            
+            propiedad.comprar(jugador);
+        
+            System.out.println("TIENE PROPIETARIO, RAMÓN: " + propiedad.getPropietario());
+            
+            System.out.println("TIENE PROPIETARIO, TRUE: " + propiedad.tienePropietario());
+        
+            System.out.println("DEBE DAR FALSE, PROPIETARIO LIBRE: " + propiedad.propietarioEncarcelado());
+            
+            jugador.encarcelado = true;
+            
+            System.out.println("DEBE DAR TRUE, PROPIETARIO ENCARCELADO: " + propiedad.propietarioEncarcelado());
+            
+            jugador.encarcelado = false;
+            
+            System.out.println("DEBE DAR FALSE, NO PUEDE CANCELAR HIPOTECA: " + propiedad.cancelarHipoteca(jugador));
+            
+            System.out.println("DEBE DAR FALSE, NO ESTA HIPOTECADA: " + propiedad.getHipotecado());
+            
+            propiedad.hipotecar(jugador);
+            
+            System.out.println("DEBE DAR TRUE, ESTA HIPOTECADA: " + propiedad.getHipotecado());
+            
+            System.out.println("DEBE DAR TRUE, PUEDE CANCELAR HIPOTECA: " + propiedad.cancelarHipoteca(jugador));
+            
+            System.out.println("TIENE 0 CASAS Y HOTELES: " + propiedad.cantidadCasasHoteles());
+            
+            System.out.println("CONSTRUIDA CASA" + propiedad.construirCasa(jugador));
+            System.out.println("CONSTRUIDA CASA" + propiedad.construirCasa(jugador));
+            System.out.println("CONSTRUIDA CASA" + propiedad.construirCasa(jugador));
+            System.out.println("CONSTRUIDA CASA" + propiedad.construirCasa(jugador));
+            System.out.println("CONSTRUIDA CASA" + propiedad.construirCasa(jugador));
+            System.out.println("CONSTRUIDO HOTEL" + propiedad.construirHotel(jugador));
+            
+            System.out.println("TIENE 2 CASAS Y HOTELES: " + propiedad.cantidadCasasHoteles());
+            
+            System.out.println("" + propiedad.derruirCasas(1, jugador));
+            
+            System.out.println("TIENE UN HOTEL: " + propiedad.cantidadCasasHoteles());
+            
+            System.out.println("DEBE DAR TRUE: " + propiedad.esEsteElPropietario(jugador));
+            
+            propiedad.vender(jugador);
+            
+            System.out.println("NO TIENE PROPIETARIO, NULL: " + propiedad.getPropietario());
+            
+            System.out.println("DATOS DE LA PROPIEDAD: " + propiedad.toString());
     }
-    
 }

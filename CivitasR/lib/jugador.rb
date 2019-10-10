@@ -4,6 +4,8 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+require_relative "Titulo_Propiedad"
+
 module Civitas
   class Jugador
     
@@ -134,8 +136,11 @@ module Civitas
     
     public
     def modificar_saldo(cantidad)
+      
+      diario = Diario.instance
+      
       @saldo = @saldo + cantidad
-      Diario.ocurre_evento("Se ha modificado el saldo ahora tienes "+@saldo)
+      diario.ocurre_evento("Se ha modificado el saldo ahora tienes "+@saldo.to_s)
       return true
       
     end
@@ -145,9 +150,11 @@ module Civitas
       if(@encarcelado)
         return false
       else
+        diario = Diario.instance
+        
         @num_casilla_actual = num_casilla
         @puede_comprar = false
-        Diario.ocurre_evento("El jugador a sido movido de casilla a la numero "+ @num_casilla_actual)
+        diario.ocurre_evento("El jugador a sido movido de casilla a la numero "+ @num_casilla_actual.to_s)
         return true
       end
       
@@ -164,7 +171,7 @@ module Civitas
     
     public
     def paga(cantidad)
-      modificarSaldo(-1*cantidad)
+      modificar_saldo(-1*cantidad)
     end
     
     public
@@ -289,7 +296,7 @@ module Civitas
     public
     def tiene_algo_que_gestionar()
       if(@propiedades.empty?)
-        return flase
+        return false
       end
       return true
       
@@ -308,7 +315,7 @@ module Civitas
         if(existe_la_propiedad())
           if(@propiedades.at(ip).vender(self))
             @propiedades.delete(ip)
-            Diario.ocurre_evento("Se ha vendido la propiedad: "+@propiedades.at(ip).to_string())
+            Diario.ocurre_evento("Se ha vendido la propiedad: "+@propiedades.at(ip).to_s)
             return true
           end
         end
@@ -317,25 +324,226 @@ module Civitas
     end
     
     public
-    def to_string()
+    def to_s()
       
       s = "No"
         
-        if(tiene_salvoconducto())
+      if(tiene_salvoconducto())
         
-            s = "Sí"
-        end
+        s = "Sí"
+      end
         
-        return "Nombre: " + @nombre +
-               "Saldo: " + @saldo +
-               "Casilla Actual: " + @num_casilla_actual +
-               "Salvoconducto: " + s +
-               "Encarcelado: " + @encarcelado +
-               "Puede comprar: " + @puede_comprar +
-               "Propiedades: " + "\n" +
-                @propiedades.to_string()
+      return "Nombre: " + @nombre.to_s +
+             "\nSaldo: " + @saldo.to_s +
+             "\nCasilla Actual: " + @num_casilla_actual.to_s +
+             "\nSalvoconducto: " + s +
+             "\nEncarcelado: " + @encarcelado.to_s +
+             "\nPuede comprar: " + @puede_comprar.to_s +
+             "\nPropiedades: " + "\n" +
+             @propiedades.to_s
+      
+    end
+    
+    def main
+      
+      jugador = Jugador.new("Ramón")
+      jugador2 = Jugador.new("David")
+      jugador3 = Jugador.new(jugador)
+        
+      puts(jugador3.to_s)
+        
+      puts("No tiene algo que gestionar. Debe dar false: " + jugador.tiene_algo_que_gestionar().to_s)
+        
+      propiedad = Titulo_Propiedad.new("Ronda de Valencia", 10, 0.5, 25, 50, 20)
+        
+      jugador.propiedades.push(propiedad)
+        
+      propiedad.comprar(jugador)
+        
+      puts("Precio compra: " + propiedad.precio_compra.to_s)
+        
+      puts("Precio edificación: " + propiedad.precio_edificar.to_s)
+        
+      puts("Tiene algo que gestionar. Debe dar true: " + jugador.tiene_algo_que_gestionar().to_s)
+        
+      puts("Debe dar 0, no tiene casas ni hoteles: " + jugador.cantidad_casas_hoteles().to_s)
+        
+      puts("Debe dar true, puede edificar casas: " + jugador.puedo_edificar_casa(propiedad).to_s)
+        
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+        
+      puts("Debe dar false, no puede edificar casas: " + jugador.puedo_edificar_casa(propiedad).to_s)
+        
+      puts("Debe dar 4, tiene 4 casas: " + jugador.cantidad_casas_hoteles().to_s)
+        
+      puts("Debe dar true, puede edificar hoteles: " + jugador.puedo_edificar_hotel(propiedad).to_s)
+        
+      puts("HOTEL CONSTRUIDO: " + jugador.propiedades.get(0).construir_hotel(jugador).to_s)
+        
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+        
+      puts("Debe dar 2, tiene 1 hotel y 1 casa: " + jugador.cantidad_casas_hoteles().to_s)
+        
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+        
+      puts("HOTEL CONSTRUIDO: " + jugador.propiedades.get(0).construir_hotel(jugador).to_s)
+        
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+        
+      puts("HOTEL CONSTRUIDO: " + jugador.propiedades.get(0).construir_hotel(jugador).to_s)
+        
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+      puts("CASA CONSTRUIDA: " + jugador.propiedades.get(0).construir_casa(jugador).to_s)
+        
+      puts("HOTEL CONSTRUIDO: " + jugador.propiedades.get(0).construir_hotel(jugador).to_s)
+        
+      puts("Debe dar false, no puede edificar hoteles: " + jugador.puedo_edificar_hotel(propiedad).to_s)
+        
+      puts("Debe dar 7050: " + jugador.saldo.to_s)
+        
+      jugador.modificar_saldo(-200)
+        
+      puts("Debe dar 6850: " + jugador.saldo.to_s)
+        
+      puts("Debe dar -1 ya que jugador tiene menos saldo: " + jugador.compare_to(jugador2).to_s)
+      puts("Debe dar 1 ya que jugador2 tiene mas saldo: " + jugador2.compare_to(jugador).to_s)
+        
+      puts("Debe dar false, no tiene salvoconducto: " + jugador.tiene_salvoconducto().to_s)
+        
+      puts("Debe dar true, debe ser encarcelado: " + jugador.debe_ser_encarcelado().to_s)
+        
+      jugador.encarcelado = true;
+        
+      puts("Debe dar true, esta encarcelado: " + jugador.is_encarcelado().to_s)
+        
+      puts("Debe dar false, no puede comprar si esta encarcelado: " + jugador.puede_comprar_casilla().to_s)
+        
+      jugador.encarcelado = false;
+        
+      puts("Debe dar true, no esta encarcelado, puede comprar: " + jugador.puede_comprar_casilla().to_s)
+        
+      puts("Debe dar false, no esta encarcelado: " + jugador.is_encarcelado().to_s)
+        
+      mazo = Mazo_Sorpresas.new()
+        
+      sorpresa = Sorpresa.new("Auxiliar")
+      
+      jugador.obtener_salvoconducto(sorpresa.sorpresa_mazo(Tipo_Sorpresas::SALIR_CARCEL , mazo))
+        
+      puts("Debe dar false, no esta en bancarrota: " + jugador.en_bancarrota().to_s)
+        
+      puts("Debe dar true, tiene salvoconducto: " + jugador.tiene_salvoconducto().to_s)
+        
+      puts("Debe dar false, no debe ser encarcelado: " + jugador.debe_ser_encarcelado().to_s)
+        
+      jugador.encarcelar(4)
+       
+      puts("Debe dar true, existe la propiedad: " + jugador.existe_la_propiedad(0).to_s)
+      puts("Debe dar false, no existe la propiedad: " + jugador.existe_la_propiedad(5).to_s)
+        
+      puts("Debe dar 4 casas max: " + jugador.casas_max.to_s)
+      puts("Debe dar 4 casas por hotel: " + jugador.casas_por_hotel.to_s)
+      puts("Debe dar 4 hoteles max: " + jugador.hoteles_max.to_s)
+        
+      puts("Debe dar 4, estamos en la carcel: " + jugador.num_casilla_actual.to_s)
+        
+      puts("Debe dar 200 de precio de libertad: " + jugador.precio_libertad.to_s)
+        
+      puts("Debe dar 1000 de premio de salida: " + jugador.premio_paso_salida.to_s)
+        
+      puts("Debe dar los datos de Ronda de Valencia: " + jugador.propiedades.to_s)
+        
+      puts("Debe dar false, no puede comprar: " + jugador.puede_comprar.to_s)
+        
+      jugador.puedeComprar = true
+        
+      puts("Debe dar true, puede comprar: " + jugador.puede_comprar.to_s)
+        
+      jugador.encarcelado = false
+      jugador.num_casilla_actual = 0
+        
+      puts("Debe dar true, se puede mover a la carcel: " + jugador.mover_a_casilla(4).to_s)
+        
+      jugador.encarcelado = true;
+        
+      puts("Debe dar false, no se puede mover a la carcel: " + jugador.mover_a_casilla(4).to_s)
+        
+      puts("Debe dar true, puede salir pagando: " + jugador.salir_carcel_pagando().to_s)
+        
+      puts("Debe dar false, no puede salir pagando si no esta en la carcel: " + jugador.salir_carcel_pagando().to_s)
+        
+      puts("Debe dar true, paga 200: " + jugador.paga(200).to_s)
+        
+      puts("Debe dar true, paga 200 de alquiler: " + jugador.paga_alquiler(200).to_s)
+        
+      puts("Debe dar true, paga 200 de impuesto: " + jugador.paga_impuesto(200).to_s)
+        
+      puts("Debe dar 6050 de saldo: " + jugador.saldo.to_s)
+        
+      puts("Debe dar true al pasar por la salida: " + jugador.pasa_por_salida().to_s)
+        
+      puts("Debe dar 7050 de saldo: " + jugador.saldo.to_s)
+      
+      jugador.obtenerSalvoconducto(sorpresa.sorpresa_mazo(Tipo_Sorpresas::SALIR_CARCEL , mazo))
+        
+      puts("Debe dar true, tiene salvoconducto: " + jugador.tiene_talvoconducto().to_s)
+        
+      jugador.perder_salvoconducto()
+        
+      puts("Debe dar false, no tiene salvoconducto: " + jugador.tiene_talvoconducto().to_s)
+        
+      puts("Debe dar true, puede salir pagando: " + jugador.salir_carcel_pagando().to_s)
+        
+      puts("Debe dar true, puede gastar 7000: " + jugador.puedo_gastar(7000).to_s)
+       
+      puts("Debe dar true, pierde 7000: " + jugador.modificar_saldo(-7000).to_s)
+        
+      puts("Debe dar false, no puede salir pagando: " + jugador.salir_carcel_pagando().to_s)
+        
+      puts("Debe dar false, no puede gastar 7000: " + jugador.puedo_gastar(7000).to_s)
+        
+      puts("Debe dar 50 de saldo: " + jugador.saldo.to_s)
+        
+      puts("Debe dar true al recibir 500: " + jugador.recibe(500).to_s)
+        
+      puts("Debe dar 550 de saldo: " + jugador.saldo.to_s)
+        
+      puts("Debe dar true en algun momento: " + jugador.salir_carcel_tirando().to_s)
+      puts("Debe dar true en algun momento: " + jugador.salir_carcel_tirando().to_s)
+      puts("Debe dar true en algun momento: " + jugador.salir_carcel_tirando().to_s)
+      puts("Debe dar true en algun momento: " + jugador.salir_carcel_tirando().to_s)
+      puts("Debe dar true en algun momento: " + jugador.salir_carcel_tirando().to_s)
+      puts("Debe dar true en algun momento: " + jugador.salir_carcel_tirando().to_s)
+        
+      jugador.encarcelado = false
+        
+      puts("Debe dar true al vender: " + jugador.vender(0).to_s)
+        
+      puts("Debe dar null: " + jugador.propiedades.to_s);
+        
+      puts("Debe dar false al vender: " + jugador.vender(0).to_s)
+        
+      puts("Debe dar los datos del jugador: " + jugador.to_s)
+        
+      puts("Debe dar true al modificar -10000 de saldo: " + jugador.modificar_saldo(-10000).to_s)
+        
+      puts("Debe dar true, esta en bancarrota: " + jugador.en_bancarrota().to_s)
       
     end
     
   end
+  
+  Test_jugador = Jugador.new("Ramón")
+  Test_jugador.main()
+  
 end

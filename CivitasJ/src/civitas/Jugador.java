@@ -60,7 +60,7 @@ public class Jugador implements Comparable<Jugador>{
         return cantidad;
     }
     
-    @Override
+    
     public int compareTo(Jugador otro){
     
         return Float.compare(this.saldo, otro.saldo);
@@ -342,9 +342,11 @@ public class Jugador implements Comparable<Jugador>{
      */
     public static void main(String[] args) {
 
-        Jugador jugador = new Jugador("Ramon");
+        Jugador jugador = new Jugador("Ramón");
         Jugador jugador2 = new Jugador("David");
         Jugador jugador3 = new Jugador(jugador);
+        
+        System.out.println(jugador3.toString());
         
         System.out.println("No tiene algo que gestionar. Debe dar false: " + jugador.tieneAlgoQueGestionar());
         

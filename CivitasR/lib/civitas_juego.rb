@@ -1,7 +1,13 @@
+#encoding: utf-8
+
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 require_relative "Tipo_Sorpresas"
+require_relative "Mazo_Sorpresas"
+require_relative "Sorpresa"
+require_relative "Tablero"
+require_relative "Jugador"
 
 module Civitas
   class Civitas_Juego
@@ -33,8 +39,7 @@ module Civitas
     
     private
     def actualizar_info()
-      puts "Estado: " + @estado
-      puts "Información Jugador: " + info_jugador_texto()
+      puts "Estado: " + @estado.to_s + "\nInformación Jugador: " + info_jugador_texto()
     end
     
     public
@@ -95,23 +100,23 @@ module Civitas
     
     public
     def info_jugador_texto()
-       @jugadores.at(@indice_jugador_actual).to_string
+       @jugadores.at(@indice_jugador_actual).to_s
     end
     
     private
     def inicializar_mazo_sorpresas(tablero)
       @mazo = Mazo_Sorpresas.new
-      @mazo.al_mazo(Sorpresa.new(Tipo_Sorpresas::IRCARCEL, tablero))
-      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IRCASILLA,4,tablero))
-      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IRCASILLA,5,tablero))
-      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IRCASILLA,10,tablero))
-      @mazo.al_mazo(Sorpresa.sorpresa_mazo(Tipo_Sorpresas::SALIRCARCEL,@mazo))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::PORJUGADOR,tablero,-50,"El jugador debe pagar a cada uno de los demas jugadores 50€"))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresa::PORJUGADOR,tablero,50,"Cada jugador te debe pagar 50€"))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresa::PORCASAHOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad"))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresa::PORCASAHOTEL,tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresa::PAGARCOBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza"))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresa::PAGARCOBRAR,tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"))
+      @mazo.al_mazo(Sorpresa.new(Tipo_Sorpresas::IR_CARCEL, tablero))
+      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,4,tablero))
+      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,5,tablero))
+      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,10,tablero))
+      @mazo.al_mazo(Sorpresa.sorpresa_mazo(Tipo_Sorpresas::SALIR_CARCEL,@mazo))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,-50,"El jugador debe pagar a cada uno de los demas jugadores 50€"))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresa::POR_JUGADOR,tablero,50,"Cada jugador te debe pagar 50€"))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresa::POR_CASA_HOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad"))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresa::POR_CASA_HOTEL,tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresa::PAGAR_COBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza"))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresa::PAGAR_COBRAR,tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"))
 
     end
     
@@ -205,5 +210,90 @@ module Civitas
       return @jugadores.at(@indice_jugador_actual).vender(ip)
     end
     
+    def main
+      
+      j1 = "David"
+      j2 = "Ramón"
+        
+      todos = Array.new
+        
+      todos.push(j1)
+      todos.push(j2)
+       
+      cj = Civitas_Juego.new(todos)
+        
+      propiedad = Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)
+        
+      cj.indice_jugador_actual = 1
+        
+      cj.get_jugador_actual().propiedades.push(propiedad)
+        
+      propiedad.comprar(cj.get_jugador_actual())
+        
+      cj.actualizar_info()
+        
+      puts("Debe devolver true, al construir una casa: " + cj.get_jugador_actual().propiedades.get(0).construir_casa(cj.get_jugador_actual()))
+      puts("Debe devolver true, al construir una casa: " + cj.get_jugador_actual().propiedades.get(0).construir_casa(cj.get_jugador_actual()))
+      puts("Debe devolver true, al construir una casa: " + cj.get_jugador_actual().propiedades.get(0).construir_casa(cj.get_jugador_actual()))
+      puts("Debe devolver true, al construir una casa: " + cj.get_jugador_actual().propiedades.get(0).construir_casa(cj.get_jugador_actual()))
+      puts("Debe devolver true, al construir un hotel: " + cj.get_jugador_actual().propiedades.get(0).construir_hotel(cj.get_jugador_actual()))
+        
+      puts("Debe devolver informacion del jugador actual: " + cj.info_jugador_texto())
+        
+      puts("Debe salir 6:" + cj.tablero.nueva_posicion(20, 6).to_s)
+      puts("Debe salir 6:" + cj.tablero.nueva_posicion(20, 6).to_s)
+      puts("Debe salir 6:" + cj.tablero.nueva_posicion(20, 6).to_s)
+      puts("Debe salir 10:" + cj.tablero.nueva_posicion(0, 10).to_s)
+        
+      cj.contabilizar_pasos_por_salida(cj.get_jugador_actual())
+        
+      puts("Debe dar 10350, al pasar 3 veces por salida (7350 + 3*1000): " + cj.get_jugador_actual().saldo.to_s)
+        
+      puts("Debe dar que estamos en la casilla 0, Salida: " + cj.get_casilla_actual())
+        
+      puts("Debe dar Ramon: " + cj.get_jugador_actual())
+        
+      cj.pasar_turno()
+        
+      puts("Debe dar David: " + cj.get_jugador_actual())
+        
+      puts("Debe dar en primera posicion Ramón, en segunda David: " + cj.ranking())
+        
+      cj.get_jugador_actual().modificar_saldo(20000)
+       
+      cj.pasar_turno()
+        
+      puts("Debe dar en primera posicion David, en segunda Ramón: " + cj.ranking())
+        
+      cj.siguiente_paso_completado(Operaciones_juego.AVANZAR)
+        
+      puts("Debe dar DESPUES_AVANZAR: " + cj.estado)
+        
+      cj.siguiente_paso_completado(Operaciones_juego.COMPRAR)
+        
+      puts("Debe dar DESPUES_COMPRAR: " + cj.estado)
+        
+      puts("Debe dar true al vender: " + cj.vender(0))
+        
+      puts("Debe dar false, no hay fin del juego: " + cj.final_del_juego())
+        
+      cj.get_jugador_actual().modificar_saldo(-20000)
+        
+      puts("Debe dar true, hay fin del juego: " + cj.final_del_juego())
+    
+    end
+    
   end
+  
+  j1 = "David"
+  j2 = "Ramón"
+        
+  todos = Array.new
+        
+  todos.push(j1)
+  todos.push(j2)
+  
+  Test_civitas = Civitas_Juego.new(todos)
+  Test_civitas.main()
+  
 end

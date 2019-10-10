@@ -40,6 +40,7 @@ module Civitas
     
     end
     
+    public  #Puesto a public para poder probar el main de la clase Tablero
     def al_mazo(s)
     
       if(!@barajada)
