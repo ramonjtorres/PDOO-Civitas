@@ -11,6 +11,7 @@ module Civitas
   class Titulo_Propiedad
     
     attr_reader :hipotecado, :nombre, :num_casas, :num_hoteles, :precio_compra, :precio_edificar, :propietario
+    attr_writer :hipotecado #Puesto para probar el main
     
     @@factor_intereses_hipoteca = 1.1
     
@@ -119,7 +120,7 @@ module Civitas
       end
     end
     
-    private
+    public #Puesto public para probar el main
     def es_este_el_propietario(jugador)
       
       return @propietario == jugador      
@@ -184,11 +185,10 @@ module Civitas
     
     public
     def tiene_propietario()
-      if(@propietario != nil)
-        return true
-      end
       if(@propietario == nil)
         return false
+      else
+        return true
       end
     end
     
@@ -223,54 +223,46 @@ module Civitas
     public
     def to_s
       
-#      h = "No";
-#        
-#      if(@hipotecado)
-#        
-#        h = "Sí"
-#      end
-#        
-#      p = "Sin Propietario"
-#                
-#      if(@propietario != nil)
-#            
-#        p = @propietario
-#      end     
-#        
-#      return "| Nombre: " + @nombre +
-#        "\n|  Propietario: " + p.to_s +
-#             "\n|  Numero Casas: " + @num_casas.to_s +
-#             "\n|  Numero Hoteles: " + @num_hoteles.to_s +
-#             "\n|  Precio Compra: " + @precio_compra.to_s +
-#             "\n|  Precio Alquiler Base: " + @alquiler_base.to_s +
-#             "\n|  Precio Edificar: " + @precio_edificar.to_s +
-#             "\n|  Precio Hipoteca Base: " + @hipoteca_base.to_s +
-#             "\n|  Factor Intereses Hipoteca: " + @factor_intereses_hipoteca.to_s +
-#             "\n|  Factor Revalorización: " + @factor_revalorizacion.to_s +
-#             "\n|  Hipotecado: " + h.to_s;
+      h = "No";
+        
+      if(@hipotecado)
+        
+        h = "Sí"
+      end
+        
+      p = "Sin Propietario"
+                
+      if(@propietario != nil)
+            
+        p = @propietario
+      end     
+        
+      return "| Nombre: " + @nombre +
+             "\n|  Propietario: " + p.to_s +
+             "\n|  Numero Casas: " + @num_casas.to_s +
+             "\n|  Numero Hoteles: " + @num_hoteles.to_s +
+             "\n|  Precio Compra: " + @precio_compra.to_s +
+             "\n|  Precio Alquiler Base: " + @alquiler_base.to_s +
+             "\n|  Precio Edificar: " + @precio_edificar.to_s +
+             "\n|  Precio Hipoteca Base: " + @hipoteca_base.to_s +
+             "\n|  Factor Intereses Hipoteca: " + @factor_intereses_hipoteca.to_s +
+             "\n|  Factor Revalorización: " + @factor_revalorizacion.to_s +
+             "\n|  Hipotecado: " + h.to_s;
     end
      
-    def main
-      
-      propiedad = Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)
-        
-      jugador = Jugador.new("Ramon")
-           
-      puts("NO TIENE PROPIETARIO, VACIO " + propiedad.propietario.to_s)
-           
-      puts("NO TIENE PROPIETARIO, FALSE: " + propiedad.tiene_propietario().to_s)
-         
-      propiedad.comprar(jugador)
-       
-      puts("TIENE PROPIETARIO, RAMON: " + propiedad.propietario.nombre)
-            
-      puts("TIENE PROPIETARIO, TRUE: " + propiedad.tiene_propietario().to_s)
+#    def main
 #      
-#      puts("DEBE DAR FALSE, PROPIETARIO LIBRE: " + propiedad.propietario_encarcelado().to_s)
-#                 
-#      jugador.encarcelado = true
-#            
-#      puts("DEBE DAR TRUE, PROPIETARIO ENCARCELADO: " + propiedad.propietario_encarcelado().to_s)
+#      propiedad = Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)
+#           
+#      puts("NO TIENE PROPIETARIO, VACIO " + propiedad.propietario.to_s)
+#           
+#      puts("NO TIENE PROPIETARIO, FALSE: " + propiedad.tiene_propietario().to_s)
+#      
+#      jugador = Jugador.new("Ramón")
+#      
+#      propiedad.comprar(jugador)
+#       
+#      puts("TIENE PROPIETARIO, RAMON: " + propiedad.propietario.nombre)                 
 #                      
 #      jugador.encarcelado = false
 #                  
@@ -278,11 +270,9 @@ module Civitas
 #                
 #      puts("DEBE DAR FALSE, NO ESTA HIPOTECADA: " + propiedad.hipotecado().to_s)
 #
-#      propiedad.hipotecar(jugador);   
+#      propiedad.hipotecado = true
 #            
 #      puts("DEBE DAR TRUE, ESTA HIPOTECADA: " + propiedad.hipotecado.to_s)
-#      
-#      puts("DEBE DAR TRUE, PUEDE CANCELAR HIPOTECA: " + propiedad.cancelar_hipoteca(jugador).to_s)
 #            
 #      puts("TIENE 0 CASAS Y HOTELES: " + propiedad.cantidad_casas_hoteles().to_s)
 #            
@@ -295,23 +285,17 @@ module Civitas
 #            
 #      puts("TIENE 2 CASAS Y HOTELES: " + propiedad.cantidad_casas_hoteles().to_s)
 #            
-#      puts("" + propiedad.derruir_casas(1, jugador).to_s)
+#      puts("DERRUIR CASAS: " + propiedad.derruir_casas(1, jugador).to_s)
 #            
 #      puts("TIENE UN HOTEL: " + propiedad.cantidad_casas_hoteles().to_s)
 #            
 #      puts("DEBE DAR TRUE: " + propiedad.es_este_el_propietario(jugador).to_s)
-#            
-#      propiedad.vender(jugador)
-#           
-#      puts("NO TIENE PROPIETARIO, VACIO: " + propiedad.propietario().to_s)
-#            
-#      puts("DATOS DE LA PROPIEDAD: " + propiedad.to_s)
-      
-    end
+#      
+#    end
     
   end
   
-  Test_titulo = Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)
-  Test_titulo.main()
+#  Test_titulo = Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)
+#  Test_titulo.main()
     
 end

@@ -4,6 +4,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+
 module Civitas
   class Sorpresa
     
@@ -182,7 +183,7 @@ module Civitas
     private
     def informe(actual, todos)
       
-      Diario.ocurre_evento("Se esta aplicando una sorpresa " + @tipo.name() + " al jugador " + todos.find(actual).nombre);
+      Diario.instance.ocurre_evento("Se esta aplicando una sorpresa " + @tipo.name() + " al jugador " + todos.find(actual).nombre);
       
     end
     
@@ -207,7 +208,7 @@ module Civitas
       
       if(@valor == 1)
         
-        @mazo.inhabilitarCartaEspecial(self)
+        @mazo.inhabilitar_carta_especial(self)
       end
       
     end
@@ -217,7 +218,7 @@ module Civitas
       
       if(@valor == 1)
         
-        @mazo.habilitarCartaEspecial(self)
+        @mazo.habilitar_carta_especial(self)
       end
       
     end
@@ -225,7 +226,6 @@ module Civitas
     public
     def to_string()
       
-      #No se si funcionara así o hay que poner otra cosa
       return @tipo.name()
 
     end
