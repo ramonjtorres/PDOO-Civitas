@@ -126,7 +126,7 @@ module Civitas
     end  
   end
   
-    P1 = Test_P1.new
-    P1.main()
+#    P1 = Test_P1.new
+#    P1.main()
 
 end

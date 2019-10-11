@@ -8,11 +8,11 @@ module Civitas
   class Mazo_Sorpresas
     
     
-    attr_reader :usadas
+    attr_reader :usadas, :ultimaSorpesa
     
     @degb = false
 
-    
+    private
     def init()
     
       @sorpresas = Array.new()
@@ -40,6 +40,7 @@ module Civitas
     
     end
     
+    public  #Puesto a public para poder probar el main de la clase Tablero
     def al_mazo(s)
     
       if(!@barajada)

@@ -219,8 +219,8 @@ module Civitas
     
   end
   
-  Test_tablero = Tablero.new(4)
-  Test_tablero.main()
+#  Test_tablero = Tablero.new(4)
+#  Test_tablero.main()
   
 end
      
