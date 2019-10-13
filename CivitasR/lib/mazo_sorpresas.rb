@@ -4,11 +4,14 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+#require_relative "Tipo_Sorpresas"
+#require_relative "Tablero"
+#require_relative "Sorpresa"
 module Civitas
   class Mazo_Sorpresas
     
     
-    attr_reader :usadas, :ultimaSorpesa
+    attr_accessor :usadas, :ultima_sorpresa, :sorpresas
     
     @degb = false
 
@@ -47,6 +50,7 @@ module Civitas
     
         @sorpresas.push(s)
       end
+      return s
     
     end
     
@@ -60,11 +64,11 @@ module Civitas
       end
       
       @usadas = @usadas+1
-      @ultimaSorpesa = @sorpresas[0]
+      @ultima_sorpesa = @sorpresas.at(0)
       @sorpresas.delete_at(0)
-      @sorpresas.push(@ultimaSorpresa)
+      @sorpresas.push(@ultima_sorpresa)
       
-      return @ultimaSorpresa
+      return @ultima_sorpresa
     
     end
     
@@ -96,5 +100,33 @@ module Civitas
         @var = @var + 1
       end   
     end
+    
+#    def main
+#      mazo = Mazo_Sorpresas.new
+#      tablero = Tablero.new(4)
+#      sorpresa = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
+#      
+#      mazo.al_mazo(Sorpresa.new(Tipo_Sorpresas::IR_CARCEL, tablero))
+#      mazo.al_mazo(sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,4,tablero))
+#      mazo.al_mazo(sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,5,tablero))
+#      mazo.al_mazo(sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,10,tablero))
+#      mazo.al_mazo(sorpresa.sorpresa_mazo(Tipo_Sorpresas::SALIR_CARCEL,mazo))
+#      mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,-50,"El jugador debe pagar a cada uno de los demas jugadores 50€"))
+#      mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,50,"Cada jugador te debe pagar 50€"))
+#      mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad"))
+#      mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"))
+#      mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza"))
+#      mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"))
+#      
+#      mazo.siguiente
+#             
+#      mazo.inhabilitar_carta_especial(mazo.ultima_sorpresa)
+#      puts ("10: "+ mazo.sorpresas.length.to_s)
+#      mazo.habilitar_carta_especial(mazo.ultima_sorpresa)
+#      puts ("11: "+ mazo.sorpresas.length.to_s)
+#    end
   end
+#  
+#  ms = Mazo_Sorpresas.new
+#  ms.main
 end

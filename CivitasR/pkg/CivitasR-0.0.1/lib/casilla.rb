@@ -1,9 +1,13 @@
+#encoding: utf-8
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-require_relative "Sorpresa"
-require_relative "Mazo_Sorpresas"
+#require_relative "Sorpresa"
+#require_relative "Mazo_Sorpresas"
+#require_relative "Jugador"
+#require_relative "Tipo_Sorpresas"
+#require_relative "Diario"
 
 module Civitas
   class Casilla
@@ -27,7 +31,7 @@ module Civitas
     def casilla_cantidad(cantidad, nombre)
       
       init()
-      @cantidad = cantidad
+      @importe = cantidad
       @nombre = nombre
       
     end
@@ -50,7 +54,7 @@ module Civitas
     
     private
     def informe(iactual, todos)
-      Diario.ocurre_evento(todos.at(iactual).num_casilla_actual+to_string())
+      Diario.instance.ocurre_evento( to_s)
     end
     
     private
@@ -66,7 +70,7 @@ module Civitas
       
     public
     def jugador_correcto(iactual, todos)
-      return(iactual>0 && iactual<todos.length())
+      return(iactual>=0 && iactual<=todos.length())
     end
     
     def recibe_jugador(iactual, todos)
@@ -80,7 +84,7 @@ module Civitas
     
     private
     def recibe_jugador_impuesto(iactual, todos)
-      if(jugador_correcto())
+      if(jugador_correcto(iactual,todos))
         informe(iactual,todos)
         todos.at(iactual).paga_impuesto(@importe)
       end
@@ -88,7 +92,7 @@ module Civitas
     
     private
     def recibe_jugador_juez(iactual, todos)
-      if(jugador_correcto())
+      if(jugador_correcto(iactual,todos))
         informe(iactual,todos)
         todos.at(iactual).encarcelar(@carcel)
       end
@@ -101,9 +105,48 @@ module Civitas
     end
     
     public
-    def to_string()
-      casilla = "Nombre casilla = "+@nombre+" Carcel = "+@carcel+" Importe = "+@importe+" Tipo Casilla = "+ @tipo.to_string() + " Titulo Propiedad = "+@tituloPropiedad.to_string()+ " Sorpresa = " + @sorpresa.to_string() +" Mazo Sorpresas = "+@mazo.to_string();
+    def to_s
+      casilla="\n"
+        if(@nombre!=nil)
+          casilla = casilla + "\n  Nombre casilla: "+@nombre.to_s
+        end
+        if(@carcel!=-1.0)
+            casilla = casilla + "\n  Carcel: " + @carcel.to_s
+        end
+        if(@importe!=-1.0)
+          casilla = casilla +"\n  Importe: " + @importe.to_s
+        end
+        if(@tipo!=nil)
+            casilla = casilla +"\n  Tipo Casilla: " + @tipo.to_s
+        end
+        if(@tituloPropiedad!=nil)
+            casilla = casilla + @tituloPropiedad.to_s   
+        end
+        return casilla
     end
     
+  
+#    def main
+#      j1 = Jugador.new("David")
+#      j2 = Jugador.new("Ramon")
+#      Diario.instance
+#      todos = Array.new
+#        
+#      todos.push(j1)
+#      todos.push(j2)
+#    
+#      casilla = Casilla.new("hola")
+#      casilla.casilla_cantidad(100,"impuesto")
+#      casilla.recibe_jugador_impuesto(0,todos)
+#      puts "Debe de tener 100 menos de saldo: \n" + j1.to_s
+#      casilla.recibe_jugador_juez(0,todos)
+#      puts "El jugador debe estar encarcelado: \n" + j1.to_s
+#    end
+#  
   end
+#   casilla = Casilla.new("prueba")
+#   casilla.main()
+
 end
+
+   

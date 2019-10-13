@@ -4,8 +4,16 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+require_relative "Tipo_Sorpresas"
+require_relative "Tablero"
+require_relative "Mazo_Sorpresas"
+require_relative "Casilla"
+require_relative "Jugador"
+
+
 module Civitas
   class Sorpresa
+    
     
     public
     def initialize(tipo, tablero)
@@ -108,7 +116,7 @@ module Civitas
       if(jugador_correcto(actual, todos))
         
         informe(actual, todos)
-        todos.find(actual).encarcelar(@tablero.num_casilla_carcel)
+        todos.at(actual).encarcelar(@tablero.num_casilla_carcel)
       end
       
     end
@@ -119,7 +127,7 @@ module Civitas
       if(jugador_correcto(actual, todos))
         
         informe(actual, todos)
-        todos.find(actual).modificar_saldo(@valor)
+        todos.at(actual).modificar_saldo(@valor)
       end
     end
     
@@ -129,7 +137,7 @@ module Civitas
       if(jugador_correcto(actual, todos))
         
         informe(actual, todos)
-        todos.find(actual).modificar_saldo(@valor*todos.find(actual).cantidad_casas_hoteles())
+        todos.at(actual).modificar_saldo(@valor*todos.at(actual).cantidad_casas_hoteles())
       end
       
     end
@@ -141,16 +149,18 @@ module Civitas
         
         informe(actual, todos)
             
-        pagar = Sorpresa.new(Tipo_Sorpresas::PAGAR_COBRAR, @valor*-1, @tablero)
-            
+        pagar = Sorpresa.new(Tipo_Sorpresas::PAGAR_COBRAR, @tablero)
+        pagar.sorpresa_tablero(Tipo_Sorpresas::PAGAR_COBRAR, @valor*-1, @tablero)    
         i = 0
         while(i<todos.length())
             
           if(i != actual)
             pagar.aplicar_a_jugador(i, todos)
           end
+          i= i+1
         end
-          cobrar = Sorpresa.new(Tipo_Sorpresas::PAGAR_COBRAR, @valor*(todos.length()-1), @tablero)
+          cobrar = Sorpresa.new(Tipo_Sorpresas::PAGAR_COBRAR, @tablero)
+          cobrar.sorpresa_tablero(Tipo_Sorpresas::PAGAR_COBRAR, @valor*(todos.length()-1), @tablero)
           cobrar.aplicar_a_jugador(actual, todos)
       end
       
@@ -167,12 +177,13 @@ module Civitas
                     
         while(i<todos.length())
                 
-          tiene = todos.find(i).tiene_salvoconducto()
+          tiene = todos.at(i).tiene_salvoconducto
+          i=i+1
         end
             
         if(!tiene)
             
-          todos.find(actual).obtener_salvoconducto(self)
+          todos.at(actual).obtener_salvoconducto(self)
           salir_del_mazo()
         end
       end
@@ -182,7 +193,7 @@ module Civitas
     private
     def informe(actual, todos)
       
-      Diario.ocurre_evento("Se esta aplicando una sorpresa " + @tipo.name() + " al jugador " + todos.find(actual).nombre);
+      Diario.instance.ocurre_evento("Se esta aplicando una sorpresa " + @tipo.to_s + " al jugador " + todos.find(actual).to_s);
       
     end
     
@@ -207,7 +218,7 @@ module Civitas
       
       if(@valor == 1)
         
-        @mazo.inhabilitarCartaEspecial(self)
+        @mazo.inhabilitar_carta_especial(self)
       end
       
     end
@@ -217,7 +228,7 @@ module Civitas
       
       if(@valor == 1)
         
-        @mazo.habilitarCartaEspecial(self)
+        @mazo.habilitar_carta_especial(self)
       end
       
     end
@@ -225,9 +236,52 @@ module Civitas
     public
     def to_string()
       
-      #No se si funcionara así o hay que poner otra cosa
       return @tipo.name()
 
     end
+  
+  def main
+    
+    tablero = Tablero.new(4)
+    j1 = Jugador.new("David")
+    j2 = Jugador.new("Ramon")
+    todos = Array.new
+    todos.push(j1)
+    todos.push(j2)
+    mazo = Mazo_Sorpresas.new()
+    
+    
+    salircarcel = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
+    pagarcobrar = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
+    porcasahotel = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
+    porjugador = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
+    ircarcel = Sorpresa.new(Tipo_Sorpresas::IR_CARCEL, tablero)
+    
+    
+    salircarcel.sorpresa_mazo(Tipo_Sorpresas::SALIR_CARCEL,@mazo)
+    pagarcobrar.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza")
+    porcasahotel.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad")
+    porjugador.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,50,"Cada jugador te debe pagar 50€")
+    
+    
+    ircarcel.aplicar_a_jugador(0,todos)
+    puts ("El jugador va a la carcel: \n" + j1.to_s)
+    
+    salircarcel.aplicar_a_jugador(0,todos)
+    puts ("El jugador sale de la carcel si tenia salvoconducto: \n" + j1.to_s)
+    
+    pagarcobrar.aplicar_a_jugador(0,todos)
+    puts ("El jugador paga 100 por gastos de limpieza: \n" + j1.to_s)
+    
+    porcasahotel.aplicar_a_jugador(0,todos)
+    puts ("Recibe 30 euros por cada casa y hotel en propiedad: \n" + j1.to_s)
+    
+    porjugador.aplicar_a_jugador(0,todos)
+    puts ("Cada jugador te paga 50: \n" + j1.to_s)
+    
   end
+end
+  tablero = Tablero.new(4)
+  s = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, tablero)
+  s.main()
 end

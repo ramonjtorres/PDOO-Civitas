@@ -130,7 +130,7 @@ public class CivitasJuego {
 
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Ronda de Valencia", 10, (float) 0.5,25,50,20)));
  
-        tablero.añadeCasilla(new Casilla(100, "Impuesto"));
+        tablero.añadeCasilla(new Casilla((float)100, "Impuesto"));
         
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Lavapies",10, (float) 0.5,25,50,20)));
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Cuatro Caminos",20, (float) 0.6,30,70,40)));

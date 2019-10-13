@@ -189,7 +189,7 @@ public class Jugador implements Comparable<Jugador>{
     }
     
     boolean pagaImpuesto(float cantidad){
-        if(this.encarcelado)
+        if(this.encarcelado || cantidad == -1)
             return false;
         else
             return this.paga(cantidad);

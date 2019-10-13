@@ -87,6 +87,28 @@ public class MazoSorpresas {
      */
     public static void main(String[] args) {
 
+        MazoSorpresas mazo = new MazoSorpresas();
+        Tablero tablero = new Tablero(5);
+        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCARCEL,tablero));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA,4,tablero));//a la carcel
+        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA,5,tablero));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA,10,tablero));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.SALIRCARCEL,mazo));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PORJUGADOR,tablero,-50,"El jugador debe pagar a cada uno de los demas jugadores 50€"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PORJUGADOR,tablero,50,"Cada jugador te debe pagar 50€"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL,tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR,tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"));
+        System.out.println("IRCASILLA: "+ mazo.getUltimaSorpresa());
+        System.out.println("IRCARCEL: "+mazo.siguiente());
+        System.out.println("IRCASILLA: "+mazo.siguiente());
+        
+        mazo.inhabilitarCartaEspecial(mazo.getUltimaSorpresa());
+        System.out.println("10: "+ mazo.sorpresas.size());
+        mazo.habilitarCartaEspecial(mazo.getUltimaSorpresa());
+        System.out.println("11: "+ mazo.sorpresas.size());
+
         
         
 

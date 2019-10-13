@@ -4,11 +4,11 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-require_relative "Casilla"
-require_relative "Mazo_Sorpresas"
-require_relative "Tipo_Sorpresas"
-require_relative "Sorpresa"
-require_relative "Titulo_Propiedad"
+#require_relative "Casilla"
+#require_relative "Mazo_Sorpresas"
+#require_relative "Tipo_Sorpresas"
+#require_relative "Sorpresa"
+#require_relative "Titulo_Propiedad"
 #require_relative "Jugador"
 
 

@@ -130,6 +130,8 @@ module Civitas
       @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"))
       @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza"))
       @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"))
+      
+
 
     end
     
@@ -142,7 +144,7 @@ module Civitas
 
         @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)))
  
-        @tablero.añade_casilla(casilla.casilla_cantidad(0, "Impuesto"));
+        @tablero.añade_casilla(casilla.casilla_cantidad(100, "Impuesto"));
         
         @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Lavapies",10,0.5,25,50,20)));
         @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Cuatro Caminos",20,0.6,30,70,40)));

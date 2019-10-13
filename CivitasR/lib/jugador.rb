@@ -117,6 +117,7 @@ module Civitas
       if(debe_ser_encarcelado())
         mover_a_casilla(num_casilla_carcel)
         @encarcelado = true
+        
         Diario.instance.ocurre_evento("El jugador ha sido encarcelado")
       end
       return @encarcelado
