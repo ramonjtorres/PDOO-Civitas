@@ -240,48 +240,48 @@ module Civitas
 
     end
   
-  def main
-    
-    tablero = Tablero.new(4)
-    j1 = Jugador.new("David")
-    j2 = Jugador.new("Ramon")
-    todos = Array.new
-    todos.push(j1)
-    todos.push(j2)
-    mazo = Mazo_Sorpresas.new()
-    
-    
-    salircarcel = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
-    pagarcobrar = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
-    porcasahotel = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
-    porjugador = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
-    ircarcel = Sorpresa.new(Tipo_Sorpresas::IR_CARCEL, tablero)
-    
-    
-    salircarcel.sorpresa_mazo(Tipo_Sorpresas::SALIR_CARCEL,@mazo)
-    pagarcobrar.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza")
-    porcasahotel.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad")
-    porjugador.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,50,"Cada jugador te debe pagar 50€")
-    
-    
-    ircarcel.aplicar_a_jugador(0,todos)
-    puts ("El jugador va a la carcel: \n" + j1.to_s)
-    
-    salircarcel.aplicar_a_jugador(0,todos)
-    puts ("El jugador sale de la carcel si tenia salvoconducto: \n" + j1.to_s)
-    
-    pagarcobrar.aplicar_a_jugador(0,todos)
-    puts ("El jugador paga 100 por gastos de limpieza: \n" + j1.to_s)
-    
-    porcasahotel.aplicar_a_jugador(0,todos)
-    puts ("Recibe 30 euros por cada casa y hotel en propiedad: \n" + j1.to_s)
-    
-    porjugador.aplicar_a_jugador(0,todos)
-    puts ("Cada jugador te paga 50: \n" + j1.to_s)
-    
-  end
+#  def main
+#    
+#    tablero = Tablero.new(4)
+#    j1 = Jugador.new("David")
+#    j2 = Jugador.new("Ramon")
+#    todos = Array.new
+#    todos.push(j1)
+#    todos.push(j2)
+#    mazo = Mazo_Sorpresas.new()
+#    
+#    
+#    salircarcel = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
+#    pagarcobrar = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
+#    porcasahotel = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
+#    porjugador = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
+#    ircarcel = Sorpresa.new(Tipo_Sorpresas::IR_CARCEL, tablero)
+#    
+#    
+#    salircarcel.sorpresa_mazo(Tipo_Sorpresas::SALIR_CARCEL,@mazo)
+#    pagarcobrar.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza")
+#    porcasahotel.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad")
+#    porjugador.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,50,"Cada jugador te debe pagar 50€")
+#    
+#    
+#    ircarcel.aplicar_a_jugador(0,todos)
+#    puts ("El jugador va a la carcel: \n" + j1.to_s)
+#    
+#    salircarcel.aplicar_a_jugador(0,todos)
+#    puts ("El jugador sale de la carcel si tenia salvoconducto: \n" + j1.to_s)
+#    
+#    pagarcobrar.aplicar_a_jugador(0,todos)
+#    puts ("El jugador paga 100 por gastos de limpieza: \n" + j1.to_s)
+#    
+#    porcasahotel.aplicar_a_jugador(0,todos)
+#    puts ("Recibe 30 euros por cada casa y hotel en propiedad: \n" + j1.to_s)
+#    
+#    porjugador.aplicar_a_jugador(0,todos)
+#    puts ("Cada jugador te paga 50: \n" + j1.to_s)
+#    
+#  end
 end
-  tablero = Tablero.new(4)
-  s = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, tablero)
-  s.main()
+#  tablero = Tablero.new(4)
+#  s = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, tablero)
+#  s.main()
 end
