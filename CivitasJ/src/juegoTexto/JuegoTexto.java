@@ -3,10 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package civitas;
+package juegoTexto;
 
 /**
  *
  * @author ramonjtorres
  */
-public enum Operaciones_juego {AVANZAR, COMPRAR, GESTIONAR, SALIR_CARCEL, PASAR_TURNO}
+public class JuegoTexto {
+    
+    int main(){
+        
+        return 0;
+    }
+}

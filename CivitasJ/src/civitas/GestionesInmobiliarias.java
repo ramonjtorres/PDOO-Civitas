@@ -9,4 +9,7 @@ package civitas;
  *
  * @author ramonjtorres
  */
-public enum Operaciones_juego {AVANZAR, COMPRAR, GESTIONAR, SALIR_CARCEL, PASAR_TURNO}
+public enum GestionesInmobiliarias {
+    
+    VENDER, HIPOTECAR, CANCELAR_HIPOTECA, CONSTRUIR_CASA, CONSTRUIR_HOTEL, TERMINAR    
+}

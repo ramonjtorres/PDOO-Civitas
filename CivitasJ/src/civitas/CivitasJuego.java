@@ -37,12 +37,24 @@ public class CivitasJuego {
   
     }
     
-    private void avanzaJugador(){}
+    private void avanzaJugador(){
+   
+        Jugador jugadorActual = jugadores.get(indiceJugadorActual);
+        int posicionActual = jugadorActual.getNumCasillaActual();
+        int tirada = Dado.getInstance().tirar();
+        int posicionNueva = tablero.nuevaPosicion(posicionActual, tirada);
+        Casilla casilla = tablero.getCasilla(posicionNueva);
+        
+        this.contabilizarPasosPorSalida(jugadorActual);
+        jugadorActual.moverACasilla(posicionNueva);
+        casilla.recibeJugador(indiceJugadorActual, jugadores);
+        this.contabilizarPasosPorSalida(jugadorActual);
+    }
     
     private void actualizarInfo(){
     
         System.out.println("Estado: "+this.estado);
-        System.out.println("Información Jugador: "+this.infoJugadorTexto());
+        System.out.println("Información Jugador: "+jugadores.get(this.indiceJugadorActual).toString());
     }
     
     public boolean cancelarHipoteca(int ip){
@@ -98,10 +110,6 @@ public class CivitasJuego {
     public boolean hipotecar(int ip){
         
         return jugadores.get(this.indiceJugadorActual).hipotecar(ip);
-    }
-    
-    public String infoJugadorTexto(){
-        return jugadores.get(this.indiceJugadorActual).toString();
     }
     
     private void inicializarMazoSorpresas(Tablero tablero){

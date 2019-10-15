@@ -86,7 +86,7 @@ class VistaTextual {
   public int getPropiedad(){}
     
 
-  void mostrarSiguienteOperacion(OperacionesJuego operacion) {}
+  void mostrarSiguienteOperacion(Operaciones_juego operacion) {}
 
 
   void mostrarEventos() {}

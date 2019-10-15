@@ -39,11 +39,21 @@ module Civitas
     private
     def avanza_jugador()
       
+      jugador_actual = @jugadores.at(@indice_jugador_actual)
+      posicion_actual = jugador_actual.num_casilla_actual
+      tirada = Dado.instance.tirar
+      posicion_nueva = @tablero.nueva_posicion(posicion_actual, tirada)
+      casilla = @tablero.get_casilla(posicion_nueva)
+      
+      contabilizar_pasos_por_salida(jugador_actual)
+      jugador_actual.mover_a_casilla(posicion_nueva)
+      casilla.recibe_jugador(@indice_jugador_actual, @jugadores)
+      contabilizar_pasos_por_salida(jugador_actual)
     end
     
     private
     def actualizar_info()
-      puts "Estado: " + @estado.to_s + "\nInformación Jugador: " + info_jugador_texto()
+      puts "Estado: " + @estado.to_s + "\nInformación Jugador: " + @jugadores.at(@indice_jugador_actual).to_s
     end
     
     public
@@ -100,11 +110,6 @@ module Civitas
     def hipotecar(ip)
       return @jugadores.at(@indice_jugador_actual).hipotecar(ip)
       
-    end
-    
-    public
-    def info_jugador_texto()
-       @jugadores.at(@indice_jugador_actual).to_s
     end
     
     private

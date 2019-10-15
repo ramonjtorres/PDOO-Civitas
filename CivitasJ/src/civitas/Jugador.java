@@ -46,7 +46,34 @@ public class Jugador implements Comparable<Jugador>{
         this.saldo = otro.saldo;
     }
     
-    boolean cancelarHipoteca(int ip){return false;}
+    boolean cancelarHipoteca(int ip){
+        
+        boolean result = false;
+        
+        if(this.encarcelado){
+            
+            return result;
+        }
+
+        if(this.existeLaPropiedad(ip)){
+        
+            TituloPropiedad propiedad = this.propiedades.get(ip);
+            float cantidad = propiedad.getImporteCancelarHipoteca();
+            boolean puedoGastar = this.puedoGastar(cantidad);
+            
+            if(puedoGastar){
+            
+                result = propiedad.cancelarHipoteca(this);
+                
+                if(result){
+                
+                    Diario.getInstance().ocurreEvento("El jugador" + this.nombre + "cancela la hipoteca de la propiedad" + ip);
+                }
+            }
+        }
+        
+        return result;
+    }
     
     int cantidadCasasHoteles(){
         
@@ -66,7 +93,33 @@ public class Jugador implements Comparable<Jugador>{
         return Float.compare(this.saldo, otro.saldo);
     }
     
-    boolean comprar(TituloPropiedad titulo){return false;}
+    boolean comprar(TituloPropiedad titulo){
+        
+        boolean result = false;
+        
+        if(this.encarcelado){
+        
+            return result;
+        }
+        
+        if(this.puedeComprar){
+    
+            float precio = titulo.getPrecioCompra();
+            
+            if(this.puedoGastar(precio)){
+            
+                result = titulo.comprar(this);
+                
+                if(result){
+                
+                    this.propiedades.add(titulo);
+                    Diario.getInstance().ocurreEvento("El jugador" + this + "compra la propiedad" + titulo.toString());
+                }
+            }
+        }
+        
+        return result;
+    }
     
     boolean construirCasa(int ip){return false;}
     
@@ -147,7 +200,28 @@ public class Jugador implements Comparable<Jugador>{
         return saldo;
     }
     
-    boolean hipotecar(int ip){return false;}
+    boolean hipotecar(int ip){
+        
+        boolean result = false;
+        
+        if(this.encarcelado){
+        
+            return result;
+        }
+        
+        if(this.existeLaPropiedad(ip)){
+        
+            TituloPropiedad propiedad = this.propiedades.get(ip);
+            result = propiedad.hipotecar(this);
+            
+            if(result){
+            
+                Diario.getInstance().ocurreEvento("El jugador" + this.nombre + "hipoteca la propiedad" + ip);
+            }
+        }
+        
+        return result;
+    }
     
     public boolean isEncarcelado(){
         return encarcelado;
