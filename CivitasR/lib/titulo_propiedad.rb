@@ -4,14 +4,10 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-require_relative "Jugador"
-require_relative "Diario"
-
 module Civitas
   class Titulo_Propiedad
     
     attr_reader :hipotecado, :nombre, :num_casas, :num_hoteles, :precio_compra, :precio_edificar, :propietario
-    attr_writer :hipotecado #Puesto para probar el main
     
     @@factor_intereses_hipoteca = 1.1
     
@@ -120,7 +116,7 @@ module Civitas
       end
     end
     
-    public #Puesto public para probar el main
+    private
     def es_este_el_propietario(jugador)
       
       return @propietario == jugador      
@@ -249,53 +245,7 @@ module Civitas
              "\n|  Factor Revalorización: " + @factor_revalorizacion.to_s +
              "\n|  Hipotecado: " + h.to_s;
     end
-     
-#    def main
-#      
-#      propiedad = Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)
-#           
-#      puts("NO TIENE PROPIETARIO, VACIO " + propiedad.propietario.to_s)
-#           
-#      puts("NO TIENE PROPIETARIO, FALSE: " + propiedad.tiene_propietario().to_s)
-#      
-#      jugador = Jugador.new("Ramón")
-#      
-#      propiedad.comprar(jugador)
-#       
-#      puts("TIENE PROPIETARIO, RAMON: " + propiedad.propietario.nombre)                 
-#                      
-#      jugador.encarcelado = false
-#                  
-#      puts("DEBE DAR FALSE, NO PUEDE CANCELAR HIPOTECA: " + propiedad.cancelar_hipoteca(jugador).to_s)
-#                
-#      puts("DEBE DAR FALSE, NO ESTA HIPOTECADA: " + propiedad.hipotecado().to_s)
-#
-#      propiedad.hipotecado = true
-#            
-#      puts("DEBE DAR TRUE, ESTA HIPOTECADA: " + propiedad.hipotecado.to_s)
-#            
-#      puts("TIENE 0 CASAS Y HOTELES: " + propiedad.cantidad_casas_hoteles().to_s)
-#            
-#      puts("CONSTRUIDA CASA" + propiedad.construir_casa(jugador).to_s)
-#      puts("CONSTRUIDA CASA" + propiedad.construir_casa(jugador).to_s)
-#      puts("CONSTRUIDA CASA" + propiedad.construir_casa(jugador).to_s)
-#      puts("CONSTRUIDA CASA" + propiedad.construir_casa(jugador).to_s)
-#      puts("CONSTRUIDA CASA" + propiedad.construir_casa(jugador).to_s)
-#      puts("CONSTRUIDO HOTEL" + propiedad.construir_hotel(jugador).to_s)
-#            
-#      puts("TIENE 2 CASAS Y HOTELES: " + propiedad.cantidad_casas_hoteles().to_s)
-#            
-#      puts("DERRUIR CASAS: " + propiedad.derruir_casas(1, jugador).to_s)
-#            
-#      puts("TIENE UN HOTEL: " + propiedad.cantidad_casas_hoteles().to_s)
-#            
-#      puts("DEBE DAR TRUE: " + propiedad.es_este_el_propietario(jugador).to_s)
-#      
-#    end
     
   end
-  
-#  Test_titulo = Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)
-#  Test_titulo.main()
     
 end

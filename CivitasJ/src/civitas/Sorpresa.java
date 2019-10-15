@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 /**
  *
- * @author david
  * @author ramonjtorres
+ * @author david
  */
 public class Sorpresa {
     
@@ -28,8 +28,7 @@ public class Sorpresa {
         this.tablero = tablero;
         this.mazo = new MazoSorpresas();
         this.texto = "Esta sorpresa te lleva a la cárcel";
-        
-        
+    
     }
     
     Sorpresa(TipoSorpresa tipo, Tablero tablero, int valor, String texto){
@@ -212,36 +211,5 @@ public class Sorpresa {
     public String toString(){
         
         return tipo.name();
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-
-        Tablero tablero = new Tablero(4);
-        Jugador j1 = new Jugador("David");
-        Jugador j2 = new Jugador("Ramon");
-        ArrayList<Jugador> todos = new ArrayList();
-        todos.add(j1);
-        todos.add(j2);
-        MazoSorpresas mazo = new MazoSorpresas();
-        Sorpresa ircarcel = new Sorpresa(TipoSorpresa.IRCARCEL,tablero);
-        Sorpresa salircarcel = new Sorpresa(TipoSorpresa.SALIRCARCEL,mazo);
-        Sorpresa pagarcobrar = new Sorpresa(TipoSorpresa.PAGARCOBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza");
-        Sorpresa porcasahotel = new Sorpresa(TipoSorpresa.PORCASAHOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad");
-        Sorpresa porjugador = new Sorpresa(TipoSorpresa.PORJUGADOR,tablero,-50,"El jugador debe pagar a cada uno de los demas jugadores 50€");
-        ircarcel.aplicarAJugador(0, todos);
-        System.out.println("El jugador va a la carcel: \n" + j1.toString());
-        salircarcel.aplicarAJugador(0, todos);
-        System.out.println("El jugador sale de la carcel si tenia salvoconducto: \n" + j1.toString());
-        pagarcobrar.aplicarAJugador(0, todos);
-        System.out.println("El jugador paga 100 por gastos de limpieza: \n" + j1.toString());
-        porcasahotel.aplicarAJugador(0, todos);
-        System.out.println("Recibe 30 euros por cada casa y hotel en propiedad: \n" + j1.toString());
-        porjugador.aplicarAJugador(0, todos);
-        System.out.println("Le das 50 a cada uno de los demas jugadores: \n" + j1.toString());
-        
-
     }
 }

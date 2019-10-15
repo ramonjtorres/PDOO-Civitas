@@ -34,9 +34,7 @@ public class CivitasJuego {
     mazo = new MazoSorpresas();
     this.inicializarMazoSorpresas(tablero);
     this.inicializarTablero(mazo);  
-    
-
-    
+  
     }
     
     private void avanzaJugador(){}
@@ -45,7 +43,6 @@ public class CivitasJuego {
     
         System.out.println("Estado: "+this.estado);
         System.out.println("Información Jugador: "+this.infoJugadorTexto());
-    
     }
     
     public boolean cancelarHipoteca(int ip){
@@ -120,8 +117,6 @@ public class CivitasJuego {
         mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL,tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"));
         mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza"));
         mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR,tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"));
-
-        
     }
     
     private void inicializarTablero(MazoSorpresas mazo){
@@ -157,8 +152,7 @@ public class CivitasJuego {
         
         tablero.añadeCasilla(new Casilla(mazo, "Sorpresa"));
         
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Paseo del Prado",100, (float) 0.8,60,250,120)));
-        
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Paseo del Prado",100, (float) 0.8,60,250,120))); 
         }
     
     private void pasarTurno(){
@@ -208,81 +202,5 @@ public class CivitasJuego {
     public boolean vender(int ip){
         
         return jugadores.get(this.indiceJugadorActual).vender(ip);
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-        String j1 = "David";
-        String j2 = "Ramón";
-        
-        ArrayList <String> todos = new ArrayList();
-        
-        todos.add(j1);
-        todos.add(j2);
-        
-        CivitasJuego cj = new CivitasJuego(todos);
-        
-        TituloPropiedad propiedad = new TituloPropiedad("Ronda de Valencia",10, (float) 0.5,25,50,20);
-        
-        cj.indiceJugadorActual = 1;
-        
-        cj.getJugadorActual().propiedades.add(propiedad);
-        
-        propiedad.comprar(cj.getJugadorActual());
-        
-        cj.actualizarInfo();
-        
-        System.out.println("Debe devolver true, al construir una casa: " + cj.getJugadorActual().propiedades.get(0).construirCasa(cj.getJugadorActual()));
-        System.out.println("Debe devolver true, al construir una casa: " + cj.getJugadorActual().propiedades.get(0).construirCasa(cj.getJugadorActual()));
-        System.out.println("Debe devolver true, al construir una casa: " + cj.getJugadorActual().propiedades.get(0).construirCasa(cj.getJugadorActual()));
-        System.out.println("Debe devolver true, al construir una casa: " + cj.getJugadorActual().propiedades.get(0).construirCasa(cj.getJugadorActual()));
-        System.out.println("Debe devolver true, al construir un hotel: " + cj.getJugadorActual().propiedades.get(0).construirHotel(cj.getJugadorActual()));
-        
-        System.out.println("Debe devolver informacion del jugador actual: " + cj.infoJugadorTexto());
-        
-        System.out.println("Debe salir 6:" + cj.tablero.nuevaPosicion(20, 6));
-        System.out.println("Debe salir 6:" + cj.tablero.nuevaPosicion(20, 6));
-        System.out.println("Debe salir 6:" + cj.tablero.nuevaPosicion(20, 6));
-        System.out.println("Debe salir 10:" + cj.tablero.nuevaPosicion(0, 10));
-        
-        cj.contabilizarPasosPorSalida(cj.getJugadorActual());
-        
-        System.out.println("Debe dar 10350, al pasar 3 veces por salida (7350 + 3*1000): " + cj.getJugadorActual().getSaldo());
-        
-        System.out.println("Debe dar que estamos en la casilla 0, Salida: " + cj.getCasillaActual());
-        
-        System.out.println("Debe dar Ramon: " + cj.getJugadorActual());
-        
-        cj.pasarTurno();
-        
-        System.out.println("Debe dar David: " + cj.getJugadorActual());
-        
-        System.out.println("Debe dar en primera posicion Ramón, en segunda David: " + cj.ranking());
-        
-        cj.getJugadorActual().modificarSaldo(20000);
-        
-        cj.pasarTurno();
-        
-        System.out.println("Debe dar en primera posicion David, en segunda Ramón: " + cj.ranking());
-        
-        cj.siguientePasoCompletado(Operaciones_juego.AVANZAR);
-        
-        System.out.println("Debe dar DESPUES_AVANZAR: " + cj.estado);
-        
-        cj.siguientePasoCompletado(Operaciones_juego.COMPRAR);
-        
-        System.out.println("Debe dar DESPUES_COMPRAR: " + cj.estado);
-        
-        System.out.println("Debe dar true al vender: " + cj.vender(0));
-        
-        System.out.println("Debe dar false, no hay fin del juego: " + cj.finalDelJuego());
-        
-        cj.getJugadorActual().modificarSaldo(-20000);
-        
-        System.out.println("Debe dar true, hay fin del juego: " + cj.finalDelJuego());
-
     }
 }

@@ -4,28 +4,22 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-require_relative "Tipo_Sorpresas"
-require_relative "Mazo_Sorpresas"
-require_relative "Sorpresa"
-require_relative "Tablero"
-require_relative "Jugador"
-require_relative "Titulo_Propiedad"
-require_relative "Gestor_estados"
-require_relative "Estados_juego"
-require_relative "Dado"
+require_relative "jugador"
+require_relative "mazo_sorpresas"
+require_relative "tablero"
+require_relative "dado"
+require_relative "gestor_estados"
+require_relative "sorpresa"
+require_relative "casilla"
+require_relative "diario"
 
 module Civitas
   class Civitas_Juego
     
-    attr_writer :indice_jugador_actual #Para probar el main
-    attr_reader :tablero, :estado #Para probar el main
-    
-    @mazo = Mazo_Sorpresas.new
-    @tablero = Tablero.new(20)
-    
     public
     def initialize(nombres)
       
+      @tablero = Tablero.new(20)
       @jugadores = Array.new
       var = 0
       while (var < nombres.length())
@@ -47,7 +41,7 @@ module Civitas
       
     end
     
-    public #Puesto a public para probar el main
+    private
     def actualizar_info()
       puts "Estado: " + @estado.to_s + "\nInformación Jugador: " + info_jugador_texto()
     end
@@ -72,7 +66,7 @@ module Civitas
       @jugadores.at(@indice_jugador_actual).construir_hotel(ip)
     end
     
-    public #Puesto en public para probar el main
+    private
     def contabilizar_pasos_por_salida(jugador_actual)
       while(@tablero.get_por_salida > 0)
         jugador_actual.pasa_por_salida
@@ -130,8 +124,6 @@ module Civitas
       @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"))
       @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza"))
       @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"))
-      
-
 
     end
     
@@ -175,12 +167,12 @@ module Civitas
         
     end
     
-    public #Puesto en public para probar el main
+    private
     def pasar_turno()
       @indice_jugador_actual = (@indice_jugador_actual + 1) % @jugadores.length
     end
     
-    public #Puesto en public para probar el main
+    private
     def ranking()
       ranking = Array.new
       aux = Jugador.new("aux")
@@ -228,89 +220,7 @@ module Civitas
     def vender(ip)
       return @jugadores.at(@indice_jugador_actual).vender(ip)
     end
-    
-#    def main
-#      
-#      j1 = "David"
-#      j2 = "Ramón"
-#        
-#      todos = Array.new
-#        
-#      todos.push(j1)
-#      todos.push(j2)
-#       
-#      cj = Civitas_Juego.new(todos)
-#        
-#      propiedad = Titulo_Propiedad.new("Lavapies",10,0.5,25,50,20)
-#        
-#      cj.indice_jugador_actual = 1
-#        
-#      cj.get_jugador_actual().propiedades.push(propiedad)
-#        
-#      propiedad.comprar(cj.get_jugador_actual())
-#        
-#      cj.actualizar_info()
-#        
-#      puts("Debe devolver true, al construir una casa: " + cj.get_jugador_actual().propiedades[0].construir_casa(cj.get_jugador_actual()).to_s)
-#      puts("Debe devolver true, al construir una casa: " + cj.get_jugador_actual().propiedades[0].construir_casa(cj.get_jugador_actual()).to_s)
-#      puts("Debe devolver true, al construir una casa: " + cj.get_jugador_actual().propiedades[0].construir_casa(cj.get_jugador_actual()).to_s)
-#      puts("Debe devolver true, al construir una casa: " + cj.get_jugador_actual().propiedades[0].construir_casa(cj.get_jugador_actual()).to_s)
-#      puts("Debe devolver true, al construir un hotel: " + cj.get_jugador_actual().propiedades[0].construir_hotel(cj.get_jugador_actual()).to_s)
-#        
-#      puts("Debe devolver informacion del jugador actual: " + cj.info_jugador_texto())
-#        
-#      puts("Debe salir 6:" + cj.tablero.nueva_posicion(20, 6).to_s)
-#      puts("Debe salir 6:" + cj.tablero.nueva_posicion(20, 6).to_s)
-#      puts("Debe salir 6:" + cj.tablero.nueva_posicion(20, 6).to_s)
-#      puts("Debe salir 10:" + cj.tablero.nueva_posicion(0, 10).to_s)
-#        
-#      cj.contabilizar_pasos_por_salida(cj.get_jugador_actual())
-#        
-#      puts("Debe dar 10350, al pasar 3 veces por salida (7350 + 3*1000): " + cj.get_jugador_actual().saldo.to_s)
-#        
-#      puts("Debe dar que estamos en la casilla 0, Salida: " + cj.get_casilla_actual().to_s)
-#        
-#      puts("Debe dar Ramon: " + cj.get_jugador_actual().to_s)
-#        
-#      cj.pasar_turno()
-#        
-#      puts("Debe dar David: " + cj.get_jugador_actual().to_s)
-#        
-#      puts("Debe dar en primera posicion Ramón, en segunda David: " + cj.ranking().to_s)
-#      
-#      cj.get_jugador_actual().modificar_saldo(20000)
-#       
-#      cj.pasar_turno()
-#        
-#      puts("Debe dar en primera posicion David, en segunda Ramón: " + cj.ranking().to_s)
-#        
-#      cj.siguiente_paso_completado(Operaciones_juego::AVANZAR)
-#        
-#      puts("Debe dar DESPUES_AVANZAR: " + cj.estado.to_s)
-#        
-#      cj.siguiente_paso_completado(Operaciones_juego::COMPRAR)
-#        
-#      puts("Debe dar DESPUES_COMPRAR: " + cj.estado.to_s)
-#        
-#      puts("Debe dar false, no hay fin del juego: " + cj.final_del_juego().to_s)
-#        
-#      cj.get_jugador_actual().modificar_saldo(-20000)
-#        
-#      puts("Debe dar true, hay fin del juego: " + cj.final_del_juego().to_s)
-#    
-#    end
-    
+ 
   end
-  
-#  j1 = "David"
-#  j2 = "Ramón"
-#        
-#  todos = Array.new
-#        
-#  todos.push(j1)
-#  todos.push(j2)
-#  
-#  Test_civitas = Civitas_Juego.new(todos)
-#  Test_civitas.main()
   
 end

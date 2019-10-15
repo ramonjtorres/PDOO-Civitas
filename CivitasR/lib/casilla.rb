@@ -3,12 +3,6 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-#require_relative "Sorpresa"
-#require_relative "Mazo_Sorpresas"
-#require_relative "Jugador"
-#require_relative "Tipo_Sorpresas"
-#require_relative "Diario"
-
 module Civitas
   class Casilla
     
@@ -54,7 +48,7 @@ module Civitas
     
     private
     def informe(iactual, todos)
-      Diario.instance.ocurre_evento( to_s)
+      Diario.instance.ocurre_evento(todos.at(iactual).nombre + to_s)
     end
     
     private
@@ -124,28 +118,8 @@ module Civitas
         end
         return casilla
     end
-    
-  
-#    def main
-#      j1 = Jugador.new("David")
-#      j2 = Jugador.new("Ramon")
-#      Diario.instance
-#      todos = Array.new
-#        
-#      todos.push(j1)
-#      todos.push(j2)
-#    
-#      casilla = Casilla.new("hola")
-#      casilla.casilla_cantidad(100,"impuesto")
-#      casilla.recibe_jugador_impuesto(0,todos)
-#      puts "Debe de tener 100 menos de saldo: \n" + j1.to_s
-#      casilla.recibe_jugador_juez(0,todos)
-#      puts "El jugador debe estar encarcelado: \n" + j1.to_s
-#    end
-#  
+
   end
-#   casilla = Casilla.new("prueba")
-#   casilla.main()
 
 end
 

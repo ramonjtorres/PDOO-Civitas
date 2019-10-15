@@ -116,34 +116,4 @@ public class Casilla {
         
         return Casilla;
     }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-
-        Casilla c1 = new Casilla("Prueba1");
-        Casilla c2 = new Casilla(new TituloPropiedad("Lavapies",10, (float) 0.5,25,50,20));
-        Casilla c3 = new Casilla((float) 0.5,"Prueba2");
-        Casilla c4 = new Casilla(3,"Prueba3");
-        Casilla c5 = new Casilla(new MazoSorpresas(),"Prueba4");
-        Casilla c6 = new Casilla((float) 100 , "Impuesto");
-        Jugador j1 = new Jugador("Ramón");
-        Jugador j2 = new Jugador("David");
-        ArrayList <Jugador> todos = new ArrayList();
-        todos.add(j1);
-        todos.add(j2);
-               
-        System.out.println("Se deben monstrar los datos de la casilla 2: " + c2.toString());
-        c1.informe(0,todos);
-        c6.recibeJugador_impuesto(0, todos);
-        System.out.println("Se deben monstrar los datos del jugador 1 donde el saldo debe disminiut 100\n" + j1.toString());
-        c2.recibeJugador_juez(0, todos);
-        System.out.println("El jugador debe ser encarcelado\n");      
-        System.out.println(j1.toString());
-        
-        
-
-    }
-
 }
