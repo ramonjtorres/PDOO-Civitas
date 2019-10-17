@@ -9,7 +9,6 @@ module Civitas
     def mostrar_estado(estado)
       puts estado
     end
-
     
     def pausa
       print "Pulsa una tecla"
@@ -59,23 +58,50 @@ module Civitas
       return opcion
     end
 
+    def salirCarcel()
+    
+      opcion = menu("Elige la forma para intentar salir de la carcel",
+      Array.new["Pagando","Tirando el dado"])
+    
+      return lista_salir_carcel[opcion]
+    end
     
     def comprar
+      
+      opcion = menu("¿Desea comprar la calle a la que se ha llegado?",
+      Array.new["SI","NO"])
+    
+      return lista_respuestas[opcion]
     end
 
     def gestionar
+      
+      opcion = menu("Indique el número de gestión inmobiliaria elegida",
+      Array.new["Vender", "Hipotecar", "Cancelar hipoteca", "Construir casa", "Construir hotel", "Terminar"])
+      
+      #@ipropiedad = @juegoModel.get_jugador_actual()
+      @igestion = opcion
     end
 
     def getGestion
+      return @igestion
     end
 
     def getPropiedad
+      return @ipropiedad
     end
 
     def mostrarSiguienteOperacion(operacion)
+
+      puts "\nSiguiente operación: " + operacion.to_s      
     end
 
     def mostrarEventos
+      
+      while(Diario.instance.eventos_pendientes())
+        
+        puts "\nEvento pendiente: " + Diario.instance.leer_evento()
+      end
     end
 
     def setCivitasJuego(civitas)
@@ -84,6 +110,10 @@ module Civitas
     end
 
     def actualizarVista
+      
+      puts "\nJugador Actual: " + @juegoModel.get_jugador_actual().to_s
+      puts "\nCasilla Actual: " + @juegoModel.get_casilla_actual().to_s
+      
     end
 
     

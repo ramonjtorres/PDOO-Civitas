@@ -8,7 +8,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 import civitas.Casilla;
 import civitas.CivitasJuego;
+import civitas.GestionesInmobiliarias;
 import civitas.Jugador;
+import civitas.Respuestas;
 import civitas.SalidasCarcel;
 import civitas.TituloPropiedad;
 
@@ -72,24 +74,54 @@ class VistaTextual {
   }
 
   SalidasCarcel salirCarcel() {
+    
     int opcion = menu ("Elige la forma para intentar salir de la carcel",
       new ArrayList<> (Arrays.asList("Pagando","Tirando el dado")));
+    
     return (SalidasCarcel.values()[opcion]);
   }
 
-  Respuestas comprar() {}
+  Respuestas comprar(){
+  
+    int opcion = menu ("¿Desea comprar la calle a la que se ha llegado?",
+      new ArrayList<> (Arrays.asList("SI","NO")));
+    
+    return (Respuestas.values()[opcion]);
+  }
 
-  void gestionar () {}
+  void gestionar(){
   
-  public int getGestion(){}
+    int opcion = menu ("Indique el número de gestión inmobiliaria elegida",
+      new ArrayList<> (Arrays.asList("Vender", "Hipotecar", "Cancelar hipoteca", "Construir casa", "Construir hotel", "Terminar")));
+    
+    //this.iPropiedad = juegoModel.getJugadorActual(); No se como sacar el indice de la propiedad
+    this.iGestion = opcion;
+  }
   
-  public int getPropiedad(){}
+  public int getGestion(){
+  
+      return this.iGestion;
+  }
+  
+  public int getPropiedad(){
+  
+      return this.iPropiedad;
+  }
     
 
-  void mostrarSiguienteOperacion(Operaciones_juego operacion) {}
+  void mostrarSiguienteOperacion(Operaciones_juego operacion) {
+  
+      System.out.println("\nSiguiente operación: " + operacion.name());
+  }
 
 
-  void mostrarEventos() {}
+  void mostrarEventos(){
+  
+      while(Diario.getInstance().eventosPendientes()){
+      
+          System.out.println("\nEvento pendiente: " + Diario.getInstance().leerEvento());
+      }
+  }
   
   public void setCivitasJuego(CivitasJuego civitas){ 
         juegoModel=civitas;
@@ -97,5 +129,9 @@ class VistaTextual {
 
     }
   
-  void actualizarVista(){} 
+  void actualizarVista(){
+  
+      System.out.println("\nJugador Actual: " + juegoModel.getJugadorActual().toString());
+      System.out.println("\nCasilla Actual: " + juegoModel.getCasillaActual().toString());
+  } 
 }
