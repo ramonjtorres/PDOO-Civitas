@@ -62,7 +62,14 @@ public class CivitasJuego {
         return jugadores.get(this.indiceJugadorActual).cancelarHipoteca(ip);
     }
     
-    public boolean comprar(){ return false;}
+    public boolean comprar(){ 
+    Jugador jugadorActual = jugadores.get(indiceJugadorActual);
+    int numCasillaActual = jugadorActual.getNumCasillaActual();
+    Casilla casilla = tablero.getCasilla(numCasillaActual);
+    TituloPropiedad titulo = casilla.getTituloPropiedad();
+    Boolean res = jugadorActual.comprar(titulo);
+    return res;
+    }
     
     public boolean construirCasa(int ip){
         
@@ -200,7 +207,20 @@ public class CivitasJuego {
         return jugadores.get(this.indiceJugadorActual).salirCarcelTirando();        
     }
     
-    public Operaciones_juego siguientePaso(){return null;}
+    public Operaciones_juego siguientePaso(){
+    Jugador jugadorActual = jugadores.get(indiceJugadorActual);
+    
+    Operaciones_juego operacion=gestorEstados.operacionesPermitidas(jugadorActual, estado);
+    if(operacion==Operaciones_juego.PASAR_TURNO){
+        this.pasarTurno();
+        this.siguientePasoCompletado(operacion);
+    }else if(operacion==Operaciones_juego.AVANZAR){
+        this.avanzaJugador();
+        this.siguientePasoCompletado(operacion);
+        }
+    return operacion;
+    
+    }
     
     public void siguientePasoCompletado(Operaciones_juego operacion){
     

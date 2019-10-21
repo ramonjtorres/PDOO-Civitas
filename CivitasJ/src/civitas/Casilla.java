@@ -81,9 +81,40 @@ public class Casilla {
         else return false;
     }
     
-    void recibeJugador(int iactual, ArrayList<Jugador> todos){}
+    void recibeJugador(int iactual, ArrayList<Jugador> todos){
     
-    private void recibeJugador_calle(int iactual, ArrayList<Jugador> todos){}
+        if(null==this.tipo) 
+            this.informe(iactual, todos);
+        else switch (this.tipo) {
+            case CALLE:
+                this.recibeJugador(iactual, todos);
+                break;
+            case IMPUESTO:
+                this.recibeJugador_impuesto(iactual, todos);
+                break;
+            case JUEZ:
+                this.recibeJugador_juez(iactual, todos);
+                break;
+            case SORPRESA:
+                this.recibeJugador_sorpresa(iactual, todos);
+                break;
+            default:
+                this.informe(iactual, todos);
+                break;
+        }
+    }
+    
+    private void recibeJugador_calle(int iactual, ArrayList<Jugador> todos){
+        if(jugadorCorrecto(iactual,todos)){
+            this.informe(iactual, todos);
+            Jugador nuevo = todos.get(iactual);
+            
+            if(!this.tituloPropiedad.tienePropietario()){
+                nuevo.puedeComprarCasilla();
+            }
+            else this.tituloPropiedad.tramitarAlquiler(nuevo);  
+        }
+    }
 
     private void recibeJugador_impuesto(int iactual, ArrayList<Jugador> todos){
         if(this.jugadorCorrecto(iactual, todos)){
@@ -99,7 +130,15 @@ public class Casilla {
         }
     }
 
-    private void recibeJugador_sorpresa(int iactual, ArrayList<Jugador> todos){}
+    private void recibeJugador_sorpresa(int iactual, ArrayList<Jugador> todos){
+        if(this.jugadorCorrecto(iactual, todos)){
+            this.sorpresa = mazo.siguiente();
+            this.informe(iactual, todos);
+            sorpresa.aplicarAJugador(iactual, todos);
+        }
+        
+    
+    }
     
     public String toString(){
         String Casilla="\n";

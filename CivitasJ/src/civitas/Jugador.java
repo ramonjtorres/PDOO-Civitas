@@ -121,7 +121,22 @@ public class Jugador implements Comparable<Jugador>{
         return result;
     }
     
-    boolean construirCasa(int ip){return false;}
+    boolean construirCasa(int ip){
+        boolean result = false;
+        boolean existe = false;
+        TituloPropiedad propiedad = propiedades.get(ip);
+        float precio = 0;
+        if(this.encarcelado)
+            return result;
+        else 
+            existe = this.existeLaPropiedad(ip);
+        
+        if(!this.encarcelado&&existe){
+            this.puedoEdificarCasa(propiedad);
+            precio = propiedad.getPrecioEdificar();
+            return this.puedoEdificarCasa(propiedad);
+        }else return result;
+    }
     
     boolean construirHotel(int ip){return false;}
     
