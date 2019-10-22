@@ -68,12 +68,36 @@ module Civitas
     end
     
     def recibe_jugador(iactual, todos)
-      
+      if(nil == @tipo)
+        informe(iactual,todos)
+      else
+        if(@tipo == Tipo_Casilla::CALLE)
+          recibe_jugador(iactual,todos)
+        end
+        if(@tipo == Tipo_Casilla::IMPUESTO)
+          recibe_jugador_impuesto(iactual,todos)
+        end
+        if(@tipo == Tipo_Casilla::JUEZ)
+          recibe_jugador_juez(iactual,todos)
+        end
+        if(@tipo == Tipo_Casilla::SORPRESA)
+          recibe_jugador_sorpresa(iactual,todos)
+        end
+      end
     end
     
     private
     def recibe_jugador_calle(iactual, todos)
-      
+      if(jugador_correcto(iactual,todos))
+        informe(iactual,todos)
+        Jugador nuevo = todos.at(iactual)
+        
+        if(!@tituloPropiedad.tiene_propietario)
+          nuevo.puede_comprar_casilla
+        else
+          @tituloPropiedad.tramitar_alquiler(nuevo)
+        end
+      end
     end
     
     private
@@ -95,6 +119,11 @@ module Civitas
     
     private
     def recibe_jugador_sorpresa(iactual, todos)
+      if(jugador_correcto(iactual,todos))
+        @sorpresa = @mazo.siguiente
+        informe(iactual,todos)
+        sorpresa.aplicar_a_jugador(iactual, todos)
+      end
       
     end
     

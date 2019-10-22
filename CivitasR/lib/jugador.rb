@@ -125,7 +125,30 @@ module Civitas
     
     public
     def construir_casa(ip)
+      result = false
+      existe = false
+      puedo_edificar_casa = false
+      TituloPropiedad propiedad = @propiedades.at(ip)
+      precio = 0
+      if(@encarcelado)
+        return result
+      else
+        existe = existe_la_propiedad(ip)
+      end
       
+      if(!@encarcelado && existe )
+        result = puedo_edificar_casa(propiedad)
+        precio = propiedad.precio_edificar
+        if((puedo_gastar(precio)) && (propiedad.num_casas < @@casas_max))
+          puedo_edificar_casa = true
+        end
+      end
+      if(!@encarcelado && existe && puedo_edificar_casa)
+        result = propiedad.construir_casa(self)
+        Diario.instance.ocurre_evento("El jugador "+ @nombre + "construye casa en la propiedad "+ ip)    
+      end
+      
+      return result;
     end
     
     public
