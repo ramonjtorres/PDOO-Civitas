@@ -79,7 +79,7 @@ module Civitas
       opcion = menu("Indique el número de gestión inmobiliaria elegida",
       Array.new["Vender", "Hipotecar", "Cancelar hipoteca", "Construir casa", "Construir hotel", "Terminar"])
       
-      #@ipropiedad = @juegoModel.get_jugador_actual()
+      @ipropiedad = @juegoModel.get_jugador_actual().get_casilla_actual()
       @igestion = opcion
     end
 

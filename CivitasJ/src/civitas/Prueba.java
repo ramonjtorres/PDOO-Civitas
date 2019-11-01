@@ -28,10 +28,10 @@ public class Prueba {
         jugadores.add(jugador2);
 
         CivitasJuego juego = new CivitasJuego(jugadores);
-        //VistaTextual vista = new VistaTextual();
+        VistaTextual vista = new VistaTextual();
         Dado dado = Dado.getInstance();
         dado.setDebug(true);
-        //Controlador controlador = new Controlador(juego, vista);
-        //controlador.juega();
+        Controlador controlador = new Controlador(juego, vista);
+        controlador.juega();
     }
 }

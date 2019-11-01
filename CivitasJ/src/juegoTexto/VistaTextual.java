@@ -14,7 +14,7 @@ import civitas.Respuestas;
 import civitas.SalidasCarcel;
 import civitas.TituloPropiedad;
 
-class VistaTextual {
+public class VistaTextual{
   
   CivitasJuego juegoModel; 
   int iGestion=-1;
@@ -23,7 +23,7 @@ class VistaTextual {
   
   private Scanner in;
   
-  VistaTextual () {
+  public VistaTextual() {
     in = new Scanner (System.in);
   }
   
@@ -94,7 +94,9 @@ class VistaTextual {
     int opcion = menu ("Indique el número de gestión inmobiliaria elegida",
       new ArrayList<> (Arrays.asList("Vender", "Hipotecar", "Cancelar hipoteca", "Construir casa", "Construir hotel", "Terminar")));
     
-    //this.iPropiedad = juegoModel.getJugadorActual(); No se como sacar el indice de la propiedad
+    Jugador ja = juegoModel.getJugadorActual();
+    
+    this.iPropiedad = ja.getNumCasillaActual();
     this.iGestion = opcion;
   }
   

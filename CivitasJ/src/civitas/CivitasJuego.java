@@ -175,7 +175,7 @@ public class CivitasJuego {
         this.indiceJugadorActual = (this.indiceJugadorActual + 1) % this.jugadores.size();
     }
 
-    private ArrayList<Jugador> ranking(){
+    public ArrayList<Jugador> ranking(){
         
         ArrayList<Jugador> ranking = new ArrayList();
         Jugador aux = new Jugador("AUXILIAR");

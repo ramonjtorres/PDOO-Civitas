@@ -25,7 +25,7 @@ module Civitas
       vista = Vista_Textual.new()
       dado = Dado.instance()
       dado.set_debug(true)
-      controlador = new Controlador(juego, vista)
+      controlador = Controlador.new(juego, vista)
       controlador.juega()
       
     end

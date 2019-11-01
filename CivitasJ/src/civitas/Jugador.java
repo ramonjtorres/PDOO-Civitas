@@ -200,7 +200,7 @@ public class Jugador implements Comparable<Jugador>{
         return nombre;
     }
     
-    int getNumCasillaActual(){
+    public int getNumCasillaActual(){
         return numCasillaActual;
     }
     
