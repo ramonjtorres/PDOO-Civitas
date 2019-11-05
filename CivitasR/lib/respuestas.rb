@@ -4,11 +4,11 @@
 
 module Civitas
   module Respuestas
-     
-    lista_respuestas = [Respuestas::NO,Respuestas::SI]
     
     SI = :si
     NO = :no
+    
+    lista_respuestas = [Respuestas::NO,Respuestas::SI]
     
   end
 end

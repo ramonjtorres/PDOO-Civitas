@@ -25,31 +25,34 @@ public class Casilla {
     Casilla(String cadena){
         
         nombre = cadena;
+        tipo = TipoCasilla.DESCANSO;
     }
     
     Casilla(TituloPropiedad titulo){
         init();
         tituloPropiedad = titulo;
-     
-        
+        tipo = TipoCasilla.CALLE;
     }
     
     Casilla(float cantidad, String nombre){
         init();
         this.nombre = nombre;
         this.importe = cantidad;
+        tipo = TipoCasilla.IMPUESTO;
     }
     
     Casilla(int numCasillaCarcel, String nombre){
         init();
         this.nombre = nombre;
         carcel = numCasillaCarcel;
+        tipo = TipoCasilla.JUEZ;
     }
     
     Casilla(MazoSorpresas mazo, String nombre){
         init();
         this.nombre = nombre;
         this.mazo = mazo;
+        tipo = TipoCasilla.SORPRESA;
     } 
     
     public String getNombre(){
@@ -83,22 +86,29 @@ public class Casilla {
     
     void recibeJugador(int iactual, ArrayList<Jugador> todos){
     
-        if(null==this.tipo) 
+        if(null == this.tipo){
+            System.out.println("NO HAY TIPO");
             this.informe(iactual, todos);
-        else switch (this.tipo) {
+        }
+        else switch(this.tipo){
             case CALLE:
-                this.recibeJugador(iactual, todos);
+                System.out.println("ES UNA CALLE");
+                this.recibeJugador_calle(iactual, todos);
                 break;
             case IMPUESTO:
+                System.out.println("ES UN IMPUESTO");
                 this.recibeJugador_impuesto(iactual, todos);
                 break;
             case JUEZ:
+                System.out.println("ES UN JUEZ");
                 this.recibeJugador_juez(iactual, todos);
                 break;
             case SORPRESA:
+                System.out.println("ES UNA SORPRESA");
                 this.recibeJugador_sorpresa(iactual, todos);
                 break;
             default:
+                System.out.println("ES UNA CALLE");
                 this.informe(iactual, todos);
                 break;
         }
@@ -108,7 +118,6 @@ public class Casilla {
         if(jugadorCorrecto(iactual,todos)){
             this.informe(iactual, todos);
             Jugador nuevo = todos.get(iactual);
-            
             if(!this.tituloPropiedad.tienePropietario()){
                 nuevo.puedeComprarCasilla();
             }

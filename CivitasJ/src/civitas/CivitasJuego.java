@@ -6,6 +6,7 @@
 package civitas;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -63,12 +64,13 @@ public class CivitasJuego {
     }
     
     public boolean comprar(){ 
-    Jugador jugadorActual = jugadores.get(indiceJugadorActual);
-    int numCasillaActual = jugadorActual.getNumCasillaActual();
-    Casilla casilla = tablero.getCasilla(numCasillaActual);
-    TituloPropiedad titulo = casilla.getTituloPropiedad();
-    Boolean res = jugadorActual.comprar(titulo);
-    return res;
+        Jugador jugadorActual = jugadores.get(indiceJugadorActual);
+        int numCasillaActual = jugadorActual.getNumCasillaActual();
+        Casilla casilla = tablero.getCasilla(numCasillaActual);
+        TituloPropiedad titulo = casilla.getTituloPropiedad();
+        Boolean res = jugadorActual.comprar(titulo);
+        
+        return res;
     }
     
     public boolean construirCasa(int ip){
@@ -178,21 +180,9 @@ public class CivitasJuego {
     public ArrayList<Jugador> ranking(){
         
         ArrayList<Jugador> ranking = new ArrayList();
-        Jugador aux = new Jugador("AUXILIAR");
         ranking = this.jugadores;
-        int i = 1;
         
-        while(i < ranking.size()-1){
-            
-            if(ranking.get(i-1).compareTo(ranking.get(i)) < 0){
-               
-                aux = ranking.get(i-1);
-                ranking.remove(i-1);
-                ranking.add(i, aux);                
-           }
-            
-           i++;
-        }
+        Collections.sort(ranking);
         
         return ranking;
     }
@@ -208,17 +198,23 @@ public class CivitasJuego {
     }
     
     public Operaciones_juego siguientePaso(){
-    Jugador jugadorActual = jugadores.get(indiceJugadorActual);
     
-    Operaciones_juego operacion=gestorEstados.operacionesPermitidas(jugadorActual, estado);
-    if(operacion==Operaciones_juego.PASAR_TURNO){
-        this.pasarTurno();
-        this.siguientePasoCompletado(operacion);
-    }else if(operacion==Operaciones_juego.AVANZAR){
-        this.avanzaJugador();
-        this.siguientePasoCompletado(operacion);
+        Jugador jugadorActual = jugadores.get(indiceJugadorActual);
+    
+        Operaciones_juego operacion=gestorEstados.operacionesPermitidas(jugadorActual, estado);
+        
+        if(operacion==Operaciones_juego.PASAR_TURNO){
+        
+            this.pasarTurno();
+            this.siguientePasoCompletado(operacion);
         }
-    return operacion;
+        else if(operacion==Operaciones_juego.AVANZAR){
+            
+            this.avanzaJugador();
+            this.siguientePasoCompletado(operacion);
+        }
+        
+        return operacion;
     
     }
     

@@ -12,7 +12,7 @@ import juegoTexto.*;
  *
  * @author ramonjtorres
  */
-public class Prueba {
+public class JuegoTexto {
     
     /**
      * @param args the command line arguments

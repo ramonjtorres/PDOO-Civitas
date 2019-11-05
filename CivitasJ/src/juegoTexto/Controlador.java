@@ -82,7 +82,7 @@ public class Controlador {
                         juego.construirHotel(ip);
                     }
                     else if(oi.getGestion() == GestionesInmobiliarias.HIPOTECAR){
-                    
+
                         juego.hipotecar(ip);
                     }
                     else if(oi.getGestion() == GestionesInmobiliarias.VENDER){

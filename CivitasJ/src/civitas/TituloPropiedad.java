@@ -86,7 +86,7 @@ public class TituloPropiedad {
         boolean construida = false;
         
         if(esEsteElPropietario(jugador)){
-        
+            
             propietario.paga(precioEdificar);
             numCasas+=1;
             construida = true;

@@ -8,51 +8,41 @@ module Civitas
   class Sorpresa
    
     public
-    def initialize(tipo, tablero)
+    def initialize(tipo, tablero, valor, texto, mazo)
       
-      init()
-      
-      @tipo = tipo
-      @tablero = tablero
-      @mazo = Mazo_Sorpresas.new
-      @texto = "Esta sorpresa te lleva a la cárcel"
-      
-    end
-    
-    public
-    def sorpresa_valor(tipo, tablero, valor, texto)
-      
-      init()
-      
-      @tipo = tipo
-      @tablero = tablero
       @valor = valor
-      @texto = texto
-      @mazo = Mazo_Sorpresas.new
-      
-    end
-    
-    public
-    def sorpresa_tablero(tipo, valor, tablero)
-      
-      init()
-      
       @tipo = tipo
       @tablero = tablero
-      @valor = valor
-      @mazo = Mazo_Sorpresas.new
-      @texto = "Esta sorpresa te lleva a otra casilla"
-      
-    end
-    
-    public
-    def sorpresa_mazo(tipo, mazo)
-      
-      init()
-      
-      @tipo = tipo
       @mazo = mazo
-      @texto = "Esta sorpresa evita que caigas en la cárcel"
+      @texto = texto
+      
+    end
+    
+    public
+    def self.sorpresa_carcel(tipo, tablero)
+
+      new(tipo, tablero, -1, "Esta sorpresa te lleva a la cárcel", Mazo_Sorpresas.new)
+      
+    end
+    
+    public
+    def self.sorpresa_valor(tipo, tablero, valor, texto)
+      
+      new(tipo, tablero, valor, texto, Mazo_Sorpresas.new)
+      
+    end
+    
+    public
+    def self.sorpresa_tablero(tipo, valor, tablero)
+      
+      new(tipo, tablero, valor, "Esta sorpresa te lleva a otra casilla", Mazo_Sorpresas.new)
+      
+    end
+    
+    public
+    def self.sorpresa_mazo(tipo, mazo)
+      
+      new(tipo, nil, -1, "Esta sorpresa evita que caigas en la cárcel", mazo)
       
     end
     
@@ -141,8 +131,7 @@ module Civitas
         
         informe(actual, todos)
             
-        pagar = Sorpresa.new(Tipo_Sorpresas::PAGAR_COBRAR, @tablero)
-        pagar.sorpresa_tablero(Tipo_Sorpresas::PAGAR_COBRAR, @valor*-1, @tablero)    
+        pagar = Sorpresa.sorpresa_tablero(Tipo_Sorpresas::PAGAR_COBRAR, @valor*-1, @tablero)    
         i = 0
         while(i<todos.length())
             
@@ -151,8 +140,7 @@ module Civitas
           end
           i= i+1
         end
-          cobrar = Sorpresa.new(Tipo_Sorpresas::PAGAR_COBRAR, @tablero)
-          cobrar.sorpresa_tablero(Tipo_Sorpresas::PAGAR_COBRAR, @valor*(todos.length()-1), @tablero)
+          cobrar = Sorpresa.sorpresa_tablero(Tipo_Sorpresas::PAGAR_COBRAR, @valor*(todos.length()-1), @tablero)
           cobrar.aplicar_a_jugador(actual, todos)
       end
       
@@ -185,16 +173,7 @@ module Civitas
     private
     def informe(actual, todos)
       
-      Diario.instance.ocurre_evento("Se esta aplicando una sorpresa " + @tipo.to_s + " al jugador " + todos.find(actual).to_s);
-      
-    end
-    
-    private
-    def init()
-      
-      @valor = -1
-      @mazo = nil
-      @tablero = nil
+      Diario.instance.ocurre_evento("Se esta aplicando una sorpresa " + @tipo.to_s + " al jugador " + todos.at(actual).to_s);
       
     end
     

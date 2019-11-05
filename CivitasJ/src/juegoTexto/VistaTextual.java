@@ -17,8 +17,8 @@ import civitas.TituloPropiedad;
 public class VistaTextual{
   
   CivitasJuego juegoModel; 
-  int iGestion=-1;
-  int iPropiedad=-1;
+  private int iGestion=-1;
+  private int iPropiedad=-1;
   private static String separador = "=====================";
   
   private Scanner in;

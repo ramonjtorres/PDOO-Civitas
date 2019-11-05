@@ -10,6 +10,8 @@ require_relative "tablero"
 require_relative "dado"
 require_relative "gestor_estados"
 require_relative "sorpresa"
+require_relative "tipo_sorpresas"
+require_relative "titulo_propiedad"
 require_relative "casilla"
 require_relative "diario"
 
@@ -63,10 +65,11 @@ module Civitas
     
     public
     def comprar()
-      Jugador jugadorActual = @jugadores.at(@indice_jugador_actual)
+      jugadorActual = @jugadores.at(@indice_jugador_actual)
       num_casilla_actual = jugadorActual.num_casilla_actual
-      Casilla casilla = @tablero.get_casilla(num_casilla_actual)
-      TituloPropiedad titulo = casilla.titulo
+      casilla = @tablero.get_casilla(num_casilla_actual)
+      titulo = casilla.titulo
+      
       return jugadorActual.comprar(titulo)
       
       
@@ -122,19 +125,17 @@ module Civitas
     def inicializar_mazo_sorpresas(tablero)
       @mazo = Mazo_Sorpresas.new
       
-      sorpresa = Sorpresa.new(Tipo_Sorpresas::SALIR_CARCEL, Tablero.new(20))
-      
-      @mazo.al_mazo(Sorpresa.new(Tipo_Sorpresas::IR_CARCEL, tablero))
-      @mazo.al_mazo(sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,4,tablero))
-      @mazo.al_mazo(sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,5,tablero))
-      @mazo.al_mazo(sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,10,tablero))
-      @mazo.al_mazo(sorpresa.sorpresa_mazo(Tipo_Sorpresas::SALIR_CARCEL,@mazo))
-      @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,-50,"El jugador debe pagar a cada uno de los demas jugadores 50€"))
-      @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,50,"Cada jugador te debe pagar 50€"))
-      @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad"))
-      @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"))
-      @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza"))
-      @mazo.al_mazo(sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"))
+      @mazo.al_mazo(Sorpresa.sorpresa_carcel(Tipo_Sorpresas::IR_CARCEL, tablero))
+      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,4,tablero))
+      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,5,tablero))
+      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,10,tablero))
+      @mazo.al_mazo(Sorpresa.sorpresa_mazo(Tipo_Sorpresas::SALIR_CARCEL,@mazo))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,-50,"El jugador debe pagar a cada uno de los demas jugadores 50€"))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,50,"Cada jugador te debe pagar 50€"))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad"))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza"))
+      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"))
 
     end
     
@@ -142,39 +143,37 @@ module Civitas
     def inicializar_tablero(mazo)
         
         @tablero = Tablero.new(4);#la carcel
-        
-        casilla = Casilla.new("Auxiliar")
 
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)))
+        @tablero.añade_casilla(Casilla.casilla_titulo("Ronda de Valencia", Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)))
  
-        @tablero.añade_casilla(casilla.casilla_cantidad(100, "Impuesto"));
+        @tablero.añade_casilla(Casilla.casilla_cantidad(100, "Impuesto"));
         
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Lavapies",10,0.5,25,50,20)));
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Cuatro Caminos",20,0.6,30,70,40)));
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Reina Victoria",20,0.6,30,70,40)));
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Bravo Murillo",30,0.7,35,90,60)));
+        @tablero.añade_casilla(Casilla.casilla_titulo("Lavapies", Titulo_Propiedad.new("Lavapies",10,0.5,25,50,20)));
+        @tablero.añade_casilla(Casilla.casilla_titulo("Cuatro Caminos", Titulo_Propiedad.new("Cuatro Caminos",20,0.6,30,70,40)));
+        @tablero.añade_casilla(Casilla.casilla_titulo("Reina Victoria", Titulo_Propiedad.new("Reina Victoria",20,0.6,30,70,40)));
+        @tablero.añade_casilla(Casilla.casilla_titulo("Bravo Murillo", Titulo_Propiedad.new("Bravo Murillo",30,0.7,35,90,60)));
         
-        @tablero.añade_casilla(casilla.casilla_mazo(mazo, "Sorpresa"));
+        @tablero.añade_casilla(Casilla.casilla_mazo(mazo, "Sorpresa"));
         
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Alberto Aguilera",40,0.7,35,90,80)));
+        @tablero.añade_casilla(Casilla.casilla_titulo("Alberto Aguilera", Titulo_Propiedad.new("Alberto Aguilera",40,0.7,35,90,80)));
         
-        @tablero.añade_casilla(Casilla.new("Parking"));
+        @tablero.añade_casilla(Casilla.casilla_descanso("Parking"));
         
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Fuencarral",40,0.8,40,110,80)));
+        @tablero.añade_casilla(Casilla.casilla_titulo("Fuencarral", Titulo_Propiedad.new("Fuencarral",40,0.8,40,110,80)));
         
-        @tablero.añade_casilla(casilla.casilla_mazo(mazo, "Sorpresa"));
+        @tablero.añade_casilla(Casilla.casilla_mazo(mazo, "Sorpresa"));
         
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Felipe II",50,0.8,40,110,100)));
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Velázquez",50,0.8,45,130,100)));
+        @tablero.añade_casilla(Casilla.casilla_titulo("Felipe II", Titulo_Propiedad.new("Felipe II",50,0.8,40,110,100)));
+        @tablero.añade_casilla(Casilla.casilla_titulo("Velázquez", Titulo_Propiedad.new("Velázquez",50,0.8,45,130,100)));
         
         @tablero.añade_juez;
         
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Puerta del Sol",70,0.8,45,160,100)));
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Alcalá",70,0.8,50,160,100)));
+        @tablero.añade_casilla(Casilla.casilla_titulo("Puerta del Sol", Titulo_Propiedad.new("Puerta del Sol",70,0.8,45,160,100)));
+        @tablero.añade_casilla(Casilla.casilla_titulo("Alcalá", Titulo_Propiedad.new("Alcalá",70,0.8,50,160,100)));
         
-        @tablero.añade_casilla(casilla.casilla_mazo(mazo, "Sorpresa"));
+        @tablero.añade_casilla(Casilla.casilla_mazo(mazo, "Sorpresa"));
         
-        @tablero.añade_casilla(casilla.casilla_titulo(Titulo_Propiedad.new("Paseo del Prado",100,0.8,60,250,120)));
+        @tablero.añade_casilla(Casilla.casilla_titulo("Paseo del Prado", Titulo_Propiedad.new("Paseo del Prado",100,0.8,60,250,120)));
         
     end
     
@@ -183,26 +182,12 @@ module Civitas
       @indice_jugador_actual = (@indice_jugador_actual + 1) % @jugadores.length
     end
     
-    private
+    public
     def ranking()
       ranking = Array.new
-      aux = Jugador.new("aux")
       ranking = @jugadores
-      i = 1
       
-      while(i<ranking.length-1)
-        
-        if(ranking.at(i-1).compare_to(ranking.at(i)) < 0)
-        
-          aux = ranking.at(i-1)
-          ranking.delete_at(i-1)
-          ranking.insert(i, aux)
-
-        end
-
-        i = i + 1
-        
-      end
+      ranking.sort!
       
       return ranking
     end
@@ -219,15 +204,19 @@ module Civitas
     
     public
     def siguiente_paso()
-      Jugador jugadorActual = @jugadores.at(@indice_jugador_actual)
       
-      Operaciones_juego operacion = @gestorEstados.operaciones_permitidas(jugadorActual, @estado)
+      jugadorActual = @jugadores.at(@indice_jugador_actual)
+      
+      operacion = @gestor_estados.operaciones_permitidas(jugadorActual, @estado)
+      
       if(operacion == Operaciones_juego::PASAR_TURNO)
-        pasar_turno
+      
+        pasar_turno()
         siguiente_paso_completado(operacion)
+      
       else
         if(operacion == Operaciones_juego::AVANZAR)
-          avanza_jugador
+          avanza_jugador()
           siguiente_paso_completado(operacion)
         end
       end

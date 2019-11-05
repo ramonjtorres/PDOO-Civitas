@@ -11,21 +11,14 @@ module Civitas
     attr_accessor :usadas, :ultima_sorpresa, :sorpresas
     
     @degb = false
-
-    private
-    def init()
     
+    def self.initialize_with_arguments(debg)
+      
+      @debug = debg
       @sorpresas = Array.new()
       @cartas_especiales = Array.new()
       @barajada = false
       @usadas = 0
-    
-    end
-    
-    def initialize_with_arguments(debg)
-      
-      @debug = debg
-      init()
       
       if(@debug)
         Diario.instance.ocurre_evento("Modo debug activado")
@@ -35,12 +28,15 @@ module Civitas
 
     def initialize() 
     
-      init()
+      @sorpresas = Array.new()
+      @cartas_especiales = Array.new()
+      @barajada = false
+      @usadas = 0
       @debug = false
     
     end
     
-    private
+    public
     def al_mazo(s)
     
       if(!@barajada)

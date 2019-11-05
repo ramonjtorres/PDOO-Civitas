@@ -60,16 +60,14 @@ module Civitas
 
     def salirCarcel()
     
-      opcion = menu("Elige la forma para intentar salir de la carcel",
-      Array.new["Pagando","Tirando el dado"])
+      opcion = menu("Elige la forma para intentar salir de la carcel", ["Pagando","Tirando el dado"])
     
       return lista_salir_carcel[opcion]
     end
     
     def comprar
       
-      opcion = menu("¿Desea comprar la calle a la que se ha llegado?",
-      Array.new["SI","NO"])
+      opcion = menu("¿Desea comprar la calle a la que se ha llegado?", ["SI","NO"])
     
       return lista_respuestas[opcion]
     end
@@ -77,7 +75,7 @@ module Civitas
     def gestionar
       
       opcion = menu("Indique el número de gestión inmobiliaria elegida",
-      Array.new["Vender", "Hipotecar", "Cancelar hipoteca", "Construir casa", "Construir hotel", "Terminar"])
+      ["Vender", "Hipotecar", "Cancelar hipoteca", "Construir casa", "Construir hotel", "Terminar"])
       
       @ipropiedad = @juegoModel.get_jugador_actual().get_casilla_actual()
       @igestion = opcion

@@ -23,7 +23,7 @@ module Civitas
       end
       
       @casillas = Array.new
-      @casillas.push(Casilla.new("Salida"))
+      @casillas.push(Casilla.casilla_descanso("Salida"))
       
       @por_salida = 0
       @tiene_juez = false
@@ -78,7 +78,7 @@ module Civitas
       
       if(@casillas.length == @num_casilla_carcel)
         
-        @casillas.push(Casilla.new("Cárcel"))
+        @casillas.push(Casilla.casilla_descanso("Cárcel"))
         
       end
       
@@ -86,7 +86,7 @@ module Civitas
       
       if(@casillas.length == @num_casilla_carcel)
         
-        @casillas.push(Casilla.new("Cárcel"))
+        @casillas.push(Casilla.casilla_descanso("Cárcel"))
         
       end
       
@@ -98,8 +98,7 @@ module Civitas
       if(!@tiene_juez)
         
         @tiene_juez = true
-        casilla = Casilla.new("Auxiliar")
-        @casillas.push(casilla.casilla_carcel(@num_casilla_carcel, "Cárcel"))
+        @casillas.push(Casilla.casilla_carcel(@num_casilla_carcel, "Cárcel"))
       end
       
     end
@@ -109,7 +108,7 @@ module Civitas
       
       if(correcto(num_casilla))
         
-        return @casillas.find(num_casilla)
+        return @casillas.at(num_casilla)
         
       end
       

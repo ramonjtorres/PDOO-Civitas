@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author ramonjtorres
  */
-class Dado {
+public class Dado {
   
   private Random random;
   private int ultimoResultado;
