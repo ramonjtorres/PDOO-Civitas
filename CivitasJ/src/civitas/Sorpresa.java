@@ -65,27 +65,21 @@ public class Sorpresa {
     void aplicarAJugador(int actual, ArrayList<Jugador> todos){
     
         if(this.tipo == TipoSorpresa.IRCARCEL){
-        
             this.aplicarAJugador_irCarcel(actual, todos);
         }
         else if(this.tipo == TipoSorpresa.SALIRCARCEL){
-            
             this.aplicarAJugador_salirCarcel(actual, todos);
         }
         else if(this.tipo == TipoSorpresa.PAGARCOBRAR){
-        
             this.aplicarAJugador_pagarCobrar(actual, todos);
         }
         else if(this.tipo == TipoSorpresa.PORCASAHOTEL){
-        
             this.aplicarAJugador_porCasaHotel(actual, todos);
         }
         else if(this.tipo == TipoSorpresa.PORJUGADOR){
-        
             this.aplicarAJugador_porJugador(actual, todos);
         }
         else{
-            
             this.aplicarAJugador_irACasilla(actual, todos);
         }
         

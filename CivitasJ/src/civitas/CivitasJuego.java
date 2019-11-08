@@ -33,8 +33,8 @@ public class CivitasJuego {
     estado = gestorEstados.estadoInicial();
     indiceJugadorActual = Dado.getInstance().quienEmpieza(jugadores.size());
     mazo = new MazoSorpresas();
-    this.inicializarMazoSorpresas(tablero);
-    this.inicializarTablero(mazo);  
+    this.inicializarTablero(mazo); 
+    this.inicializarMazoSorpresas(tablero); 
   
     }
     
@@ -122,7 +122,7 @@ public class CivitasJuego {
     }
     
     private void inicializarMazoSorpresas(Tablero tablero){
-        this.mazo = new MazoSorpresas();
+    
         mazo.alMazo(new Sorpresa(TipoSorpresa.IRCARCEL,tablero));
         mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA,4,tablero));//a la carcel
         mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA,5,tablero));
@@ -170,7 +170,7 @@ public class CivitasJuego {
         tablero.añadeCasilla(new Casilla(mazo, "Sorpresa"));
         
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Paseo del Prado",100, (float) 0.8,60,250,120))); 
-        }
+    }
     
     private void pasarTurno(){
     

@@ -6,6 +6,7 @@
 package civitas;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import juegoTexto.*;
 
 /**
@@ -19,13 +20,22 @@ public class JuegoTexto {
      */
     public static void main(String[] args) {
     
-        String jugador1 = "David";
-        String jugador2 = "Ramón";
-
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Indique el número de jugadores: ");
+        int num_jugadores = sc.nextInt();
         ArrayList<String> jugadores = new ArrayList();
-
-        jugadores.add(jugador1);
-        jugadores.add(jugador2);
+        int i = 0;
+        
+        System.out.println("Indique el nombre de los jugadores: ");
+        
+        do{
+        
+            System.out.println("Nombre jugador " + i + ": ");
+            jugadores.add(sc.next());
+            
+            i++;
+        }while( i < num_jugadores);
 
         CivitasJuego juego = new CivitasJuego(jugadores);
         VistaTextual vista = new VistaTextual();

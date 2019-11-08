@@ -96,7 +96,18 @@ public class VistaTextual{
     
     Jugador ja = juegoModel.getJugadorActual();
     
-    this.iPropiedad = ja.getNumCasillaActual();
+    ArrayList<TituloPropiedad> propiedades = ja.getPropiedades();
+    Casilla casillaActual = juegoModel.getCasillaActual();    
+    int ip=ja.getNumCasillaActual();
+    
+    for(int i = 0; i < propiedades.size(); i++){
+        
+        if(propiedades.get(i).getNombre().equals(casillaActual.getNombre())){
+           ip = i; 
+        }
+    }
+    
+    this.iPropiedad = ip;
     this.iGestion = opcion;
   }
   

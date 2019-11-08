@@ -7,10 +7,12 @@ package juegoTexto;
 
 import civitas.CivitasJuego;
 import civitas.GestionesInmobiliarias;
+import civitas.Jugador;
 import civitas.OperacionInmobiliaria;
 import civitas.Operaciones_juego;
 import civitas.Respuestas;
 import civitas.SalidasCarcel;
+import java.util.ArrayList;
 
 /**
  *
@@ -55,9 +57,9 @@ public class Controlador {
                     if(respuesta == Respuestas.SI){
                     
                         juego.comprar();
-                        
-                        juego.siguientePasoCompletado(Operaciones_juego.COMPRAR);
                     }
+                    
+                    juego.siguientePasoCompletado(Operaciones_juego.COMPRAR);
                 }
                 
                 if(operacion == Operaciones_juego.GESTIONAR){
@@ -113,6 +115,14 @@ public class Controlador {
             }
         }
         
-        System.out.println("Ranking:\n\n" + juego.ranking());
+        ArrayList<Jugador> ranking = juego.ranking();
+        
+        System.out.println("Ranking:\n\n");
+        
+        for(int i = 0; i < ranking.size(); i++){
+        
+            System.out.println(ranking.get(i).toString() + "\n");
+        }
+        
     }
 }

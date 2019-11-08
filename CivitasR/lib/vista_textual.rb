@@ -66,6 +66,7 @@ module Civitas
     end
     
     def comprar
+      lista_respuestas = [Respuestas::NO,Respuestas::SI]
       
       opcion = menu("¿Desea comprar la calle a la que se ha llegado?", ["SI","NO"])
     

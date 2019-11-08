@@ -136,7 +136,7 @@ public class TituloPropiedad {
         return (float) (hipotecaBase*(1+(numCasas*0.5)+(numHoteles*2.5)));
     }
     
-    String getNombre(){
+    public String getNombre(){
         return nombre;
     }
     

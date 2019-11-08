@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Casilla {
     
     private String nombre;
-    private static int carcel=0;
+    private static int carcel;
     private float importe;
     TipoCasilla tipo;
     TituloPropiedad tituloPropiedad;
@@ -24,13 +24,14 @@ public class Casilla {
     
     Casilla(String cadena){
         
-        nombre = cadena;
+        this.nombre = cadena;
         tipo = TipoCasilla.DESCANSO;
     }
     
     Casilla(TituloPropiedad titulo){
         init();
-        tituloPropiedad = titulo;
+        this.nombre = titulo.getNombre();
+        this.tituloPropiedad = titulo;
         tipo = TipoCasilla.CALLE;
     }
     
@@ -44,7 +45,7 @@ public class Casilla {
     Casilla(int numCasillaCarcel, String nombre){
         init();
         this.nombre = nombre;
-        carcel = numCasillaCarcel;
+        this.carcel = numCasillaCarcel;
         tipo = TipoCasilla.JUEZ;
     }
     
@@ -71,7 +72,6 @@ public class Casilla {
     
     private void init(){
         this.nombre = null;
-        this.carcel = -1;
         this.importe = -1;
         this.tituloPropiedad = null;
         this.sorpresa = null;
@@ -87,28 +87,22 @@ public class Casilla {
     void recibeJugador(int iactual, ArrayList<Jugador> todos){
     
         if(null == this.tipo){
-            System.out.println("NO HAY TIPO");
             this.informe(iactual, todos);
         }
         else switch(this.tipo){
             case CALLE:
-                System.out.println("ES UNA CALLE");
                 this.recibeJugador_calle(iactual, todos);
                 break;
             case IMPUESTO:
-                System.out.println("ES UN IMPUESTO");
                 this.recibeJugador_impuesto(iactual, todos);
                 break;
             case JUEZ:
-                System.out.println("ES UN JUEZ");
                 this.recibeJugador_juez(iactual, todos);
                 break;
             case SORPRESA:
-                System.out.println("ES UNA SORPRESA");
                 this.recibeJugador_sorpresa(iactual, todos);
                 break;
             default:
-                System.out.println("ES UNA CALLE");
                 this.informe(iactual, todos);
                 break;
         }
