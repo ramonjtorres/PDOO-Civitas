@@ -123,7 +123,6 @@ public class Jugador implements Comparable<Jugador>{
     boolean construirCasa(int ip){
         
         boolean puedoEdificarCasa = false;
-        boolean existe = false;
         boolean result = false;
         float precio = 0;
         
@@ -132,7 +131,7 @@ public class Jugador implements Comparable<Jugador>{
             return result;
         }
         
-        if( this.existeLaPropiedad(ip)){
+        if(this.existeLaPropiedad(ip)){
             
             TituloPropiedad propiedad = propiedades.get(ip);
             puedoEdificarCasa = this.puedoEdificarCasa(propiedad);
@@ -434,8 +433,6 @@ public class Jugador implements Comparable<Jugador>{
     }
     
     boolean vender(int ip){
-        
-        System.out.println("IP: " + ip);
         
         if(this.encarcelado){
             

@@ -124,12 +124,12 @@ module Civitas
     
     public
     def get_importe_cancelar_hipoteca()
-      return @factor_intereses_hipoteca*@hipoteca_base
+      return @@factor_intereses_hipoteca*@hipoteca_base
     end
     
     private
     def get_importe_hipoteca()
-      return @hipoteca_base*(1+(@num_casas*0.5)+(@numhoteles*2.5))
+      return @hipoteca_base*(1+(@num_casas*0.5)+(@num_hoteles*2.5))
       
     end
     
@@ -141,7 +141,7 @@ module Civitas
         return 0
       else
         
-        return @alquiler_base * (1+(@num_casas*0.5)+(@numhoteles*2.5))
+        return @alquiler_base * (1+(@num_casas*0.5)+(@num_hoteles*2.5))
       end
     end
     
@@ -191,7 +191,7 @@ module Civitas
     public
     def tramitar_alquiler(jugador)
       
-      if(@propietario != nil && es_este_el_propietario(jugador))
+      if(@propietario != nil && !es_este_el_propietario(jugador))
         
             jugador.paga_alquiler(get_precio_alquiler())
             @propietario.recibe(get_precio_alquiler())
@@ -209,7 +209,7 @@ module Civitas
       else
             
         jugador.recibe(get_precio_venta())
-        actualiza_propietario_por_conversion(nil)
+        actualizar_propietario_por_conversion(nil)
         @num_casas = 0
         @num_hoteles = 0
         return true
@@ -241,7 +241,7 @@ module Civitas
              "\n|  Precio Alquiler Base: " + @alquiler_base.to_s +
              "\n|  Precio Edificar: " + @precio_edificar.to_s +
              "\n|  Precio Hipoteca Base: " + @hipoteca_base.to_s +
-             "\n|  Factor Intereses Hipoteca: " + @factor_intereses_hipoteca.to_s +
+             "\n|  Factor Intereses Hipoteca: " + @@factor_intereses_hipoteca.to_s +
              "\n|  Factor Revalorización: " + @factor_revalorizacion.to_s +
              "\n|  Hipotecado: " + h.to_s;
     end

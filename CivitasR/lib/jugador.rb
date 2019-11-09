@@ -8,7 +8,7 @@ module Civitas
   class Jugador
     include Comparable
     
-    attr_reader :encarcelado, :casas_max, :hoteles_max, :casas_por_hotel, :nombre, :num_casilla_actual, :precio_libertad, :paso_por_salida, :propiedades, :puede_comprar, :saldo
+    attr_reader :encarcelado, :nombre, :num_casilla_actual, :propiedades, :puede_comprar, :saldo
     
     @@casas_max = 4
     @@hoteles_max = 4
@@ -42,6 +42,35 @@ module Civitas
       @saldo = otro.saldo
       
     end
+    public
+    def self.get_casas_max
+      
+      return @@casas_max
+    end
+    
+    public
+    def self.get_hoteles_max
+      
+      return @@hoteles_max
+    end
+    
+    public
+    def self.get_casas_por_hotel
+      
+      return @@casas_por_hotel
+    end
+    
+    public
+    def self.get_paso_por_salida
+      
+      return @@paso_por_salida
+    end
+    
+    public
+    def self.get_precio_libertad
+      
+      return @@precio_libertad
+    end
     
     public
     def cancelar_hipoteca(ip)
@@ -53,7 +82,7 @@ module Civitas
           return result
       end
 
-      if(existeLaPropiedad(ip))
+      if(existe_la_propiedad(ip))
 
           propiedad = @propiedades.at(ip)
           cantidad = propiedad.get_importe_cancelar_hipoteca()
@@ -65,7 +94,7 @@ module Civitas
 
               if(result)
 
-                  Diario.instance.ocurre_evento("El jugador" + @nombre + "cancela la hipoteca de la propiedad" + ip)
+                  Diario.instance.ocurre_evento("El jugador " + @nombre + " cancela la hipoteca de la propiedad " + ip.to_s)
               end
           end
       end
@@ -115,7 +144,7 @@ module Civitas
               if(result)
 
                   @propiedades.push(titulo)
-                  Diario.instance.ocurre_evento("El jugador" + self + "compra la propiedad" + titulo.to_s)
+                  Diario.instance.ocurre_evento("El jugador " + self.nombre + " compra la propiedad " + titulo.to_s)
               end
           end
       end
@@ -126,16 +155,14 @@ module Civitas
     public
     def construir_casa(ip)
       result = false
-      existe = false
       puedo_edificar_casa = false
       precio = 0
       if(@encarcelado)
         return result
-      else
-        existe = existe_la_propiedad(ip)
       end
       
-      if(!@encarcelado && existe)
+      if(existe_la_propiedad(ip))
+        
         propiedad = @propiedades.at(ip)
         result = puedo_edificar_casa(propiedad)
         precio = propiedad.precio_edificar
@@ -145,8 +172,9 @@ module Civitas
         end
         
         if(puedo_edificar_casa)
+        
           result = propiedad.construir_casa(self)
-          Diario.instance.ocurre_evento("El jugador "+ @nombre + "construye casa en la propiedad "+ ip)    
+          Diario.instance.ocurre_evento("El jugador "+ @nombre + " construye casa en la propiedad "+ ip.to_s)    
         end
       end
       
@@ -163,20 +191,20 @@ module Civitas
         return result
       end
         
-        if(existeLaPropiedad(ip))
+        if(existe_la_propiedad(ip))
         
             propiedad = @propiedades.at(ip)
             puedoEdificarHotel = puedo_edificar_hotel(propiedad)
-            precio = propiedad.get_precio_edificar()
+            precio = propiedad.precio_edificar
             
             if(puedoEdificarHotel)
             
                 result = propiedad.construir_hotel(self)
-                casasPorHotel = self.get_casas_por_hotel()
+                casasPorHotel = Jugador.get_casas_por_hotel()
                 
                 propiedad.derruir_casas(casasPorHotel, self)
                 
-                Diario.instance.ocurre_evento("El jugador " + @nombre + "construye hotel en la propiedad" + ip)
+                Diario.instance.ocurre_evento("El jugador " + @nombre + " construye hotel en la propiedad " + ip.to_s)
             end
             
         end
@@ -193,7 +221,7 @@ module Civitas
         return true
       else
         perder_salvoconducto()
-        Diario.instance.ocurre_event("El jugador se libra de la carcel")
+        Diario.instance.ocurre_evento("El jugador se libra de la carcel")
         return false
       end
       
@@ -241,7 +269,7 @@ module Civitas
 
           if(result)
 
-              Diario.instance.ocurre_evento("El jugador" + @nombre + "hipoteca la propiedad" + ip)
+              Diario.instance.ocurre_evento("El jugador " + @nombre + " hipoteca la propiedad " + ip.to_s)
           end
       end
 
@@ -274,7 +302,7 @@ module Civitas
         
         @num_casilla_actual = num_casilla
         @puede_comprar = false
-        diario.ocurre_evento("El jugador a sido movido de casilla a la numero "+ @num_casilla_actual.to_s)
+        diario.ocurre_evento("El jugador ha sido movido de casilla a la numero "+ @num_casilla_actual.to_s)
         return true
       end
       
@@ -305,7 +333,7 @@ module Civitas
     
     public
     def paga_impuesto(cantidad)
-      if(@encarcelado)
+      if(@encarcelado || cantidad == -1)
         return false
       else
         return paga(cantidad)

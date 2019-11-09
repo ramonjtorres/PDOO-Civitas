@@ -27,7 +27,7 @@ public class JuegoTexto {
         ArrayList<String> jugadores = new ArrayList();
         int i = 0;
         
-        System.out.println("Indique el nombre de los jugadores: ");
+        System.out.println("Indique el nombre de los jugadores:\n");
         
         do{
         

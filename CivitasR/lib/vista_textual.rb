@@ -59,6 +59,7 @@ module Civitas
     end
 
     def salirCarcel()
+      lista_salir_carcel = [Salidas_carcel::PAGANDO,Salidas_carcel::TIRANDO]
     
       opcion = menu("Elige la forma para intentar salir de la carcel", ["Pagando","Tirando el dado"])
     
@@ -66,7 +67,7 @@ module Civitas
     end
     
     def comprar
-      lista_respuestas = [Respuestas::NO,Respuestas::SI]
+      lista_respuestas = [Respuestas::SI,Respuestas::NO]
       
       opcion = menu("¿Desea comprar la calle a la que se ha llegado?", ["SI","NO"])
     
@@ -78,7 +79,25 @@ module Civitas
       opcion = menu("Indique el número de gestión inmobiliaria elegida",
       ["Vender", "Hipotecar", "Cancelar hipoteca", "Construir casa", "Construir hotel", "Terminar"])
       
-      @ipropiedad = @juegoModel.get_jugador_actual().get_casilla_actual()
+      ja = @juegoModel.get_jugador_actual()
+      
+      propiedades = ja.propiedades
+      casilla_actual = @juegoModel.get_casilla_actual()
+      ip = ja.num_casilla_actual
+      
+      var = 0
+      
+      while(var < propiedades.length())
+        
+        if(propiedades.at(var).nombre == casilla_actual.nombre)
+        
+          ip = var          
+        end
+        
+        var = var+1
+      end
+      
+      @ipropiedad = ip
       @igestion = opcion
     end
 

@@ -41,7 +41,7 @@ module Civitas
         
         if(!@juego.final_del_juego())
           
-          if(operacion != Operaciones_juego::COMPRAR)
+          if(operacion == Operaciones_juego::COMPRAR)
           
             respuesta = @vista.comprar()
             
@@ -49,18 +49,23 @@ module Civitas
               
               @juego.comprar()
               
-              @juego.siguiente_paso_completado(operacion)
             end
+            
+            @juego.siguiente_paso_completado(operacion)
           end
           
-          if(operacion != Operaciones_juego::GESTIONAR)
+          if(operacion == Operaciones_juego::GESTIONAR)
           
             @vista.gestionar()
             
             ig = @vista.getGestion
             ip = @vista.getPropiedad
+
+            lista_gestiones_inmobiliarias = [Gestiones_inmobiliarias::VENDER,
+              Gestiones_inmobiliarias::HIPOTECAR, Gestiones_inmobiliarias::CANCELAR_HIPOTECA,
+              Gestiones_inmobiliarias::CONSTRUIR_CASA, Gestiones_inmobiliarias::CONSTRUIR_HOTEL, Gestiones_inmobiliarias::TERMINAR]
             
-            oi = OperacionInmobiliaria.new(lista_gestiones_inmobiliarias[ig], ip)
+            oi = Operacion_inmobiliaria.new(lista_gestiones_inmobiliarias[ig], ip)
                     
             if(oi.gestion == Gestiones_inmobiliarias::CANCELAR_HIPOTECA)
               
@@ -107,7 +112,16 @@ module Civitas
         end
       end
         
-      puts("Ranking:\n\n" + @juego.ranking())
+      ranking = @juego.ranking()
+      
+      puts("Ranking:\n\n")
+      
+      for i in 0..ranking.length() do
+        
+        puts(ranking.at(i).to_s + "\n")
+        
+      end
+      
     end
   end
 end

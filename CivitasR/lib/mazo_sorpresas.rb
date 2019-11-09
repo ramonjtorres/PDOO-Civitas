@@ -14,13 +14,10 @@ module Civitas
     
     def self.initialize_with_arguments(debg)
       
-      @debug = debg
-      @sorpresas = Array.new()
-      @cartas_especiales = Array.new()
-      @barajada = false
-      @usadas = 0
+      new()
       
-      if(@debug)
+      if(debg)
+        @debug = debg
         Diario.instance.ocurre_evento("Modo debug activado")
       end
       
@@ -50,17 +47,16 @@ module Civitas
     def siguiente()
     
       if(!@barajada||@usadas == @sorpresas.length())
-        if(!@debug)
+        if(!(@debug))
           @barajada=true
           @usadas = 0 
         end
       end
       
       @usadas = @usadas+1
-      @ultima_sorpesa = @sorpresas.at(0)
+      @ultima_sorpresa = @sorpresas.at(0)
       @sorpresas.delete_at(0)
       @sorpresas.push(@ultima_sorpresa)
-      
       return @ultima_sorpresa
     
     end

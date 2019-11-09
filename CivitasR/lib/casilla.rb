@@ -8,7 +8,7 @@ require_relative "tipo_casilla"
 module Civitas
   class Casilla
     
-    attr_reader :nombre, :titulo, :importe, :mazo
+    attr_reader :nombre, :tituloPropiedad, :importe, :mazo
     
     def initialize(nombre, titulo, cantidad, num_casilla_carcel, mazo_sorpresas, tipo)
       
@@ -23,30 +23,30 @@ module Civitas
     
     def self.casilla_descanso(nombre)
       
-      new(nombre, nil, nil, nil, nil, Tipo_Casilla::DESCANSO)
+      new(nombre, nil, -1.0, -1.0, nil, Tipo_Casilla::DESCANSO)
     end
     
     def self.casilla_titulo(nombre, titulo)
       
-      new(nombre, titulo, nil, nil, nil, Tipo_Casilla::CALLE)
+      new(nombre, titulo, -1.0, -1.0, nil, Tipo_Casilla::CALLE)
       
     end
     
     def self.casilla_cantidad(cantidad, nombre)
       
-      new(nombre, nil, cantidad, nil, nil, Tipo_Casilla::IMPUESTO)
+      new(nombre, nil, cantidad, -1.0, nil, Tipo_Casilla::IMPUESTO)
       
     end
     
     def self.casilla_carcel(num_casilla_carcel, nombre)
       
-      new(nombre, nil, nil, num_casilla_carcel, nil, Tipo_Casilla::JUEZ)
+      new(nombre, nil, -1.0, num_casilla_carcel, nil, Tipo_Casilla::JUEZ)
       
     end
     
     def self.casilla_mazo(mazo_sorpresas, nombre)
       
-      new(nombre, nil, nil, nil, mazo_sorpresas, Tipo_Casilla::SORPRESA)
+      new(nombre, nil, -1.0, -1.0, mazo_sorpresas, Tipo_Casilla::SORPRESA)
       
     end
     
@@ -109,9 +109,9 @@ module Civitas
     private
     def recibe_jugador_sorpresa(iactual, todos)
       if(jugador_correcto(iactual,todos))
-        @sorpresa = @mazo.siguiente
+        @sorpresa = @mazo.siguiente()
         informe(iactual,todos)
-        sorpresa.aplicar_a_jugador(iactual, todos)
+        @sorpresa.aplicar_a_jugador(iactual, todos)
       end
       
     end

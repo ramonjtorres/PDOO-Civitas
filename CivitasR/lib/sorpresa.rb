@@ -21,21 +21,21 @@ module Civitas
     public
     def self.sorpresa_carcel(tipo, tablero)
 
-      new(tipo, tablero, -1, "Esta sorpresa te lleva a la cárcel", Mazo_Sorpresas.new)
+      new(tipo, tablero, -1, "Esta sorpresa te lleva a la cárcel", Mazo_Sorpresas.new())
       
     end
     
     public
     def self.sorpresa_valor(tipo, tablero, valor, texto)
       
-      new(tipo, tablero, valor, texto, Mazo_Sorpresas.new)
+      new(tipo, tablero, valor, texto, Mazo_Sorpresas.new())
       
     end
     
     public
     def self.sorpresa_tablero(tipo, valor, tablero)
       
-      new(tipo, tablero, valor, "Esta sorpresa te lleva a otra casilla", Mazo_Sorpresas.new)
+      new(tipo, tablero, valor, "Esta sorpresa te lleva a otra casilla", Mazo_Sorpresas.new())
       
     end
     
@@ -82,12 +82,12 @@ module Civitas
       if(jugador_correcto(actual, todos))
         
         informe(actual, todos)
-        casilla_actual = todos.find(actual).num_casilla_actual
+        casilla_actual = todos.at(actual).num_casilla_actual
         tirada = @tablero.calcular_tirada(casilla_actual, @valor)
             
         nuevaPosicion = @tablero.nueva_posicion(casilla_actual, tirada)
-        todos.find(actual).mover_a_casilla(nueva_posicion)
-        @tablero.getCasilla(@valor).recibe_jugador(actual, todos)
+        todos.at(actual).mover_a_casilla(nuevaPosicion)
+        @tablero.get_casilla(@valor).recibe_jugador(actual, todos)
       end     
       
     end
@@ -205,9 +205,9 @@ module Civitas
     end
     
     public
-    def to_string()
+    def to_s()
       
-      return @tipo.name()
+      return @tipo.to_s
 
     end
   

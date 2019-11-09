@@ -25,7 +25,7 @@ module Civitas
     public 
     def tirar()
       
-      if(@debug)
+      if(!@debug)
        
         @ultimo_resultado = rand(5) + 1
         

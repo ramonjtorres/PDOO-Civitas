@@ -97,8 +97,8 @@ module Civitas
       
       if(!@tiene_juez)
         
-        @tiene_juez = true
         @casillas.push(Casilla.casilla_carcel(@num_casilla_carcel, "Cárcel"))
+        @tiene_juez = true
       end
       
     end
@@ -125,7 +125,7 @@ module Civitas
         
       else
         
-        nueva = (actual + tirada) % @casillas.length
+        nueva = (actual + tirada) % @casillas.length()
         
         if(nueva != (actual + tirada))
           

@@ -10,19 +10,29 @@ require_relative "controlador"
 module Civitas
   class Juego_texto
     
-    def main
-      
-      jugador1 = "David"
-      jugador2 = "Ramón"
+    def self.main
 
       jugadores = Array.new
 
-      jugadores.push(jugador1)
-      jugadores.push(jugador2)
-
+      print "Indica el número de jugadores: "
+      num_jugadores = gets.chomp
+      
+      i = 0
+      
+      print "Indica el nombre de los jugadores:\n"
+      
+      loop do
+        
+        print "Nombre jugador " + i.to_s + ":"
+        jugadores.push(gets.chomp)
+        
+        i = i + 1
+        
+        break if (i >= num_jugadores.to_i)
+      end
       juego = Civitas_Juego.new(jugadores)
       vista = Vista_textual.new()
-      dado = Dado.instance()
+      dado = Dado.instance
       dado.set_debug(true)
       controlador = Controlador.new(juego, vista)
       controlador.juega()
@@ -30,7 +40,6 @@ module Civitas
     end
   end
   
-  juego = Juego_texto.new
-  juego.main
+  Juego_texto.main
 
 end

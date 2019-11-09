@@ -18,10 +18,11 @@ require_relative "diario"
 module Civitas
   class Civitas_Juego
     
+    attr_reader :mazo
+    
     public
     def initialize(nombres)
-      
-      @tablero = Tablero.new(20)
+ 
       @jugadores = Array.new
       var = 0
       while (var < nombres.length())
@@ -33,9 +34,9 @@ module Civitas
       @gestor_estados = Gestor_estados.new
       @estado = @gestor_estados.estado_inicial
       @indice_jugador_actual = Dado.instance.quien_empieza(@jugadores.length())
-      @mazo = Mazo_Sorpresas.new
-      inicializar_mazo_sorpresas(@tablero)
+      @mazo = Mazo_Sorpresas.new()
       inicializar_tablero(@mazo)
+      inicializar_mazo_sorpresas(@tablero)
     end
     
     private
@@ -68,7 +69,7 @@ module Civitas
       jugadorActual = @jugadores.at(@indice_jugador_actual)
       num_casilla_actual = jugadorActual.num_casilla_actual
       casilla = @tablero.get_casilla(num_casilla_actual)
-      titulo = casilla.titulo
+      titulo = casilla.tituloPropiedad
       
       return jugadorActual.comprar(titulo)
       
@@ -123,7 +124,6 @@ module Civitas
     
     private
     def inicializar_mazo_sorpresas(tablero)
-      @mazo = Mazo_Sorpresas.new
       
       @mazo.al_mazo(Sorpresa.sorpresa_carcel(Tipo_Sorpresas::IR_CARCEL, tablero))
       @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,4,tablero))
@@ -213,12 +213,10 @@ module Civitas
       
         pasar_turno()
         siguiente_paso_completado(operacion)
-      
-      else
-        if(operacion == Operaciones_juego::AVANZAR)
+ 
+      elsif(operacion == Operaciones_juego::AVANZAR)
           avanza_jugador()
           siguiente_paso_completado(operacion)
-        end
       end
       
       return operacion   
