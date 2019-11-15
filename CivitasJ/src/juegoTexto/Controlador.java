@@ -117,7 +117,8 @@ public class Controlador {
         
         ArrayList<Jugador> ranking = juego.ranking();
         
-        System.out.println("Ranking:\n\n");
+        System.out.println("===================================================================");
+        System.out.println("\nRanking:\n\n");
         
         for(int i = 0; i < ranking.size(); i++){
         

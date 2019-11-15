@@ -114,6 +114,7 @@ module Civitas
         
       ranking = @juego.ranking()
       
+      puts("===================================================================")
       puts("Ranking:\n\n")
       
       for i in 0..ranking.length() do

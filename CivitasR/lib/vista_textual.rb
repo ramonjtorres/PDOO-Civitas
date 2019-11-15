@@ -5,6 +5,8 @@ require 'io/console'
 module Civitas
 
   class Vista_textual
+    
+    separador = "================================= COMENZAMOS =================================="
 
     def mostrar_estado(estado)
       puts estado
@@ -82,19 +84,19 @@ module Civitas
       ja = @juegoModel.get_jugador_actual()
       
       propiedades = ja.propiedades
-      casilla_actual = @juegoModel.get_casilla_actual()
-      ip = ja.num_casilla_actual
+      nombre_propiedades = Array.new
       
       var = 0
       
       while(var < propiedades.length())
         
-        if(propiedades.at(var).nombre == casilla_actual.nombre)
-        
-          ip = var          
-        end
-        
+        nombre_propiedades.push(propiedades.at(var).nombre)                
         var = var+1
+      end
+      
+      if(opcion != 5)
+        
+        ip = menu("Indique el número de la propiedad a gestionar", nombre_propiedades)
       end
       
       @ipropiedad = ip
@@ -130,7 +132,10 @@ module Civitas
     def actualizarVista
       
       puts "\nJugador Actual: " + @juegoModel.get_jugador_actual().to_s
+      puts separador
       puts "\nCasilla Actual: " + @juegoModel.get_casilla_actual().to_s
+      puts separador
+      puts separador
       
     end
 

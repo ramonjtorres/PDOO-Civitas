@@ -19,7 +19,7 @@ public class VistaTextual{
   CivitasJuego juegoModel; 
   private int iGestion=-1;
   private int iPropiedad=-1;
-  private static String separador = "=====================";
+  private static String separador = "===================================================================";
   
   private Scanner in;
   
@@ -97,14 +97,19 @@ public class VistaTextual{
     Jugador ja = juegoModel.getJugadorActual();
     
     ArrayList<TituloPropiedad> propiedades = ja.getPropiedades();
-    Casilla casillaActual = juegoModel.getCasillaActual();    
-    int ip=ja.getNumCasillaActual();
+    ArrayList<String> nombrePropiedades = new ArrayList<String>(); 
     
     for(int i = 0; i < propiedades.size(); i++){
         
-        if(propiedades.get(i).getNombre().equals(casillaActual.getNombre())){
-           ip = i; 
-        }
+        nombrePropiedades.add(propiedades.get(i).getNombre());
+    }
+    
+    int ip = -1;
+    
+    if(opcion != 5){
+    
+        ip = menu ("Indique el número de la propiedad a gestionar",
+      nombrePropiedades);
     }
     
     this.iPropiedad = ip;
@@ -145,6 +150,9 @@ public class VistaTextual{
   void actualizarVista(){
   
       System.out.println("\nJugador Actual: " + juegoModel.getJugadorActual().toString());
+      System.out.println(separador);
       System.out.println("\nCasilla Actual: " + juegoModel.getCasillaActual().toString());
+      System.out.println(separador);
+      System.out.println(separador);
   } 
 }

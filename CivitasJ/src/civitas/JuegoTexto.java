@@ -21,21 +21,27 @@ public class JuegoTexto {
     public static void main(String[] args) {
     
         Scanner sc = new Scanner(System.in);
+        int num_jugadores;
         
-        System.out.println("Indique el número de jugadores: ");
-        int num_jugadores = sc.nextInt();
+        do{
+            System.out.println("Indique el número de jugadores (de 2 a 4 jugadores): ");
+            num_jugadores = sc.nextInt();
+        
+        }while(num_jugadores < 2 || num_jugadores > 4);
+        
         ArrayList<String> jugadores = new ArrayList();
         int i = 0;
         
-        System.out.println("Indique el nombre de los jugadores:\n");
+        System.out.println("Indique el nombre de los jugadores:");
         
         do{
         
             System.out.println("Nombre jugador " + i + ": ");
             jugadores.add(sc.next());
-            
             i++;
         }while( i < num_jugadores);
+        
+        System.out.println("================================= COMENZAMOS ==================================");
 
         CivitasJuego juego = new CivitasJuego(jugadores);
         VistaTextual vista = new VistaTextual();
