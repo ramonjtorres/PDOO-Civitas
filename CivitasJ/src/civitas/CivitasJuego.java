@@ -66,7 +66,7 @@ public class CivitasJuego {
     public boolean comprar(){ 
         Jugador jugadorActual = jugadores.get(indiceJugadorActual);
         int numCasillaActual = jugadorActual.getNumCasillaActual();
-        Casilla casilla = tablero.getCasilla(numCasillaActual);
+        CasillaCalle casilla = (CasillaCalle) tablero.getCasilla(numCasillaActual);
         TituloPropiedad titulo = casilla.getTituloPropiedad();
         Boolean res = jugadorActual.comprar(titulo);
         
@@ -123,53 +123,53 @@ public class CivitasJuego {
     
     private void inicializarMazoSorpresas(Tablero tablero){
     
-        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCARCEL,tablero));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA,4,tablero));//a la carcel
-        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA,5,tablero));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA,10,tablero));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.SALIRCARCEL,mazo));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PORJUGADOR,tablero,-50,"El jugador debe pagar a cada uno de los demas jugadores 50€"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PORJUGADOR,tablero,50,"Cada jugador te debe pagar 50€"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL,tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR,tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"));
+        mazo.alMazo(new SorpresaCarcel(tablero));
+        mazo.alMazo(new SorpresaCasilla(4,tablero));//a la carcel
+        mazo.alMazo(new SorpresaCasilla(5,tablero));
+        mazo.alMazo(new SorpresaCasilla(10,tablero));
+        mazo.alMazo(new SorpresaSalvoconducto(mazo));
+        mazo.alMazo(new SorpresaJugador(tablero,-50,"El jugador debe pagar a cada uno de los demas jugadores 50€"));
+        mazo.alMazo(new SorpresaJugador(tablero,50,"Cada jugador te debe pagar 50€"));
+        mazo.alMazo(new SorpresaEdificacion(tablero,30,"Recibes 30€ por cada casa y hotel en propiedad"));
+        mazo.alMazo(new SorpresaEdificacion(tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"));
+        mazo.alMazo(new SorpresaPagarCobrar(tablero,-100,"Pagas 100€ por gastos de limpieza"));
+        mazo.alMazo(new SorpresaPagarCobrar(tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"));
     }
     
     private void inicializarTablero(MazoSorpresas mazo){
         
         tablero = new Tablero(4);//la carcel
 
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Ronda de Valencia", 10, (float) 0.5,25,50,20)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Ronda de Valencia", 10, (float) 0.5,25,50,20)));
  
-        tablero.añadeCasilla(new Casilla((float)100, "Impuesto"));
+        tablero.añadeCasilla(new CasillaImpuesto((float)100, "Impuesto"));
         
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Lavapies",10, (float) 0.5,25,50,20)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Cuatro Caminos",20, (float) 0.6,30,70,40)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Reina Victoria",20, (float) 0.6,30,70,40)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Bravo Murillo",30, (float) 0.7,35,90,60)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Lavapies",10, (float) 0.5,25,50,20)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Cuatro Caminos",20, (float) 0.6,30,70,40)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Reina Victoria",20, (float) 0.6,30,70,40)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Bravo Murillo",30, (float) 0.7,35,90,60)));
         
-        tablero.añadeCasilla(new Casilla(mazo, "Sorpresa"));
+        tablero.añadeCasilla(new CasillaSorpresa(mazo, "Sorpresa"));
         
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Alberto Aguilera",40, (float) 0.7,35,90,80)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Alberto Aguilera",40, (float) 0.7,35,90,80)));
         
         tablero.añadeCasilla(new Casilla("Parking"));
         
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Fuencarral",40, (float) 0.8,40,110,80)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Fuencarral",40, (float) 0.8,40,110,80)));
         
-        tablero.añadeCasilla(new Casilla(mazo, "Sorpresa"));
+        tablero.añadeCasilla(new CasillaSorpresa(mazo, "Sorpresa"));
         
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Felipe II",50, (float) 0.8,40,110,100)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Velázquez",50, (float) 0.8,45,130,100)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Felipe II",50, (float) 0.8,40,110,100)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Velázquez",50, (float) 0.8,45,130,100)));
         
         tablero.añadeJuez();
         
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Puerta del Sol",70, (float) 0.8,45,160,100)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Alcalá",70, (float) 0.8,50,160,100)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Puerta del Sol",70, (float) 0.8,45,160,100)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Alcalá",70, (float) 0.8,50,160,100)));
         
-        tablero.añadeCasilla(new Casilla(mazo, "Sorpresa"));
+        tablero.añadeCasilla(new CasillaSorpresa(mazo, "Sorpresa"));
         
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Paseo del Prado",100, (float) 0.8,60,250,120))); 
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Paseo del Prado",100, (float) 0.8,60,250,120))); 
     }
     
     private void pasarTurno(){

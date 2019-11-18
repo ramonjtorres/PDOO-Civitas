@@ -10,16 +10,15 @@ import java.util.ArrayList;
 /**
  *
  * @author ramonjtorres
- * @author david
  */
-public abstract class Sorpresa {
+public class SorpresaCarcel extends Sorpresa{
     
     private String texto;
     private int valor;
     MazoSorpresas mazo;
     Tablero tablero;
     
-    Sorpresa(Tablero tablero){
+    SorpresaCarcel(Tablero tablero){
     
         this.tablero = tablero;
         this.mazo = new MazoSorpresas();
@@ -27,33 +26,20 @@ public abstract class Sorpresa {
     
     }
     
-    Sorpresa(Tablero tablero, int valor, String texto){
+    @Override
+    void aplicarAJugador(int actual, ArrayList<Jugador> todos){
     
-        this.tablero = tablero;
-        this.texto = texto;
-        this.valor = valor;
-        this.mazo = new MazoSorpresas();
+        if(this.jugadorCorrecto(actual, todos)){
+        
+            this.informe(actual, todos);
+            todos.get(actual).encarcelar(tablero.getCarcel());
+        }
+        
     }
-    
-    Sorpresa(int valor, Tablero tablero){
-    
-        this.valor = valor;
-        this.tablero = tablero;
-        this.texto = "Esta sorpresa te lleva a otra casilla";
-        this.mazo = new MazoSorpresas();
-    }
-    
-    Sorpresa(MazoSorpresas mazo){
-    
-        this.mazo = mazo;
-        this.texto = "Esta sorpresa evita que caigas en la cárcel";
-    }
-    
-    void aplicarAJugador(int actual, ArrayList<Jugador> todos){}
     
     private void informe(int actual, ArrayList<Jugador> todos){
     
-        Diario.getInstance().ocurreEvento("Se esta aplicando una sorpresa abstracta al jugador " + todos.get(actual).getNombre());
+        Diario.getInstance().ocurreEvento("Se esta aplicando una sorpresa IR A CÄRCEL al jugador " + todos.get(actual).getNombre());
     }
     
     public boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){
@@ -77,8 +63,14 @@ public abstract class Sorpresa {
         }
     }
     
+    @Override
     public String toString(){
         
-        return "Clase Sorpresa Abstracta";
+        String sorpresa = "Tipo: Sorpresa Cárcel\n";
+        
+        sorpresa += this.texto;
+        
+        return sorpresa;
     }
+    
 }

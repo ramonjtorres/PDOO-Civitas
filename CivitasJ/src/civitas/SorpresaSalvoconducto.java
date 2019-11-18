@@ -10,50 +10,46 @@ import java.util.ArrayList;
 /**
  *
  * @author ramonjtorres
- * @author david
  */
-public abstract class Sorpresa {
+public class SorpresaSalvoconducto extends Sorpresa{
     
     private String texto;
     private int valor;
     MazoSorpresas mazo;
-    Tablero tablero;
     
-    Sorpresa(Tablero tablero){
-    
-        this.tablero = tablero;
-        this.mazo = new MazoSorpresas();
-        this.texto = "Esta sorpresa te lleva a la cárcel";
-    
-    }
-    
-    Sorpresa(Tablero tablero, int valor, String texto){
-    
-        this.tablero = tablero;
-        this.texto = texto;
-        this.valor = valor;
-        this.mazo = new MazoSorpresas();
-    }
-    
-    Sorpresa(int valor, Tablero tablero){
-    
-        this.valor = valor;
-        this.tablero = tablero;
-        this.texto = "Esta sorpresa te lleva a otra casilla";
-        this.mazo = new MazoSorpresas();
-    }
-    
-    Sorpresa(MazoSorpresas mazo){
+    SorpresaSalvoconducto(MazoSorpresas mazo){
     
         this.mazo = mazo;
         this.texto = "Esta sorpresa evita que caigas en la cárcel";
     }
     
-    void aplicarAJugador(int actual, ArrayList<Jugador> todos){}
+    @Override
+    void aplicarAJugador(int actual, ArrayList<Jugador> todos){
+    
+        if(this.jugadorCorrecto(actual, todos)){
+        
+            this.informe(actual, todos);
+            int i = 0;
+            boolean tiene = false;
+                    
+            while(i<todos.size()){
+                
+                tiene = todos.get(i).tieneSalvoconducto();
+                i++;
+            }
+            
+            if(!tiene){
+            
+                todos.get(actual).obtenerSalvoconducto(this);
+                this.salirDelMazo();
+            }
+        }
+        
+    }
     
     private void informe(int actual, ArrayList<Jugador> todos){
     
-        Diario.getInstance().ocurreEvento("Se esta aplicando una sorpresa abstracta al jugador " + todos.get(actual).getNombre());
+        Diario.getInstance().ocurreEvento("Se esta aplicando una sorpresa SALIR DE LA CÁRCEL al jugador " + todos.get(actual).getNombre());
     }
     
     public boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){
@@ -77,8 +73,13 @@ public abstract class Sorpresa {
         }
     }
     
+    @Override
     public String toString(){
         
-        return "Clase Sorpresa Abstracta";
+        String sorpresa = "Tipo: Sorpresa Salvoconducto\n";
+        
+        sorpresa += this.texto;
+        
+        return sorpresa;
     }
 }

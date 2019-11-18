@@ -11,45 +11,37 @@ import java.util.ArrayList;
  *
  * @author ramonjtorres
  */
-public class Casilla {
+public class CasillaImpuesto extends Casilla{
     
     private String nombre;
+    private float importe;
     
-    Casilla(String cadena){
-        
-        this.nombre = cadena;
+    CasillaImpuesto(float cantidad, String nombre){
+        super(nombre);
+        this.importe = cantidad;
     }
     
-    public String getNombre(){
-    
-        return nombre;
-    }
-    
-    void informe(int actual, ArrayList<Jugador> todos){
-              Diario.getInstance().ocurreEvento("Jugador actual: "+todos.get(actual).getNombre()+this.toString());
-    
-    }
-    
-    public boolean jugadorCorrecto(int iactual, ArrayList<Jugador> todos){
-        if(iactual>=0 && iactual<todos.size())
-            return true;
-        else return false;
-    }
-    
+    @Override
     void recibeJugador(int iactual, ArrayList<Jugador> todos){
     
+        if(this.jugadorCorrecto(iactual, todos)){
             this.informe(iactual, todos);
+            todos.get(iactual).pagaImpuesto(this.importe);
+        }
     }
     
+    @Override
     public String toString(){
-        
         String Casilla="\n";
         
         if(nombre!=null)
             Casilla = "\n  Nombre casilla: "+nombre;
+        if(importe!=-1.0)
+            Casilla = Casilla +"\n  Importe: " + importe;
         
-        Casilla = Casilla +"\n  Tipo Casilla: DESCANSO";
+        Casilla = Casilla +"\n  Tipo Casilla: IMPUESTO";
         
         return Casilla;
     }
+    
 }

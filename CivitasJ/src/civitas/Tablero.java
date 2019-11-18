@@ -94,7 +94,7 @@ public class Tablero {
     
         if(!tieneJuez){
             
-            casillas.add(new Casilla(this.numCasillaCarcel, "Juez"));
+            casillas.add(new CasillaJuez(this.numCasillaCarcel, "Juez"));
             tieneJuez = true;
         }
     }

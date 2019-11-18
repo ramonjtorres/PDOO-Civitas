@@ -218,7 +218,7 @@ public class Jugador implements Comparable<Jugador>{
         return ip < this.propiedades.size();
     }
     
-    private int getCasasMax(){
+    int getCasasMax(){
         return CasasMax;
     }
     
@@ -226,7 +226,7 @@ public class Jugador implements Comparable<Jugador>{
         return CasasPorHotel;
     }
     
-    private int getHotelesMax(){
+    int getHotelesMax(){
         return HotelesMax;
     }
     
@@ -356,7 +356,7 @@ public class Jugador implements Comparable<Jugador>{
     
     private boolean puedoEdificarCasa(TituloPropiedad propiedad){
         
-        if(this.propiedades.contains(propiedad) && this.saldo >= propiedad.getPrecioEdificar() && propiedad.getNumCasas() < 4){
+        if(this.propiedades.contains(propiedad) && this.saldo >= propiedad.getPrecioEdificar() && propiedad.getNumCasas() < this.getCasasMax()){
         
             return true;
         }
@@ -378,7 +378,7 @@ public class Jugador implements Comparable<Jugador>{
         }
     }
     
-    private boolean puedoGastar(float precio){
+    boolean puedoGastar(float precio){
         if(this.encarcelado)
             return false;
         else
@@ -454,6 +454,7 @@ public class Jugador implements Comparable<Jugador>{
         }
     }
     
+    @Override
     public String toString(){
      
         String s = "No";
@@ -463,7 +464,7 @@ public class Jugador implements Comparable<Jugador>{
             s = "Sí";
         }
         
-        return "Nombre: " + this.getNombre() +
+        return "Nombre Jugador: " + this.getNombre() +
                "\nSaldo: " + this.getSaldo() +
                "\nCasilla Actual: " + this.getNumCasillaActual() +
                "\nSalvoconducto: " + s +

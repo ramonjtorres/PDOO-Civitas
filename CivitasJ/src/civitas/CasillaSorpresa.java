@@ -11,45 +11,37 @@ import java.util.ArrayList;
  *
  * @author ramonjtorres
  */
-public class Casilla {
+public class CasillaSorpresa extends Casilla{
     
     private String nombre;
-    
-    Casilla(String cadena){
-        
-        this.nombre = cadena;
+    Sorpresa sorpresa;
+    MazoSorpresas mazo;
+
+    CasillaSorpresa(MazoSorpresas mazo, String nombre){
+        super(nombre);
+        this.mazo = mazo;
     }
     
-    public String getNombre(){
-    
-        return nombre;
-    }
-    
-    void informe(int actual, ArrayList<Jugador> todos){
-              Diario.getInstance().ocurreEvento("Jugador actual: "+todos.get(actual).getNombre()+this.toString());
-    
-    }
-    
-    public boolean jugadorCorrecto(int iactual, ArrayList<Jugador> todos){
-        if(iactual>=0 && iactual<todos.size())
-            return true;
-        else return false;
-    }
-    
+    @Override
     void recibeJugador(int iactual, ArrayList<Jugador> todos){
     
+        if(this.jugadorCorrecto(iactual, todos)){
+            this.sorpresa = mazo.siguiente();
             this.informe(iactual, todos);
+            sorpresa.aplicarAJugador(iactual, todos);
+        }
     }
     
+    @Override
     public String toString(){
-        
         String Casilla="\n";
         
         if(nombre!=null)
             Casilla = "\n  Nombre casilla: "+nombre;
         
-        Casilla = Casilla +"\n  Tipo Casilla: DESCANSO";
+        Casilla = Casilla +"\n  Tipo Casilla: SORPRESA";
         
         return Casilla;
     }
+    
 }

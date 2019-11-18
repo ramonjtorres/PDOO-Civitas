@@ -11,45 +11,38 @@ import java.util.ArrayList;
  *
  * @author ramonjtorres
  */
-public class Casilla {
+public class CasillaJuez extends Casilla{
     
     private String nombre;
+    private static int carcel;
     
-    Casilla(String cadena){
-        
-        this.nombre = cadena;
+    CasillaJuez(int numCasillaCarcel, String nombre){
+        super(nombre);
+        this.carcel = numCasillaCarcel;
     }
     
-    public String getNombre(){
-    
-        return nombre;
-    }
-    
-    void informe(int actual, ArrayList<Jugador> todos){
-              Diario.getInstance().ocurreEvento("Jugador actual: "+todos.get(actual).getNombre()+this.toString());
-    
-    }
-    
-    public boolean jugadorCorrecto(int iactual, ArrayList<Jugador> todos){
-        if(iactual>=0 && iactual<todos.size())
-            return true;
-        else return false;
-    }
-    
+    @Override
     void recibeJugador(int iactual, ArrayList<Jugador> todos){
     
+        if(this.jugadorCorrecto(iactual, todos)){
             this.informe(iactual, todos);
+            todos.get(iactual).encarcelar(carcel);
+        }
     }
     
+    @Override
     public String toString(){
         
         String Casilla="\n";
         
         if(nombre!=null)
             Casilla = "\n  Nombre casilla: "+nombre;
+        if(carcel!=-1.0)
+            Casilla =Casilla + "\n  Carcel: " + carcel;
         
-        Casilla = Casilla +"\n  Tipo Casilla: DESCANSO";
+        Casilla = Casilla +"\n  Tipo Casilla: JUEZ";
         
         return Casilla;
     }
+    
 }

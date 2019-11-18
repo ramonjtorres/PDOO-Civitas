@@ -10,32 +10,15 @@ import java.util.ArrayList;
 /**
  *
  * @author ramonjtorres
- * @author david
  */
-public abstract class Sorpresa {
+public class SorpresaCasilla extends Sorpresa{
     
     private String texto;
     private int valor;
     MazoSorpresas mazo;
     Tablero tablero;
-    
-    Sorpresa(Tablero tablero){
-    
-        this.tablero = tablero;
-        this.mazo = new MazoSorpresas();
-        this.texto = "Esta sorpresa te lleva a la cárcel";
-    
-    }
-    
-    Sorpresa(Tablero tablero, int valor, String texto){
-    
-        this.tablero = tablero;
-        this.texto = texto;
-        this.valor = valor;
-        this.mazo = new MazoSorpresas();
-    }
-    
-    Sorpresa(int valor, Tablero tablero){
+
+    SorpresaCasilla(int valor, Tablero tablero){
     
         this.valor = valor;
         this.tablero = tablero;
@@ -43,17 +26,23 @@ public abstract class Sorpresa {
         this.mazo = new MazoSorpresas();
     }
     
-    Sorpresa(MazoSorpresas mazo){
+    void aplicarAJugador(int actual, ArrayList<Jugador> todos){
     
-        this.mazo = mazo;
-        this.texto = "Esta sorpresa evita que caigas en la cárcel";
+        if(this.jugadorCorrecto(actual, todos)){
+        
+            this.informe(actual, todos);
+            int casillaActual = todos.get(actual).getNumCasillaActual();
+            int tirada = tablero.calcularTirada(casillaActual, this.valor);
+            
+            int nuevaPosicion = tablero.nuevaPosicion(casillaActual, tirada);
+            todos.get(actual).moverACasilla(nuevaPosicion);
+            tablero.getCasilla(this.valor).recibeJugador(actual, todos);
+        }        
     }
-    
-    void aplicarAJugador(int actual, ArrayList<Jugador> todos){}
     
     private void informe(int actual, ArrayList<Jugador> todos){
     
-        Diario.getInstance().ocurreEvento("Se esta aplicando una sorpresa abstracta al jugador " + todos.get(actual).getNombre());
+        Diario.getInstance().ocurreEvento("Se esta aplicando una sorpresa IR A CASILLA al jugador " + todos.get(actual).getNombre());
     }
     
     public boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){
@@ -77,8 +66,13 @@ public abstract class Sorpresa {
         }
     }
     
+    @Override
     public String toString(){
         
-        return "Clase Sorpresa Abstracta";
+        String sorpresa = "Tipo: Sorpresa Casilla\n";
+        
+        sorpresa += this.texto;
+        
+        return sorpresa;
     }
 }

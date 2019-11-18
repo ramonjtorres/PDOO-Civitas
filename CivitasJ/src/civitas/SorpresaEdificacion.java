@@ -10,24 +10,15 @@ import java.util.ArrayList;
 /**
  *
  * @author ramonjtorres
- * @author david
  */
-public abstract class Sorpresa {
+public class SorpresaEdificacion extends Sorpresa{
     
     private String texto;
     private int valor;
     MazoSorpresas mazo;
     Tablero tablero;
     
-    Sorpresa(Tablero tablero){
-    
-        this.tablero = tablero;
-        this.mazo = new MazoSorpresas();
-        this.texto = "Esta sorpresa te lleva a la cárcel";
-    
-    }
-    
-    Sorpresa(Tablero tablero, int valor, String texto){
+    SorpresaEdificacion(Tablero tablero, int valor, String texto){
     
         this.tablero = tablero;
         this.texto = texto;
@@ -35,25 +26,20 @@ public abstract class Sorpresa {
         this.mazo = new MazoSorpresas();
     }
     
-    Sorpresa(int valor, Tablero tablero){
+    @Override
+    void aplicarAJugador(int actual, ArrayList<Jugador> todos){
     
-        this.valor = valor;
-        this.tablero = tablero;
-        this.texto = "Esta sorpresa te lleva a otra casilla";
-        this.mazo = new MazoSorpresas();
+        if(this.jugadorCorrecto(actual, todos)){
+        
+            this.informe(actual, todos);
+            todos.get(actual).modificarSaldo(this.valor*todos.get(actual).cantidadCasasHoteles());
+        }
+        
     }
-    
-    Sorpresa(MazoSorpresas mazo){
-    
-        this.mazo = mazo;
-        this.texto = "Esta sorpresa evita que caigas en la cárcel";
-    }
-    
-    void aplicarAJugador(int actual, ArrayList<Jugador> todos){}
     
     private void informe(int actual, ArrayList<Jugador> todos){
     
-        Diario.getInstance().ocurreEvento("Se esta aplicando una sorpresa abstracta al jugador " + todos.get(actual).getNombre());
+        Diario.getInstance().ocurreEvento("Se esta aplicando una sorpresa POR CASA-HOTEL al jugador " + todos.get(actual).getNombre());
     }
     
     public boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){
@@ -77,8 +63,13 @@ public abstract class Sorpresa {
         }
     }
     
+    @Override
     public String toString(){
         
-        return "Clase Sorpresa Abstracta";
+        String sorpresa = "Tipo: Sorpresa Por Casa Hotel\n";
+        
+        sorpresa += this.texto;
+        
+        return sorpresa;
     }
 }
