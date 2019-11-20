@@ -6,7 +6,7 @@ module Civitas
 
   class Vista_textual
     
-    separador = "================================= COMENZAMOS =================================="
+    @separador = "================================= COMENZAMOS =================================="
 
     def mostrar_estado(estado)
       puts estado
@@ -132,10 +132,10 @@ module Civitas
     def actualizarVista
       
       puts "\nJugador Actual: " + @juegoModel.get_jugador_actual().to_s
-      puts separador
+      puts @separador
       puts "\nCasilla Actual: " + @juegoModel.get_casilla_actual().to_s
-      puts separador
-      puts separador
+      puts @separador
+      puts @separador
       
     end
 

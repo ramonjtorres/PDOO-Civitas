@@ -6,13 +6,17 @@
 
 require_relative "jugador"
 require_relative "mazo_sorpresas"
+require_relative "tipo_sorpresas"
 require_relative "tablero"
 require_relative "dado"
 require_relative "gestor_estados"
 require_relative "sorpresa"
-require_relative "tipo_sorpresas"
 require_relative "titulo_propiedad"
 require_relative "casilla"
+require_relative "casilla_juez"
+require_relative "casilla_sorpresa"
+require_relative "casilla_impuesto"
+require_relative "casilla_calle"
 require_relative "diario"
 
 module Civitas
@@ -144,36 +148,36 @@ module Civitas
         
         @tablero = Tablero.new(4);#la carcel
 
-        @tablero.añade_casilla(Casilla.casilla_titulo("Ronda de Valencia", Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)))
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Ronda de Valencia",10, 0.5,25,50,20)))
  
-        @tablero.añade_casilla(Casilla.casilla_cantidad(100, "Impuesto"));
+        @tablero.añade_casilla(Casilla_impuesto.new("Impuesto", 100));
         
-        @tablero.añade_casilla(Casilla.casilla_titulo("Lavapies", Titulo_Propiedad.new("Lavapies",10,0.5,25,50,20)));
-        @tablero.añade_casilla(Casilla.casilla_titulo("Cuatro Caminos", Titulo_Propiedad.new("Cuatro Caminos",20,0.6,30,70,40)));
-        @tablero.añade_casilla(Casilla.casilla_titulo("Reina Victoria", Titulo_Propiedad.new("Reina Victoria",20,0.6,30,70,40)));
-        @tablero.añade_casilla(Casilla.casilla_titulo("Bravo Murillo", Titulo_Propiedad.new("Bravo Murillo",30,0.7,35,90,60)));
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Lavapies",10,0.5,25,50,20)));
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Cuatro Caminos",20,0.6,30,70,40)));
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Reina Victoria",20,0.6,30,70,40)));
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Bravo Murillo",30,0.7,35,90,60)));
         
-        @tablero.añade_casilla(Casilla.casilla_mazo(mazo, "Sorpresa"));
+        @tablero.añade_casilla(Casilla_sorpresa.new("Sorpresa", mazo));
         
-        @tablero.añade_casilla(Casilla.casilla_titulo("Alberto Aguilera", Titulo_Propiedad.new("Alberto Aguilera",40,0.7,35,90,80)));
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Alberto Aguilera",40,0.7,35,90,80)));
         
-        @tablero.añade_casilla(Casilla.casilla_descanso("Parking"));
+        @tablero.añade_casilla(Casilla.new("Parking"));
         
-        @tablero.añade_casilla(Casilla.casilla_titulo("Fuencarral", Titulo_Propiedad.new("Fuencarral",40,0.8,40,110,80)));
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Fuencarral",40,0.8,40,110,80)));
         
-        @tablero.añade_casilla(Casilla.casilla_mazo(mazo, "Sorpresa"));
+        @tablero.añade_casilla(Casilla_sorpresa.new("Sorpresa", mazo));
         
-        @tablero.añade_casilla(Casilla.casilla_titulo("Felipe II", Titulo_Propiedad.new("Felipe II",50,0.8,40,110,100)));
-        @tablero.añade_casilla(Casilla.casilla_titulo("Velázquez", Titulo_Propiedad.new("Velázquez",50,0.8,45,130,100)));
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Felipe II",50,0.8,40,110,100)));
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Velázquez",50,0.8,45,130,100)));
         
         @tablero.añade_juez;
         
-        @tablero.añade_casilla(Casilla.casilla_titulo("Puerta del Sol", Titulo_Propiedad.new("Puerta del Sol",70,0.8,45,160,100)));
-        @tablero.añade_casilla(Casilla.casilla_titulo("Alcalá", Titulo_Propiedad.new("Alcalá",70,0.8,50,160,100)));
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Puerta del Sol",70,0.8,45,160,100)));
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Alcalá",70,0.8,50,160,100)));
         
-        @tablero.añade_casilla(Casilla.casilla_mazo(mazo, "Sorpresa"));
+        @tablero.añade_casilla(Casilla_sorpresa.new("Sorpresa", mazo));
         
-        @tablero.añade_casilla(Casilla.casilla_titulo("Paseo del Prado", Titulo_Propiedad.new("Paseo del Prado",100,0.8,60,250,120)));
+        @tablero.añade_casilla(Casilla_calle.new(Titulo_Propiedad.new("Paseo del Prado",100,0.8,60,250,120)));
         
     end
     
