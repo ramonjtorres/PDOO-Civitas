@@ -63,24 +63,7 @@ public class JugadorEspeculador extends Jugador{
     
     @Override
     public String toString(){
-     
-        String s = "No";
-        
-        if(this.tieneSalvoconducto()){
-        
-            s = "Sí";
-        }
-        
-        return "Nombre Especulador: " + this.getNombre() +
-               "\nSaldo: " + this.getSaldo() +
-                "\nFianza: " + this.fianza +
-               "\nCasilla Actual: " + this.getNumCasillaActual() +
-               "\nSalvoconducto: " + s +
-               "\nEncarcelado: " + this.isEncarcelado() +
-               "\nPuede comprar: " + this.getPuedeComprar() +
-               "\nPropiedades: " + "\n" +
-                propiedades.toString(); 
-
+         
+        return super.toString() + "\nFianza: " + this.fianza; 
     }
-    
 }

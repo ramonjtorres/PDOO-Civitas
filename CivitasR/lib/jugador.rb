@@ -42,6 +42,7 @@ module Civitas
       @saldo = otro.saldo
       
     end
+    
     public
     def self.get_casas_max
       
@@ -376,7 +377,7 @@ module Civitas
     private
     def puedo_edificar_casa(propiedad)
       
-      if(@propiedades.include?(propiedad) && @saldo >= propiedad.precio_edificar && propiedad.num_casas < 4)
+      if(@propiedades.include?(propiedad) && @saldo >= propiedad.precio_edificar && propiedad.num_casas < self.get_hoteles_max)
        
         return true
         
@@ -391,7 +392,7 @@ module Civitas
     private
     def puedo_edificar_hotel(propiedad)
       
-      if(@propiedades.include?(propiedad) && @saldo >= propiedad.precio_edificar && propiedad.num_casas == 4 && propiedad.num_hoteles < 4)
+      if(@propiedades.include?(propiedad) && @saldo >= propiedad.precio_edificar && propiedad.num_casas == self.get_hoteles_max && propiedad.num_hoteles < self.get_hoteles_max)
        
         return true
         
@@ -482,7 +483,7 @@ module Civitas
         s = "Sí"
       end
         
-      return "Nombre: " + @nombre.to_s +
+      return "Nombre " + self.class.to_s + ": "+ @nombre.to_s +
              "\nSaldo: " + @saldo.to_s +
              "\nCasilla Actual: " + @num_casilla_actual.to_s +
              "\nSalvoconducto: " + s +

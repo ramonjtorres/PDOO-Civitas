@@ -129,18 +129,22 @@ module Civitas
     private
     def inicializar_mazo_sorpresas(tablero)
       
-      @mazo.al_mazo(Sorpresa.sorpresa_carcel(Tipo_Sorpresas::IR_CARCEL, tablero))
-      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,4,tablero))
-      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,5,tablero))
-      @mazo.al_mazo(Sorpresa.sorpresa_tablero(Tipo_Sorpresas::IR_CASILLA,10,tablero))
-      @mazo.al_mazo(Sorpresa.sorpresa_mazo(Tipo_Sorpresas::SALIR_CARCEL,@mazo))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,-50,"El jugador debe pagar a cada uno de los demas jugadores 50€"))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_JUGADOR,tablero,50,"Cada jugador te debe pagar 50€"))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,30,"Recibes 30€ por cada casa y hotel en propiedad"))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::POR_CASA_HOTEL,tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,-100,"Pagas 100€ por gastos de limpieza"))
-      @mazo.al_mazo(Sorpresa.sorpresa_valor(Tipo_Sorpresas::PAGAR_COBRAR,tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"))
+      @mazo.al_mazo(Sorpresa_carcel.new(tablero))
+      @mazo.al_mazo(Sorpresa_casilla.new(4,tablero))
+      @mazo.al_mazo(Sorpresa_casilla.new(5,tablero))
+      @mazo.al_mazo(Sorpresa_casilla.new(10,tablero))
+      @mazo.al_mazo(Sorpresa_salvoconducto.new(@mazo))
+      @mazo.al_mazo(Sorpresa_jugador.new(tablero,-50,"El jugador debe pagar a cada uno de los demas jugadores 50€"))
+      @mazo.al_mazo(Sorpresa_jugador.new(tablero,50,"Cada jugador te debe pagar 50€"))
+      @mazo.al_mazo(Sorpresa_edificacion.new(tablero,30,"Recibes 30€ por cada casa y hotel en propiedad"))
+      @mazo.al_mazo(Sorpresa_edificacion.new(tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"))
+      @mazo.al_mazo(Sorpresa_pagarcobrar.new(tablero,-100,"Pagas 100€ por gastos de limpieza"))
+      @mazo.al_mazo(Sorpresa_pagarcobrar.new(tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"))
 
+      @mazo.al_mazo(Sorpresa_especulador.new(100, "Te conviertes en un especulador con 100€ de fianza"))
+      @mazo.al_mazo(Sorpresa_especulador.new(200, "Te conviertes en un especulador con 200€ de fianza"))
+      @mazo.al_mazo(Sorpresa_especulador.new(300, "Te conviertes en un especulador con 300€ de fianza"))
+      
     end
     
     private

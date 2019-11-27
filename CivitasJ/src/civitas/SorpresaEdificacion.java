@@ -37,30 +37,10 @@ public class SorpresaEdificacion extends Sorpresa{
         
     }
     
-    private void informe(int actual, ArrayList<Jugador> todos){
+    @Override
+    void informe(int actual, ArrayList<Jugador> todos){
     
         Diario.getInstance().ocurreEvento("Se esta aplicando una sorpresa POR CASA-HOTEL al jugador " + todos.get(actual).getNombre());
-    }
-    
-    public boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){
-        
-        return (actual < todos.size());
-    }
-    
-    void salirDelMazo(){
-    
-        if(this.valor == 1){
-        
-            mazo.inhabilitarCartaEspecial(this);
-        }
-    }
-    
-    void usada(){
-    
-        if(this.valor == 1){
-        
-            mazo.habilitarCartaEspecial(this);
-        }
     }
     
     @Override

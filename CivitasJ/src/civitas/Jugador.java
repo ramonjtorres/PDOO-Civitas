@@ -464,7 +464,7 @@ public class Jugador implements Comparable<Jugador>{
             s = "Sí";
         }
         
-        return "Nombre Jugador: " + this.getNombre() +
+        return "Nombre " + this.getClass() + ": " + this.getNombre() +
                "\nSaldo: " + this.getSaldo() +
                "\nCasilla Actual: " + this.getNumCasillaActual() +
                "\nSalvoconducto: " + s +

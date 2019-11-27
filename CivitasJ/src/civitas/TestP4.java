@@ -5,6 +5,8 @@
  */
 package civitas;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ramonjtorres
@@ -23,13 +25,145 @@ public class TestP4 {
         propiedad.actualizaPropietarioPorConversion(jugador);
         jugador.propiedades.add(propiedad);
         
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        
+        jugador.construirHotel(0);
+        
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        
+        jugador.construirHotel(0);
+        
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        
+        jugador.construirHotel(0);
+        
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        
+        jugador.construirHotel(0);
+        
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        
+        jugador.construirHotel(0);
+        
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        jugador.construirCasa(0);
+        
+        jugador.construirHotel(0);
+        
+        ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+        
+        jugadores.add(jugador);
+        
         System.out.println(jugador.toString());
         
-        System.out.println("================================= HACEMOS LA CONVERSIÓN ==================================");
+        System.out.println("\n================================= HACEMOS LA CONVERSIÓN ==================================\n");
         
-        JugadorEspeculador jugadorEspeculador = new JugadorEspeculador(jugador, 500);
+        SorpresaEspeculador sorpresa = new SorpresaEspeculador(100, "Te conviertes en un especulador con 100€ de fianza");
         
-        System.out.println(jugadorEspeculador.toString());
+        sorpresa.aplicarAJugador(0, jugadores);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        jugadores.get(0).construirCasa(0);
+        
+        jugadores.get(0).construirHotel(0);
+        
+        System.out.println(jugadores.get(0).toString());
         
     }
     

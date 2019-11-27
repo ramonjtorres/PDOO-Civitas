@@ -134,6 +134,10 @@ public class CivitasJuego {
         mazo.alMazo(new SorpresaEdificacion(tablero,-30,"Cobras 30€ por cada casa y hotel en propiedad"));
         mazo.alMazo(new SorpresaPagarCobrar(tablero,-100,"Pagas 100€ por gastos de limpieza"));
         mazo.alMazo(new SorpresaPagarCobrar(tablero,100,"Has ganado un premio al hotel más limpio recibe 100€"));
+        
+        mazo.alMazo(new SorpresaEspeculador(100, "Te conviertes en un especulador con 100€ de fianza"));
+        mazo.alMazo(new SorpresaEspeculador(200, "Te conviertes en un especulador con 200€ de fianza"));
+        mazo.alMazo(new SorpresaEspeculador(300, "Te conviertes en un especulador con 300€ de fianza"));
     }
     
     private void inicializarTablero(MazoSorpresas mazo){
