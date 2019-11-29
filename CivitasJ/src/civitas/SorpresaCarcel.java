@@ -22,6 +22,7 @@ public class SorpresaCarcel extends Sorpresa{
         this.tablero = tablero;
         this.mazo = new MazoSorpresas();
         this.texto = "Esta sorpresa te lleva a la cárcel";
+        this.informacion = this.texto;
     
     }
     

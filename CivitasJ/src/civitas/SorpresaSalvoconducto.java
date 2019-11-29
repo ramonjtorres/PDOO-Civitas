@@ -20,6 +20,7 @@ public class SorpresaSalvoconducto extends Sorpresa{
     
         this.mazo = mazo;
         this.texto = "Esta sorpresa evita que caigas en la cárcel";
+        this.informacion = this.texto;
     }
     
     @Override

@@ -23,6 +23,7 @@ public class SorpresaCasilla extends Sorpresa{
         this.valor = valor;
         this.tablero = tablero;
         this.texto = "Esta sorpresa te lleva a otra casilla";
+        this.informacion = this.texto;
         this.mazo = new MazoSorpresas();
     }
     

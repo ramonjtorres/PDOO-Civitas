@@ -19,6 +19,7 @@ public class CasillaImpuesto extends Casilla{
     CasillaImpuesto(float cantidad, String nombre){
         super(nombre);
         this.importe = cantidad;
+        this.informacion = "Has caído en una casilla de Impuesto. Pagas " + this.importe;
     }
     
     @Override

@@ -22,6 +22,7 @@ public class SorpresaPagarCobrar extends Sorpresa{
     
         this.tablero = tablero;
         this.texto = texto;
+        this.informacion = this.texto;
         this.valor = valor;
         this.mazo = new MazoSorpresas();
     }

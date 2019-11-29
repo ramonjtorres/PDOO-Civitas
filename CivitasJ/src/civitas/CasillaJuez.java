@@ -19,6 +19,7 @@ public class CasillaJuez extends Casilla{
     CasillaJuez(int numCasillaCarcel, String nombre){
         super(nombre);
         this.carcel = numCasillaCarcel;
+        this.informacion = "Has caído en la casilla Juez. Buena Suerte.";
     }
     
     @Override

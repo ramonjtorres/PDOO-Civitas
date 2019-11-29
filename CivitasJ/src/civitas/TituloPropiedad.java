@@ -140,11 +140,11 @@ public class TituloPropiedad {
         return nombre;
     }
     
-    int getNumCasas(){
+    public int getNumCasas(){
         return numCasas;
     }
     
-    int getNumHoteles(){
+    public int getNumHoteles(){
         return numHoteles;
     }
     

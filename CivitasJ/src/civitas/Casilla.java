@@ -14,15 +14,22 @@ import java.util.ArrayList;
 public class Casilla {
     
     private String nombre;
+    String informacion;
     
     Casilla(String cadena){
         
         this.nombre = cadena;
+        this.informacion = "Es una casilla de " + this.nombre;
     }
     
     public String getNombre(){
     
         return nombre;
+    }
+    
+    public String getInformacion(){
+    
+        return informacion;
     }
     
     void informe(int actual, ArrayList<Jugador> todos){

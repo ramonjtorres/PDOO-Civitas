@@ -20,6 +20,7 @@ public class SorpresaEspeculador extends Sorpresa{
     SorpresaEspeculador(int valor, String texto){
     
         this.texto = texto;
+        this.informacion = this.texto;
         this.valor = valor;
         this.mazo = new MazoSorpresas();
     }

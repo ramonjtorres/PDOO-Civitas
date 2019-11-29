@@ -16,9 +16,11 @@ public class CasillaCalle extends Casilla{
     private String nombre;
     TituloPropiedad tituloPropiedad;
     
+    
     CasillaCalle(TituloPropiedad titulo){
         super(titulo.getNombre());
         this.tituloPropiedad = titulo;
+        this.informacion = "Es una propiedad";
     }
     
     TituloPropiedad getTituloPropiedad(){

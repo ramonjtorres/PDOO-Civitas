@@ -27,6 +27,7 @@ public class CasillaSorpresa extends Casilla{
     
         if(this.jugadorCorrecto(iactual, todos)){
             this.sorpresa = mazo.siguiente();
+            this.informacion = this.sorpresa.getInformacion();
             this.informe(iactual, todos);
             sorpresa.aplicarAJugador(iactual, todos);
         }

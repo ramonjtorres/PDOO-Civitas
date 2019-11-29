@@ -1,4 +1,4 @@
-package juegoTexto;
+package GUI;
 
 import civitas.CivitasJuego;
 import civitas.Diario;
@@ -10,7 +10,6 @@ import civitas.Casilla;
 import civitas.CivitasJuego;
 import civitas.GestionesInmobiliarias;
 import civitas.Jugador;
-import civitas.Respuestas;
 import civitas.SalidasCarcel;
 import civitas.TituloPropiedad;
 

@@ -16,6 +16,12 @@ abstract class Sorpresa {
     
     private int valor;
     MazoSorpresas mazo;
+    String informacion;
+    
+    public String getInformacion(){
+    
+        return informacion;
+    }
     
     abstract void aplicarAJugador(int actual, ArrayList<Jugador> todos);
     

@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package juegoTexto;
+package GUI;
 
 import civitas.CivitasJuego;
 import civitas.GestionesInmobiliarias;
 import civitas.Jugador;
 import civitas.OperacionInmobiliaria;
 import civitas.Operaciones_juego;
-import civitas.Respuestas;
 import civitas.SalidasCarcel;
 import java.util.ArrayList;
 
@@ -21,9 +20,9 @@ import java.util.ArrayList;
 public class Controlador {
     
     private CivitasJuego juego;
-    private VistaTextual vista;
+    private CivitasView vista;
     
-    public Controlador(CivitasJuego juego, VistaTextual vista){
+    public Controlador(CivitasJuego juego, CivitasView vista){
     
         this.juego = juego;
         this.vista = vista;
@@ -36,8 +35,6 @@ public class Controlador {
         while(!juego.finalDelJuego()){
         
             vista.actualizarVista();
-            
-            vista.pausa();
             
             Operaciones_juego operacion = juego.siguientePaso();
             
@@ -113,16 +110,6 @@ public class Controlador {
                     juego.siguientePasoCompletado(operacion);
                 }
             }
-        }
-        
-        ArrayList<Jugador> ranking = juego.ranking();
-        
-        System.out.println("===================================================================");
-        System.out.println("\nRanking:\n\n");
-        
-        for(int i = 0; i < ranking.size(); i++){
-        
-            System.out.println(ranking.get(i).toString() + "\n");
         }
         
     }
