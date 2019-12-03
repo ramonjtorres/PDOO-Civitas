@@ -43,8 +43,8 @@ module Civitas
           
           if(operacion == Operaciones_juego::COMPRAR)
           
-            respuesta = @vista.comprar()
-            
+            #respuesta = @vista.comprar()
+            respuesta = Respuestas::NO
             if(respuesta == Respuestas::SI)
               
               @juego.comprar()
@@ -96,8 +96,8 @@ module Civitas
                 
           if(operacion == Operaciones_juego::SALIR_CARCEL)
                 
-            salida = @vista.salirCarcel()
-                    
+            #salida = @vista.salirCarcel()
+              salida = Salidas_carcel::PAGANDO      
             if(salida == Salidas_carcel::PAGANDO)
                     
               @juego.salir_carcel_pagando()

@@ -4,6 +4,7 @@
 # and open the template in the editor.
 
 require_relative "sorpresa"
+require_relative "jugador_especulador"
 
 module Civitas
   class Sorpresa_especulador < Sorpresa

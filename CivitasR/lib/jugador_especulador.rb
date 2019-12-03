@@ -12,13 +12,13 @@ module Civitas
     public
     def initialize(otro, fianza)
     
-      super(otro)
+      super("", otro)
       @fianza = fianza * 1.0
       
       var = 0
       while(var < @propiedades.length())
         
-        self.propiedades.at(i).actualizar_propietario_por_conversion(self)
+        self.propiedades.at(var).actualizar_propietario_por_conversion(self)
         var = var + 1
       end
       
@@ -48,13 +48,13 @@ module Civitas
     public
     def self.get_casas_max
       
-      return @@casas_max * @@Factor_especulador
+      return super * @@Factor_especulador
     end
     
     public
     def self.get_hoteles_max
       
-      return @@hoteles_max * @@Factor_especulador
+      return super * @@Factor_especulador
     end
     
     public
@@ -65,12 +65,10 @@ module Civitas
         return paga(cantidad/2)
       end
     end
-  
-    public
+    
     def to_s
-      
-      return super + "\nFianza: " + @fianza.to_s
-      
+      super.to_s + "\n|" + @fianza.to_s
     end
+  
   end
 end

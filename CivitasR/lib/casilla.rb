@@ -16,7 +16,7 @@ module Civitas
     
     public
     def informe(iactual, todos)
-      Diario.instance.ocurre_evento(todos.at(iactual).nombre + to_s)
+      Diario.instance.ocurre_evento("El jugador " + todos.at(iactual).nombre.to_s + "está en la casilla " + to_s())
     end
       
     public

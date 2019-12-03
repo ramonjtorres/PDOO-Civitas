@@ -17,7 +17,7 @@ module Civitas
     
     def self.main()
       
-      jugador = Jugador.new("Ramon")
+      jugador = Jugador.new("Ramon", nil)
         
       propiedad = Titulo_Propiedad.new("Ronda de Valencia", 10, 0.5, 25, 50, 20)
         
@@ -126,7 +126,7 @@ module Civitas
         
       jugadores.at(0).construir_hotel(0)
       
-      puts jugadores.at(0).to_s()
+      puts jugadores.at(0).to_s
 
       puts "\n================================= HACEMOS LA CONVERSIÓN ==================================\n"
 
@@ -232,7 +232,23 @@ module Civitas
         
       jugadores.at(0).construir_hotel(0)
       
-      puts jugadores.at(0).to_s()
+      jugadores.at(0).construir_casa(0)
+      jugadores.at(0).construir_casa(0)
+      jugadores.at(0).construir_casa(0)
+      jugadores.at(0).construir_casa(0)
+        
+      jugadores.at(0).construir_hotel(0)
+      
+      jugadores.at(0).construir_casa(0)
+      jugadores.at(0).construir_casa(0)
+      jugadores.at(0).construir_casa(0)
+      jugadores.at(0).construir_casa(0)
+      jugadores.at(0).construir_casa(0)
+      jugadores.at(0).construir_casa(0)
+      jugadores.at(0).construir_casa(0)
+      jugadores.at(0).construir_casa(0)
+      
+      puts jugadores.at(0).to_s
     end
   end
   

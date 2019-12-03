@@ -8,7 +8,7 @@ module Civitas
   class Jugador
     include Comparable
     
-    attr_reader :encarcelado, :nombre, :num_casilla_actual, :propiedades, :puede_comprar, :saldo
+    attr_accessor :encarcelado, :nombre, :num_casilla_actual, :propiedades, :puede_comprar, :saldo, :salvoconducto
     
     @@casas_max = 4
     @@hoteles_max = 4
@@ -18,28 +18,40 @@ module Civitas
     @@saldo_inicial = 7500
     
     public
-    def initialize(nombre)
+    def initialize(nombre, otro)
+      
+      if(otro == nil)
+      
+        @encarcelado = false
+        @num_casilla_actual = 0
+        @puede_comprar = true
+        @saldo = @@saldo_inicial
+        @nombre = nombre
+        @propiedades = Array.new
+        @salvoconducto = nil
+        
+      else
+        
+        @encarcelado = otro.encarcelado
+        @num_casilla_actual = otro.num_casilla_actual
+        @puede_comprar = otro.puede_comprar
+        @saldo = otro.saldo
+        @nombre = otro.nombre
+        @propiedades = otro.propiedades
+        @salvoconducto = otro.salvoconducto
+        
+      end
+    end
     
-      @encarcelado = false
-      @num_casilla_actual = 0
-      @puede_comprar = true
-      @saldo = @@saldo_inicial
-      @nombre = nombre
-      @propiedades = Array.new
-      @salvoconducto = nil
+    public
+    def self.new_jugador(nombre)
+      new(nombre, nil)
       
     end
     
-    protected
-    def self.jugador(otro)
-      
-      @nombre = otro.nombre
-      @num_casilla_actual = otro.numCasillaActual
-      @encarcelado = otro.encarcelado
-      @propiedades = otro.propiedades
-      @puede_pomprar = otro.puedeComprar
-      @salvoconducto = otro.salvoconducto
-      @saldo = otro.saldo
+    public
+    def self.convertir_jugador(otro)
+      new("",otro)
       
     end
     
@@ -168,7 +180,7 @@ module Civitas
         result = puedo_edificar_casa(propiedad)
         precio = propiedad.precio_edificar
         
-        if((puedo_gastar(precio)) && (propiedad.num_casas < @@casas_max))
+        if((puedo_gastar(precio)) && (propiedad.num_casas < self.class.get_casas_max))
           puedo_edificar_casa = true
         end
         
@@ -214,7 +226,7 @@ module Civitas
       
     end
     
-    protected
+    public
     def debe_ser_encarcelado()
       if(@encarcelado)
         return false
@@ -246,7 +258,7 @@ module Civitas
       
     end
     
-    private
+    public
     def existe_la_propiedad(ip)
       
       return ip < @propiedades.length()
@@ -349,7 +361,7 @@ module Civitas
       
     end
     
-    private
+    public
     def perder_salvoconducto()
       
       @salvoconducto.usada()
@@ -368,16 +380,16 @@ module Civitas
       
     end
     
-    private
+    public
     def puede_salir_carcel_pagando()
       return @saldo>get_precio_libertad()
       
     end
     
-    private
+    public
     def puedo_edificar_casa(propiedad)
       
-      if(@propiedades.include?(propiedad) && @saldo >= propiedad.precio_edificar && propiedad.num_casas < self.get_hoteles_max)
+      if(@propiedades.include?(propiedad) && @saldo >= propiedad.precio_edificar && propiedad.num_casas < self.class.get_casas_max)
        
         return true
         
@@ -389,10 +401,10 @@ module Civitas
       
     end
     
-    private
+    public
     def puedo_edificar_hotel(propiedad)
       
-      if(@propiedades.include?(propiedad) && @saldo >= propiedad.precio_edificar && propiedad.num_casas == self.get_hoteles_max && propiedad.num_hoteles < self.get_hoteles_max)
+      if(@propiedades.include?(propiedad) && @saldo >= propiedad.precio_edificar && propiedad.num_casas == self.class.get_casas_max && propiedad.num_hoteles < self.class.get_hoteles_max)
        
         return true
         
@@ -404,7 +416,7 @@ module Civitas
       
     end
     
-    private
+    public
     def puedo_gastar(precio)
         if(@encarcelado)
           return false
@@ -463,18 +475,18 @@ module Civitas
         return false
       else
         if(existe_la_propiedad(ip))
+          
           if(@propiedades.at(ip).vender(self))
-            @propiedades.delete(ip)
+            @propiedades.delete_at(ip)
             Diario.instance.ocurre_evento("Se ha vendido la propiedad: "+@propiedades.at(ip).to_s)
             return true
           end
         end
       end
-      
     end
     
     public
-    def to_s()
+    def to_s
       
       s = "No"
         

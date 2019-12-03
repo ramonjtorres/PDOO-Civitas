@@ -22,7 +22,7 @@ module Civitas
         
         informe(actual, todos)
             
-        pagar = Sorpresa.sorpresa_tablero(Tipo_Sorpresas::PAGAR_COBRAR, @valor*-1, @tablero)    
+        pagar = Sorpresa_pagarcobrar.new(@tablero, @valor*-1, "Cada jugador debe pagar " + @valor.to_s + " al jugador " + actual.to_s)    
         i = 0
         while(i<todos.length())
             
@@ -31,7 +31,7 @@ module Civitas
           end
           i= i+1
         end
-          cobrar = Sorpresa.sorpresa_tablero(Tipo_Sorpresas::PAGAR_COBRAR, @valor*(todos.length()-1), @tablero)
+          cobrar = Sorpresa_pagarcobrar.new(@tablero, @valor*(todos.length()-1), "El jugador " + actual.to_s + " recibe " + @valor.to_s + " de cada jugador")
           cobrar.aplicar_a_jugador(actual, todos)
       end
       

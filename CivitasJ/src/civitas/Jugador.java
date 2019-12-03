@@ -285,7 +285,7 @@ public class Jugador implements Comparable<Jugador>{
         return encarcelado;
     }
     
-    boolean modificarSaldo(float cantidad){
+    public boolean modificarSaldo(float cantidad){
         this.saldo = this.saldo + cantidad;
         Diario.getInstance().ocurreEvento("Se ha modificado el saldo ahora tienes " + this.saldo);
         return true;

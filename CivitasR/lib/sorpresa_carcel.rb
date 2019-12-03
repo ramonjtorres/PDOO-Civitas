@@ -5,6 +5,7 @@
 
 module Civitas
   class Sorpresa_carcel < Sorpresa
+    
     public
     def initialize(tablero)
       

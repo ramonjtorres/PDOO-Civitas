@@ -6,11 +6,17 @@
 
 require_relative "jugador"
 require_relative "mazo_sorpresas"
-require_relative "tipo_sorpresas"
 require_relative "tablero"
 require_relative "dado"
 require_relative "gestor_estados"
 require_relative "sorpresa"
+require_relative "sorpresa_jugador"
+require_relative "sorpresa_especulador"
+require_relative "sorpresa_casilla"
+require_relative "sorpresa_carcel"
+require_relative "sorpresa_edificacion"
+require_relative "sorpresa_pagarcobrar"
+require_relative "sorpresa_salvoconducto"
 require_relative "titulo_propiedad"
 require_relative "casilla"
 require_relative "casilla_juez"
@@ -30,7 +36,7 @@ module Civitas
       @jugadores = Array.new
       var = 0
       while (var < nombres.length())
-        j = Jugador.new(nombres.at(var))
+        j = Jugador.new(nombres.at(var), nil)
         @jugadores.push(j)
         var = var + 1
       end

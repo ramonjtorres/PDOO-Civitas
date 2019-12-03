@@ -110,6 +110,8 @@ public class Controlador {
                     juego.siguientePasoCompletado(operacion);
                 }
             }
+            
+            vista.actualizarVista();
         }
         
     }

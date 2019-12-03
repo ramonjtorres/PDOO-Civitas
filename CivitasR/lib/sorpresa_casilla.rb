@@ -24,8 +24,8 @@ module Civitas
         casilla_actual = todos.at(actual).num_casilla_actual
         tirada = @tablero.calcular_tirada(casilla_actual, @valor)
             
-        nuevaPosicion = @tablero.nueva_posicion(casilla_actual, tirada)
-        todos.at(actual).mover_a_casilla(nuevaPosicion)
+        nueva_posicion = @tablero.nueva_posicion(casilla_actual, tirada)
+        todos.at(actual).mover_a_casilla(nueva_posicion)
         @tablero.get_casilla(@valor).recibe_jugador(actual, todos)
       end
       

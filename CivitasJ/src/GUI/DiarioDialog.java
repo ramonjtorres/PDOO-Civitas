@@ -58,10 +58,10 @@ public class DiarioDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         eventos.setText("Eventos:");
-        eventos.setEnabled(false);
 
         TextoEventos.setColumns(20);
         TextoEventos.setRows(5);
+        TextoEventos.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         TextoEventos.setEnabled(false);
         jScrollPane1.setViewportView(TextoEventos);
 

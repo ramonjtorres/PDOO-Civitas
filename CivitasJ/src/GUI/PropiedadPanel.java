@@ -58,8 +58,8 @@ public class PropiedadPanel extends javax.swing.JPanel {
         TextoHipotecada = new javax.swing.JTextField();
 
         Nombre.setText("Nombre:");
-        Nombre.setEnabled(false);
 
+        TextoNombre.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         TextoNombre.setEnabled(false);
         TextoNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,13 +68,14 @@ public class PropiedadPanel extends javax.swing.JPanel {
         });
 
         Casas.setText("Nº Casas:");
-        Casas.setEnabled(false);
 
         Hoteles.setText("Nº Hoteles:");
-        Hoteles.setEnabled(false);
 
+        NCasas.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        NCasas.setDoubleBuffered(true);
         NCasas.setEnabled(false);
 
+        NHoteles.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         NHoteles.setEnabled(false);
         NHoteles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,8 +84,8 @@ public class PropiedadPanel extends javax.swing.JPanel {
         });
 
         jLabel4.setText("Hipotecada:");
-        jLabel4.setEnabled(false);
 
+        TextoHipotecada.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         TextoHipotecada.setEnabled(false);
         TextoHipotecada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

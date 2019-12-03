@@ -47,8 +47,8 @@ public class CasillaPanel extends javax.swing.JPanel {
         TextoInformacion = new javax.swing.JTextField();
 
         Nombre.setText("Nombre: ");
-        Nombre.setEnabled(false);
 
+        TextoNombre.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         TextoNombre.setEnabled(false);
         TextoNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,8 +57,8 @@ public class CasillaPanel extends javax.swing.JPanel {
         });
 
         informacion.setText("Información: ");
-        informacion.setEnabled(false);
 
+        TextoInformacion.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         TextoInformacion.setEnabled(false);
         TextoInformacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,8 +92,8 @@ public class CasillaPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(informacion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TextoInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(TextoInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
