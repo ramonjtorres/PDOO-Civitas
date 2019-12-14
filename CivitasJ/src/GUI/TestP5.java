@@ -20,7 +20,7 @@ public class TestP5 {
     public static void main(String[] args) {
     
         CivitasView vista = new CivitasView();
-        Dado.createInstance(vista);;
+        Dado.createInstance(vista);
         Dado.getInstance().setDebug(true);
         
         CapturaNombres capturaNombres = new CapturaNombres(vista, true);

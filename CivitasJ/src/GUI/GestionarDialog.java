@@ -179,8 +179,6 @@ public class GestionarDialog extends javax.swing.JDialog {
     private void botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActionPerformed
         // TODO add your handling code here:
         
-        
-        
     }//GEN-LAST:event_botonActionPerformed
 
     private void listaGestionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaGestionesMouseClicked
@@ -200,10 +198,21 @@ public class GestionarDialog extends javax.swing.JDialog {
         
         gestionElegida = listaGestiones.getSelectedIndex();
         propiedadElegida = listaPropiedades.getSelectedIndex();
+        
         if(gestionElegida != -1){
        
-           this.dispose();
-       }
+            if(gestionElegida == 5){
+       
+                this.dispose();
+            
+            }else{
+                
+                if(propiedadElegida != -1){
+                
+                    this.dispose();
+                }
+            }
+        }
     }//GEN-LAST:event_botonMouseClicked
 
     /**
